@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Source Grip and Lighting</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script
+        src="http://code.jquery.com/jquery-1.12.4.js"
+        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('input:checkbox').change(
+                function(){
+                    var product_id = $(this).val();
+                    var product_name = $(this).attr("name");
+                    if ($(this).is(':checked')) {
+                        // update the corresponding quantity value to 1 if the checkbox is checked
+                        $("#" + product_id + "_quantity").val(1);
+                        console.log(product_name + " is checked");
+                        // $.ajax({
+                        //     url: "/add_accessories/"+product_id, 
+                        //     method: 'get',
+                        //     success: function(serverResponse, checkbox_parent){
+                        //         console.log(serverResponse);
+                        //         console.log($(this).parent());
+                        //     }
+                        // });
+                    }
+                    else if ($(this).not(':checked')){
+                        // update the corresponding quantity value to 0 if the checkbox is clicked
+                        $("#" + product_id + "_quantity").val(0);
+                        console.log(product_name + " is unchecked");
+                    }
+                }
+            )
+        })
+    </script>
+</head>
+<body>
+    <div id="header">
+        <h1>Single Source</h1>
+        <div id="menu_bar">
+            <a href="">Home</a>
+            <a href="">Portfolio</a>
+            <a href="">Rentals</a>
+            <a href="/quote_page">Get A Quote</a>
+            <a href="">About</a>
+            <a href="">Contact</a>
+        </div>
+    </div>
+    <div id="content">
+        <form id="quote_frm" action="/add_to_cart" method="post">
+            {% csrf_token %}
+            {% for product in products %}
+                <div>
+                <input type="checkbox" class="{{product.category.name}}" value="{{product.id}}" id="{{product.id}}" name="{{product.id}}_product">
+                <label> {{product.name}}</label>
+                <input type="number" min=0 max="{{product.num_inventory}}" value=0 id="{{product.id}}_quantity" name="{{product.id}}_quantity" style="background-color:white; color:black;width:30px;">
+                {% for accessory in product.accessories.all %} 
+                    <div style="margin-left: 10px;">
+                        <input class="accessory" type="checkbox" value="{{accessory.id}}" id="{{accessory.id}}" name="{{accessory.name}}_product">
+                        <label for="{{accessory.name}}_{{accessory.id}}">{{accessory.name}}</label>
+                        <input type="number" min=0 max="{{accessory.num_inventory}}" value=0 id="{{accessory.id}}_quantity" name="{{accessory.id}}_quantity" style="background-color:white; color:black;width:30px;">
+                    </div>
+                {% endfor %}
+                </div>
+            {% endfor %}
+            <div>
+                <label>Your Name:</label>
+                <input type="text" name="name_txt" style="background-color:white; color:black;">
+                <label>Email:</label>
+                <input type="text" name="email_txt" style="background-color:white; color:black;">
+            </div>
+            <input type="submit" value="Add to Cart">
+        </form>
+    </div>
+</body>
+</html>

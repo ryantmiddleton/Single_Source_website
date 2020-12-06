@@ -1,4 +1,11 @@
 * {
     color:white;
     background-color: black;
+    margin:0px;
+    padding:0px;
+}
+
+body {
+    /* background-image: url('../img/SS_Logo.jpg');
+    background-repeat: no-repeat; */
 }

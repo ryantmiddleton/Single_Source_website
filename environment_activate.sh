@@ -1,0 +1,1 @@
+source ~/CodingDojo/Python/python_stack/my_environments/djangoPy3Env/Scripts/activate

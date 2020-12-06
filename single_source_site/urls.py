@@ -3,4 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
+    path('quote_page', views.build_quote),
+    path('add_accessories/<int:product_id>', views.get_accessories),
+    path('add_to_cart', views.display_cart),
 ]

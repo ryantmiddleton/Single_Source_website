@@ -7,7 +7,11 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
+    <script
+        src="http://code.jquery.com/jquery-1.12.4.js"
+        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous">
+    </script>
 </head>
 <body>
     <div id="header">
@@ -21,5 +25,15 @@
             <a href="">Contact</a>
         </div>
     </div>
+    <div id="content">
+        <h1>Your Cart</h1>
+        <h4>Thanks for your Order {{order.customer_name}}</h4>
+        <p>
+        {% for product in order.products.all %}
+            {{product.name}} ({{product.quantity_in_order}}) <br>
+        {% endfor %}
+        Click the 'Send Quote' button to send the quote to your inbox. Thanks for your business!
+    </div>
+    
 </body>
 </html>

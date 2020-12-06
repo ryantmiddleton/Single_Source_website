@@ -1,0 +1,6 @@
+{% for accessory in accessories.all %}
+<div id="indent" style="margin-left: 10px;"> 
+    <input class="accessory" type="checkbox" id="{{accessory.id}}" name="{{accessory.name}}_{{accessory.id}}" value="{{accessory.name}}">
+    <label for="{{accessory.name}}_{{accessory.id}}"> {{accessory.name}}</label>
+</div>
+{% endfor %}
