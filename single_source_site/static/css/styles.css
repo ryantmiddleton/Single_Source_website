@@ -1,11 +1,71 @@
 * {
     color:white;
-    background-color: black;
     margin:0px;
     padding:0px;
+    border: 1px dotted red;
 }
 
 body {
-    /* background-image: url('../img/SS_Logo.jpg');
-    background-repeat: no-repeat; */
+    background-image: url('../img/SS_Logo.jpg');
+    background-repeat: no-repeat; 
+    background-size: cover;
+} 
+
+#header{
+    text-align:center;
+    margin-top:15%;
 }
+#menu_bar a{
+    display:inline-block;
+}
+
+.menu-item{
+    display:inline-block;
+    padding-right:5%;
+    padding-left:5%;
+    padding-bottom:5px;
+    border-bottom:2px solid grey;
+    border-right:1px solid white;
+}  
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none; 
+    position: absolute;
+    background-color: black;
+    min-width:160px;
+}
+
+.dropdown-content *{
+    display:block;
+    color: white;
+    border-bottom:1px solid white;
+    text-align:center;
+    padding-bottom:5px;
+    text-decoration: none;
+}
+
+
+
+
+
+/* #home-menu{
+    border-right:1px solid white;
+}
+#portfolio-menu{
+    border-right:1px solid white;
+}
+#inventory-menu{
+    border-right:1px solid white;
+}
+#quote-menu{
+    border-right:1px solid white;
+}
+#about-menu{
+    border-right:1px solid white;
+} */
+

@@ -28,11 +28,27 @@
     <div id="content">
         <h1>Your Cart</h1>
         <h4>Thanks for your Order {{order.customer_name}}</h4>
-        <p>
+        <form id="send_quote_frm" method="post" action="/send_quote/{{order.id}}">
+        {% csrf_token %}
+        <div id="Electric_col" style="display:inline-block;vertical-align:top;">Electric<br></div>
+        <div id="Grip_col" style="display:inline-block;vertical-align:top;">Grip<br></div>
+        <div id="Accessories_col" style="display:inline-block;vertical-align:top;">Accessories<br></div>
         {% for product in order.products.all %}
-            {{product.name}} ({{product.quantity_in_order}}) <br>
+            {% if product.category.name == "Electric" %}
+            <script>$('#Electric_col').append("{{product.name}}({{product.quantity_in_order}})<br>")</script>
+            {% endif %}
+            {% if product.category.name == "Grip" %}
+            <script>$('#Grip_col').append("{{product.name}}({{product.quantity_in_order}})<br>")</script>
+            {% endif %}
+            {% if product.category.name == "Accessories" %}
+            <script>$('#Accessories_col').append("{{product.name}}({{product.quantity_in_order}})<br>")</script>
+            {% endif %}
         {% endfor %}
-        Click the 'Send Quote' button to send the quote to your inbox. Thanks for your business!
+            <div style="display:block;">
+                Click the 'Send Quote' button to send the quote to your inbox. Thanks for your business!<br>
+                <input type="submit" value="Send Quote">
+            </div>
+        </form>
     </div>
     
 </body>

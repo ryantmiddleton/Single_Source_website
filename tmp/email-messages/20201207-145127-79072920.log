@@ -1,0 +1,82 @@
+Content-Type: multipart/alternative; boundary="===============1464047684=="
+MIME-Version: 1.0
+Subject: Order# 44
+From: webmaster@localhost
+To: ryantmiddleton@gmail.com, ryantmiddleton@gmail.com
+Date: Mon, 07 Dec 2020 22:51:27 -0000
+Message-ID: <160738148736.24004.12095031110166607660@11O11HAL900011O11>
+
+--===============1464047684==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+Hi Ryan Middleton, 
+Thank-you for your inquiry. Please see your quote below.
+--===============1464047684==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Quote</title>
+
+    
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>Order# 44</h1>
+    <div>
+        <table>
+            <tr style="background-color: lightblue;">
+                <td>Item</td>
+                <td>Quantity</td>
+                <td>Price</td>
+            </tr>
+        
+            <tr>
+                <td>Skypanel S60</td>
+                <td style="text-align:center;">2</td>
+                <td>250.00</td>
+            </tr>
+        
+            <tr>
+                <td>Joker-bug 400w</td>
+                <td style="text-align:center;">2</td>
+                <td>150.00</td>
+            </tr>
+        
+            <tr>
+                <td>M40</td>
+                <td style="text-align:center;">1</td>
+                <td>700.00</td>
+            </tr>
+        
+            <tr>
+                <td>Skypanel S60 Chimera</td>
+                <td style="text-align:center;">2</td>
+                <td>50.00</td>
+            </tr>
+        
+            <tr>
+                <td>Bug-a-Beam Adapter - Joker 400</td>
+                <td style="text-align:center;">2</td>
+                <td>10.00</td>
+            </tr>
+        
+            <tr>
+                <td><b>Total:</b></td>
+                <td></td>
+                <td><b>1160.00</b><td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+--===============1464047684==--
+
+-------------------------------------------------------------------------------

@@ -14,6 +14,28 @@
     </script>
     <script>
         $(document).ready(function(){
+            $('#quote_frm').submit(function(){
+            errormsgs={};
+            errormsg="";
+            if($('#name_txt').val() == ""){
+                errormsgs['first_name'] = "The name field is blank";
+            }
+            if($('#email_txt').val() == ""){
+                errormsgs['email'] = "The email field is blank";
+            }
+            count=0;
+            $.each(errormsgs, function(key, value) {
+                errormsg += value + "\n"
+                count++;
+            })
+            if(count==0){
+                return true;
+            }
+            else {
+                alert(errormsg);
+                return false;
+            }
+        })
             $('input:checkbox').change(
                 function(){
                     var product_id = $(this).val();
@@ -54,6 +76,15 @@
         </div>
     </div>
     <div id="content">
+        {% if messages %}
+        <ul class="error_messages">
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="{{msg.tags}}"
+                    {% endif %}>{{ msg }}</li>
+                </li>
+            {% endfor%}
+        </ul>
+        {% endif %}
         <form id="quote_frm" action="/add_to_cart" method="post">
             {% csrf_token %}
             {% for product in products %}
@@ -72,9 +103,9 @@
             {% endfor %}
             <div>
                 <label>Your Name:</label>
-                <input type="text" name="name_txt" style="background-color:white; color:black;">
+                <input type="text" id="name_txt" name="name_txt" style="background-color:white; color:black;">
                 <label>Email:</label>
-                <input type="text" name="email_txt" style="background-color:white; color:black;">
+                <input type="email" id="email_txt" name="email_txt" style="background-color:white; color:black;">
             </div>
             <input type="submit" value="Add to Cart">
         </form>

@@ -1,0 +1,76 @@
+Content-Type: multipart/alternative; boundary="===============0015940428=="
+MIME-Version: 1.0
+Subject: Order# 46
+From: webmaster@localhost
+To: ryantmiddleton@gmail.com, ryantmiddleton@gmail.com
+Date: Mon, 07 Dec 2020 23:05:28 -0000
+Message-ID: <160738232844.9832.15448614511902638891@11O11HAL900011O11>
+
+--===============0015940428==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+Hi Ryan Middleton, 
+Thank-you for your inquiry. Please see your quote below.
+--===============0015940428==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Quote</title>
+
+    
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>Order# 46</h1>
+    <div>
+        <table>
+            <tr style="background-color: lightblue;">
+                <td>Item</td>
+                <td>Quantity</td>
+                <td>Price</td>
+            </tr>
+        
+            <tr>
+                <td>Skypanel S60</td>
+                <td style="text-align:center;">2</td>
+                <td>500.00</td>
+            </tr>
+        
+            <tr>
+                <td>Joker-bug 800w</td>
+                <td style="text-align:center;">1</td>
+                <td>175.00</td>
+            </tr>
+        
+            <tr>
+                <td>M40</td>
+                <td style="text-align:center;">1</td>
+                <td>700.00</td>
+            </tr>
+        
+            <tr>
+                <td>Skypanel S60 Chimera</td>
+                <td style="text-align:center;">2</td>
+                <td>100.00</td>
+            </tr>
+        
+            <tr>
+                <td><b>Total:</b></td>
+                <td></td>
+                <td><b>1475.00</b><td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+--===============0015940428==--
+
+-------------------------------------------------------------------------------
