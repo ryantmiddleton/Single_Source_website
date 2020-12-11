@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Single Source Grip and Lighting</title>
-
+    <title>Document</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script
@@ -14,6 +13,7 @@
     </script>
     <script>
         $(document).ready(function(){
+            //Menu Listeners
             $('#portfolio-menu').hover(
                 // Hover over
                 function(){
@@ -26,7 +26,11 @@
                     $('#inventory-content').slideToggle();
                 }
             );
-        })
+
+            $(function(){
+                $("#includedContent").load("email.html"); 
+            });
+        });
     </script>
 </head>
 <body>
@@ -38,7 +42,6 @@
             <a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a>
             <a id="about-menu" class="menu-item" href="">About</a>
             <a id="content-menu" class="menu-item" href="">Contact</a>
-
             <div id="dropdown">
                 <div id="portfolio-content" class="dropdown-content">
                     <a href="#">Music Videos</a><br>
@@ -55,8 +58,34 @@
                     <a href="#">Dolly</a>
                 </div>
             </div>
-
         </div>
     </div>
+
+    
+        
+    <div id="order_summary">
+        <table id="order_table">
+            <tbody>
+                <tr><td colspan="3"><h1>Order# {{order.id}}</h1></td></tr>
+                <tr>
+                    <td>Item</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                </tr>
+                {% for product in order.products.all %}
+                <tr>
+                    <td>{{product.name}}</td>
+                    <td style="text-align:center;">{{product.quantity_in_order}}</td>
+                    <td>{{product.get_total}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2"><b>Total:</b></td>
+                    <td><b>{{order.get_total}}</b><td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 </html>

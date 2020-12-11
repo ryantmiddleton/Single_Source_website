@@ -15,27 +15,27 @@
     <script>
         $(document).ready(function(){
             $('#quote_frm').submit(function(){
-            errormsgs={};
-            errormsg="";
-            if($('#name_txt').val() == ""){
-                errormsgs['first_name'] = "The name field is blank";
-            }
-            if($('#email_txt').val() == ""){
-                errormsgs['email'] = "The email field is blank";
-            }
-            count=0;
-            $.each(errormsgs, function(key, value) {
-                errormsg += value + "\n"
-                count++;
+                errormsgs={};
+                errormsg="";
+                if($('#name_txt').val() == ""){
+                    errormsgs['first_name'] = "The name field is blank";
+                }
+                if($('#email_txt').val() == ""){
+                    errormsgs['email'] = "The email field is blank";
+                }
+                count=0;
+                $.each(errormsgs, function(key, value) {
+                    errormsg += value + "\n"
+                    count++;
+                })
+                if(count==0){
+                    return true;
+                }
+                else {
+                    alert(errormsg);
+                    return false;
+                }
             })
-            if(count==0){
-                return true;
-            }
-            else {
-                alert(errormsg);
-                return false;
-            }
-        })
             $('input:checkbox').change(
                 function(){
                     var product_id = $(this).val();
@@ -60,55 +60,121 @@
                     }
                 }
             )
+            $('#portfolio-menu').hover(
+                // Hover over
+                function(){
+                    $('#portfolio-content').slideToggle();
+                }
+            );
+            $('#inventory-menu').hover(
+                // Hover over
+                function(){
+                    $('#inventory-content').slideToggle();
+                }
+            );
         })
     </script>
 </head>
 <body>
     <div id="header">
-        <h1>Single Source</h1>
         <div id="menu_bar">
-            <a href="">Home</a>
-            <a href="">Portfolio</a>
-            <a href="">Rentals</a>
-            <a href="/quote_page">Get A Quote</a>
-            <a href="">About</a>
-            <a href="">Contact</a>
+            <a id="home-menu" class="menu-item" href="">Home</a>
+            <a id="portfolio-menu" class="menu-item" href="">Portfolio</a>
+            <a id="inventory-menu" class="menu-item" href="">Rentals</a>
+            <a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a>
+            <a id="about-menu" class="menu-item" href="">About</a>
+            <a id="content-menu" class="menu-item" href="">Contact</a>
+
+            <div id="dropdown">
+                <div id="portfolio-content" class="dropdown-content">
+                    <a href="#">Music Videos</a><br>
+                    <a href="#">Narrative</a><br>
+                    <a href="#">Commercial</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <div id="inventory-content" class="dropdown-content">
+                    <a href="#">3-ton Grip Package</a><br>
+                    <a href="#">1-ton Grip Package</a><br>
+                    <a href="#">Electric</a><br>
+                    <a href="#">Dolly</a>
+                </div>
+            </div>
+
         </div>
     </div>
+
+    {% if messages %}
+    <ul class="error_messages">
+        {% for msg in messages %}
+            <li {% if msg.tags %} class="{{msg.tags}}"
+                {% endif %}>{{ msg }}</li>
+            </li>
+        {% endfor%}
+    </ul>
+    {% endif %}
+
     <div id="content">
-        {% if messages %}
-        <ul class="error_messages">
-            {% for msg in messages %}
-                <li {% if msg.tags %} class="{{msg.tags}}"
-                    {% endif %}>{{ msg }}</li>
-                </li>
-            {% endfor%}
-        </ul>
-        {% endif %}
-        <form id="quote_frm" action="/add_to_cart" method="post">
+            <h1 style="text-align:center;">Build Your Quote</h1>
+            <div id="product_list">
+            <form id="quote_frm" action="/add_to_cart" method="post">
             {% csrf_token %}
+            <div id="Grip_col" class="product_type_col"><h3>Grip</h3></div>
+            <div id="Electric_col" class="product_type_col"><h3>Electric<h3></div>
+            <div id="Accessories_col" class="product_type_col"><h3>Accessories</h3></div>
             {% for product in products %}
-                <div>
-                <input type="checkbox" class="{{product.category.name}}" value="{{product.id}}" id="{{product.id}}" name="{{product.id}}_product">
-                <label> {{product.name}}</label>
-                <input type="number" min=0 max="{{product.num_inventory}}" value=0 id="{{product.id}}_quantity" name="{{product.id}}_quantity" style="background-color:white; color:black;width:30px;">
-                {% for accessory in product.accessories.all %} 
-                    <div style="margin-left: 10px;">
-                        <input class="accessory" type="checkbox" value="{{accessory.id}}" id="{{accessory.id}}" name="{{accessory.name}}_product">
-                        <label for="{{accessory.name}}_{{accessory.id}}">{{accessory.name}}</label>
-                        <input type="number" min=0 max="{{accessory.num_inventory}}" value=0 id="{{accessory.id}}_quantity" name="{{accessory.id}}_quantity" style="background-color:white; color:black;width:30px;">
-                    </div>
-                {% endfor %}
-                </div>
+                {% if product.category.name == "Grip" %}
+                    <script>
+                        $('#Grip_col').show();
+                        $('#Grip_col').append(
+                        "<div class='checkbox_field'>\n"+
+                        "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
+                        "<label> {{product.name}}</label>\n" +
+                        "</div>\n"+
+                        "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                        );
+                    </script>
+                {% elif product.category.name == "Electric" %}
+                    <script>
+                        $('#Electric_col').show();
+                        $('#Electric_col').append(
+                        "<div class='checkbox_field'>\n"+
+                        "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
+                        "<label> {{product.name}}</label>\n" +
+                        "</div>\n"+
+                        "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                        );
+                    </script>
+                {% elif product.category.name == "Accessories" %}
+                    <script>
+                        $('#Accessories_col').show();
+                        $('#Accessories_col').append(
+                        "<div class='checkbox_field'>\n"+
+                        "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
+                        "<label> {{product.name}}</label>\n" +
+                        "</div>\n"+
+                        "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                        );
+                    </script>
+                {% endif %}
             {% endfor %}
-            <div>
-                <label>Your Name:</label>
-                <input type="text" id="name_txt" name="name_txt" style="background-color:white; color:black;">
-                <label>Email:</label>
-                <input type="email" id="email_txt" name="email_txt" style="background-color:white; color:black;">
+        </div>    
+        <div id="customer_container">
+            <div style="width:150px;vertical-align:top;">
+                <p>Your Name:</p>
+                <p>Email:</p>
             </div>
-            <input type="submit" value="Add to Cart">
+            <div>
+                <input type="text" id="name_txt" name="name_txt" class="customer_info_field"><br>
+                <input type="email" id="email_txt" name="email_txt" class="customer_info_field"><br>
+                <input type="submit" value="Add to Cart" style="background-color:white;color:black;margin-top:10px;">
+            </div><br>
+            
+        </div>
+        
         </form>
     </div>
+</div>
 </body>
 </html>

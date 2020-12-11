@@ -2,13 +2,13 @@
     color:white;
     margin:0px;
     padding:0px;
-    border: 1px dotted red;
+    /* border: 1px dotted red; */
 }
 
 body {
     background-image: url('../img/SS_Logo.jpg');
     background-repeat: no-repeat; 
-    background-size:cover;
+    background-size: cover;
 } 
 
 #header{
@@ -48,7 +48,6 @@ body {
     text-decoration: none;
 }
 
-
 #home-menu{
     border-right:1px solid white;
 }
@@ -66,10 +65,15 @@ body {
 }
 
 
+#content h1, h3 {
+    margin-left:30%;
+    text-align:center;
+    width:40%;
+}
 
 #product_list{
-    width:50%;
-    margin-left:25%;
+    width:75%;
+    margin-left:10%;
 }
 #product_list h3{
     text-align:center;
@@ -79,62 +83,41 @@ body {
 .product_type_col {
     display:inline-block;
     margin-right:10px;
+    margin-top:15px;
     vertical-align:top;
-    border-left:2px solid white;
-    border-right:2px solid white;
 }
 
+
 #Grip_col {
-    margin-left:5%;
+    margin-left:17%;
+    border-right:1px solid grey;
 }
-.checkbox_field {
+#Electric_col {
+    border-right:2px solid grey;
+}
+.product_name {
     display:inline-block;
-    width:175px;
+    width:180px;
 }
+
 .num_quantity_field {
-    display:inline-block;
+    display:none;
     background-color:white; 
     color:black;
     width:30px;
 }
 
-#customer_container {
-    margin-top:20px;
-    width:350px;
-    margin-left:35%;
-    vertical-align:top;
-}
-#customer_container div{
-    display:inline-block;
-}
-
-.customer_info_field {
+.delete_btn {
+    display:none;
     background-color:white; 
     color:black;
 }
 
-#order_summary{
-    margin-left:40%;
-    margin-top:20px;
-    width:30%;
-}
-
-#order_table h1{
-    background-color: black;
-    color:white;
+#send_quote_container {
     text-align:center;
+    margin-top:20px;
+    width:350px;
+    margin-left:37%;
+    vertical-align:top;
 }
 
-#order_table {
-    border:1px solid white;
-}
-
-#order_table *{
-    color:black;
-}
-#order_table tr:nth-child(odd){ 
-    background: lightgrey;
-}
-#order_table tr:nth-child(even){
-    background: darkgrey;
-}

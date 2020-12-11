@@ -5,30 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Quote</title>
 
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        #order_summary{
+            margin-left:40%;
+            margin-top:20px;
+            width:30%;
+        }
+
+        #order_table h1{
+            background-color: black;
+            color:white;
+            text-align:center;
+        }
+
+        #order_table {
+            border:1px solid white;
+        }
+
+        #order_table *{
+            color:black;
+        }
+        #order_table tr:nth-child(odd){ 
+            background: lightgrey;
+        }
+        #order_table tr:nth-child(even){
+            background: darkgrey;
+        }  
+    </style>
 </head>
 <body>
-    <h1>Order# {{order.id}}</h1>
-    <div>
-        <table>
-            <tr style="background-color: lightblue;">
-                <td>Item</td>
-                <td>Quantity</td>
-                <td>Price</td>
-            </tr>
-        {% for product in order.products.all %}
-            <tr>
-                <td>{{product.name}}</td>
-                <td style="text-align:center;">{{product.quantity_in_order}}</td>
-                <td>{{product.get_total}}</td>
-            </tr>
-        {% endfor %}
-            <tr>
-                <td><b>Total:</b></td>
-                <td></td>
-                <td><b>{{order.get_total}}</b><td>
-            </tr>
+    <div id="order_summary">
+        <table id="order_table">
+            <tbody>
+                <tr><td colspan="3"><h1>Order# {{order.id}}</h1></td></tr>
+                <tr>
+                    <td>Item</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                </tr>
+                {% for product in order.products.all %}
+                <tr>
+                    <td>{{product.name}}</td>
+                    <td style="text-align:center;">{{product.quantity_in_order}}</td>
+                    <td>{{product.get_total}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2"><b>Total:</b></td>
+                    <td><b>{{order.get_total}}</b><td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </body>

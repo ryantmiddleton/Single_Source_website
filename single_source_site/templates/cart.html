@@ -6,50 +6,158 @@
     <title>Single Source Grip and Lighting</title>
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart_styles.css' %}">
     <script
         src="http://code.jquery.com/jquery-1.12.4.js"
         integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
         crossorigin="anonymous">
     </script>
+    <script>
+        $(document).ready(function(){
+            //Menu Listeners
+            $('#portfolio-menu').hover(
+                // Hover over
+                function(){
+                    $('#portfolio-content').slideToggle();
+                }
+            );
+            $('#inventory-menu').hover(
+                // Hover over
+                function(){
+                    $('#inventory-content').slideToggle();
+                }
+            );
+
+            //On-click Listener to edit the quantity or delete items in cart
+            $('.product_name').click(
+                function(){
+                    //Get the product ID from the element that was clicked
+                    var selected_product_id = this.id.replace("_product", "");
+                    //Get the correct num_quantity_field element id
+                    var num_quantity_id = "#" + selected_product_id + "_quantity";
+                    //Get the correct displayed_quantity element id
+                    var displayed_quantity_id = "#" + selected_product_id + "_displayed_quantity";
+                    //Get the correct del_btn element id
+                    var del_btn_id = "#" + selected_product_id + "_del_btn";
+
+                    //if num_quantity is visible then update 
+                    if ($(num_quantity_id).is(':visible')){
+                        var new_quantity = $(num_quantity_id).val();
+                        $(displayed_quantity_id).html("("+ new_quantity + ")");
+                        $(del_btn_id).hide();
+                        $(num_quantity_id).hide();
+
+                    }
+                    else if ($(num_quantity_id).is(':hidden')){
+                        $(num_quantity_id).show();
+                        $(del_btn_id).show();
+                    }
+                }
+            );
+
+            $('.delete_btn').click(
+                function(){
+                    //Get the product ID from the delete button that was clicked
+                    var selected_product_id = this.id.replace("_del_btn", "");
+                    //Change where the form submits
+                    $('#send_quote_frm').attr("action", "/delete_order_product/{{order.id}}/" + selected_product_id);
+                }
+            )
+        })
+    </script>
 </head>
 <body>
     <div id="header">
-        <h1>Single Source</h1>
         <div id="menu_bar">
-            <a href="">Home</a>
-            <a href="">Portfolio</a>
-            <a href="">Rentals</a>
-            <a href="/quote_page">Get A Quote</a>
-            <a href="">About</a>
-            <a href="">Contact</a>
+            <a id="home-menu" class="menu-item" href="">Home</a>
+            <a id="portfolio-menu" class="menu-item" href="">Portfolio</a>
+            <a id="inventory-menu" class="menu-item" href="">Rentals</a>
+            <a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a>
+            <a id="about-menu" class="menu-item" href="">About</a>
+            <a id="content-menu" class="menu-item" href="">Contact</a>
+            <div id="dropdown">
+                <div id="portfolio-content" class="dropdown-content">
+                    <a href="#">Music Videos</a><br>
+                    <a href="#">Narrative</a><br>
+                    <a href="#">Commercial</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <div id="inventory-content" class="dropdown-content">
+                    <a href="#">3-ton Grip Package</a><br>
+                    <a href="#">1-ton Grip Package</a><br>
+                    <a href="#">Electric</a><br>
+                    <a href="#">Dolly</a>
+                </div>
+            </div>
+
         </div>
     </div>
+
+    {% if messages %}
+    <ul class="error_messages">
+        {% for msg in messages %}
+            <li {% if msg.tags %} class="{{msg.tags}}"
+                {% endif %}>{{ msg }}</li>
+            </li>
+        {% endfor%}
+    </ul>
+    {% endif %}
+
     <div id="content">
-        <h1>Your Cart</h1>
-        <h4>Thanks for your Order {{order.customer_name}}</h4>
-        <form id="send_quote_frm" method="post" action="/send_quote/{{order.id}}">
-        {% csrf_token %}
-        <div id="Electric_col" style="display:inline-block;vertical-align:top;">Electric<br></div>
-        <div id="Grip_col" style="display:inline-block;vertical-align:top;">Grip<br></div>
-        <div id="Accessories_col" style="display:inline-block;vertical-align:top;">Accessories<br></div>
-        {% for product in order.products.all %}
-            {% if product.category.name == "Electric" %}
-            <script>$('#Electric_col').append("{{product.name}}({{product.quantity_in_order}})<br>")</script>
-            {% endif %}
-            {% if product.category.name == "Grip" %}
-            <script>$('#Grip_col').append("{{product.name}}({{product.quantity_in_order}})<br>")</script>
-            {% endif %}
-            {% if product.category.name == "Accessories" %}
-            <script>$('#Accessories_col').append("{{product.name}}({{product.quantity_in_order}})<br>")</script>
-            {% endif %}
-        {% endfor %}
-            <div style="display:block;">
-                Click the 'Send Quote' button to send the quote to your inbox. Thanks for your business!<br>
-                <input type="submit" value="Send Quote">
-            </div>
-        </form>
-    </div>
+        <h1>Thanks for your order, {{order.customer_name}}</h1>
+        <h3>Please review your order below. If you need to make any changes, just click on the item, update the quantity and then click the item again to make it your heart's desire. </h3>
+        <div id="product_list">
+    
+            <form id="send_quote_frm" action="/send_quote/{{order.id}}" method="post">
+            {% csrf_token %}
+            <div id="Grip_col" class="product_type_col"><h3>Grip</h3></div>
+            <div id="Electric_col" class="product_type_col"><h3>Electric<h3></div>
+            <div id="Accessories_col" class="product_type_col"><h3>Accessories</h3></div>
+            {% for product in order.products.all %}
+                <!-- Go through all the products and append them into the correct containers -->
+                {% if product.category.name == "Grip" %}
+                    <script>
+                        $('#Grip_col').append(
+                            "<div class='product_name' id='{{product.id}}_product'>\n"+
+                            "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
+                            "</div>"+
+                            "<input type='number' min=1 max='{{product.num_inventory}}' value='{{product.quantity_in_order}}' id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'>\n"+
+                            "<button type='submit' class='delete_btn' value='/delete_product_in_order/{{product.id}}' id='{{product.id}}_del_btn'>X</button><br>"
+                        );
+                    </script>
+                {% elif product.category.name == "Electric" %}
+                    <script>
+                        $('#Electric_col').append(
+                            "<div class='product_name' id='{{product.id}}_product'>\n"+
+                            "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
+                            "</div>"+
+                            "<input type='number' min=1 max='{{product.num_inventory}}' value='{{product.quantity_in_order}}' id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'>\n"+
+                            "<button class='delete_btn' id='{{product.id}}_del_btn'>X</button><br>"
+                        );
+                    </script>
+                {% elif product.category.name == "Accessories" %}
+                    <script>
+                        $('#Accessories_col').append(
+                            "<div class='product_name' id='{{product.id}}_product'>\n"+
+                            "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
+                            "</div>"+
+                            "<input type='number' min=1 max='{{product.num_inventory}}' value='{{product.quantity_in_order}}' id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'>\n"+
+                            "<button class='delete_btn' id='{{product.id}}_del_btn'>X</button><br>"
+                        );
+                    </script>
+                {% endif %}
+            {% endfor %}
+        </div> 
+
+        <div id="send_quote_container">
+            If you're all done, hit the send quote button below. Thanks again for stopping by. Take care now.
+            <input type="submit" value="Send Quote" style="background-color:white;color:black;margin-top:10px;">
+        </div>
+    </form>
+</div>
+
     
 </body>
 </html>
