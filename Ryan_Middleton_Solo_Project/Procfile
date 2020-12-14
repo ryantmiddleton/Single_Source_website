@@ -1,1 +1,1 @@
-web: gunicorn Ryan_Middleton_Solo_Project.wsgi --log-file -
+web: gunicorn single_source_site.wsgi --log-file -
