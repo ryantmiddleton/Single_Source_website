@@ -17,13 +17,33 @@
             $('#portfolio-menu').hover(
                 // Hover over
                 function(){
-                    $('#portfolio-content').slideToggle();
+                    $('#portfolio-content').slideToggle(); 
+                },
+                function(){
+                    $('#portfolio-content').show();
                 }
             );
+            $('#portfolio-content').hover(
+                function(){},
+                function(){
+                    $('#portfolio-content').hide();
+                }
+            );
+                 //Do nothing while hovering over the sub-menu, on hover out hide the submenu
             $('#inventory-menu').hover(
                 // Hover over
                 function(){
                     $('#inventory-content').slideToggle();
+                },
+                function(){
+                    $('#inventory-content').show();
+                }
+            );
+            //Do nothing while hovering over the sub-menu, on hover out hide the submenu
+            $('#inventory-content').hover(
+                function(){},
+                function(){
+                    $('#inventory-content').hide();
                 }
             );
         })
@@ -32,14 +52,14 @@
 <body>
     <div id="header">
         <div id="menu_bar">
-            <a id="home-menu" class="menu-item" href="">Home</a>
+            <a id="home-menu" class="menu-item" href="/">Home</a>
             <a id="portfolio-menu" class="menu-item" href="">Portfolio</a>
             <a id="inventory-menu" class="menu-item" href="">Rentals</a>
             <a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a>
             <a id="about-menu" class="menu-item" href="">About</a>
             <a id="content-menu" class="menu-item" href="">Contact</a>
 
-            <div id="dropdown">
+            <div id="portfolio-dropdown" class="dropdown">
                 <div id="portfolio-content" class="dropdown-content">
                     <a href="#">Music Videos</a><br>
                     <a href="#">Narrative</a><br>
@@ -47,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="dropdown">
+            <div id="inventory-dropdown" class="dropdown">
                 <div id="inventory-content" class="dropdown-content">
                     <a href="#">3-ton Grip Package</a><br>
                     <a href="#">1-ton Grip Package</a><br>
@@ -55,8 +75,8 @@
                     <a href="#">Dolly</a>
                 </div>
             </div>
-
         </div>
     </div>
+    <div id="content"></div>
 </body>
 </html>

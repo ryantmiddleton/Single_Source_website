@@ -2,19 +2,25 @@
     color:white;
     margin:0px;
     padding:0px;
-    border: 1px dotted red;
+    border:0px;
+    /* border: 1px dotted red; */
 }
 
 body {
-    background-image: url('../img/SS_Logo.jpg');
+    background-image: url('../img/SS_Logo_NoBorder.jpg');
     background-repeat: no-repeat; 
     background-size:cover;
 } 
 
-#header{
-    text-align:center;
-    margin-top:15%;
+/* Main Menu Styles */
+#menu_bar {
+    display:block;
+    height:20px;
+    margin-top:12%;
+    margin-left:8%
+    /* border: 1px dotted red; */
 }
+
 #menu_bar a{
     display:inline-block;
 }
@@ -26,28 +32,6 @@ body {
     padding-bottom:5px;
     border-bottom:2px solid grey;
 }  
-
-.dropdown{
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none; 
-    position: absolute;
-    background-color: black;
-    min-width:160px;
-}
-
-.dropdown-content *{
-    display:block;
-    color: white;
-    border-bottom:1px solid white;
-    text-align:center;
-    padding-bottom:5px;
-    text-decoration: none;
-}
-
 
 #home-menu{
     border-right:1px solid white;
@@ -65,47 +49,90 @@ body {
     border-right:1px solid white;
 }
 
+/* Dropdown Menu Styles */
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
 
+.dropdown-content {
+    display: none; 
+    position: absolute;
+    background-color: black;
+    min-width:160px;
+}
 
-#product_list{
+.dropdown-content *{
+    display:block;
+    color: white;
+    border-bottom:1px solid white;
+    padding-bottom:5px;
+    text-decoration: none;
+}
+
+#portfolio-dropdown{
+    margin-left:225px;
+}
+
+#inventory-dropdown{
+    margin-left:175px;
+}
+
+/* quote_builder.html styles */
+#quote_content {
     width:50%;
-    margin-left:25%;
-}
-#product_list h3{
-    text-align:center;
-    text-decoration: underline;
+    margin-top:3%;
+    margin-left:22%;
+    background-color:rgb(70, 70, 70, 0.7);
 }
 
-.product_type_col {
+#quote_content h1 {
+    text-align:center;
+}
+
+#quote_content .product_type_col {
     display:inline-block;
     margin-right:10px;
     vertical-align:top;
-    border-left:2px solid white;
-    border-right:2px solid white;
 }
 
-#Grip_col {
+#quote_content #Grip_col {
     margin-left:5%;
 }
+
 .checkbox_field {
     display:inline-block;
     width:175px;
 }
-.num_quantity_field {
+
+#quote_content .num_quantity_field {
     display:inline-block;
     background-color:white; 
     color:black;
     width:30px;
 }
 
+.spacer {
+    margin-left:5px;
+}
+
 #customer_container {
     margin-top:20px;
     width:350px;
-    margin-left:35%;
+    margin-left:20%;
     vertical-align:top;
 }
+
 #customer_container div{
     display:inline-block;
+    width:150px;
+    vertical-align:top;
+}
+
+#customer_container input[type="submit"] {
+    background-color:white;
+    color:black;
+    margin-top:10px;
 }
 
 .customer_info_field {
@@ -113,6 +140,64 @@ body {
     color:black;
 }
 
+/* cart.html styles */
+#cart_content {
+    width:70%;
+    margin-top:3%;
+    margin-left:12%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#cart_content h1, h3 {
+    text-align:center;
+    /* border:1px dotted red; */
+}
+#cart_content #product_list{
+    margin-top:10px;
+    margin-left:25%;
+    /* border:1px dotted red; */
+}
+
+#cart_content #product_list h3{
+    text-align:center;
+    text-decoration: underline;
+}
+
+#cart_content .product_type_col {
+    display:inline-block;
+    visibility:hidden;
+    padding-right:10px;
+    vertical-align:top;
+    /* border:1px dotted red; */
+}
+
+#cart_content .product_name {
+    display:inline-block;
+    width:150px;
+}
+
+#cart_content .num_quantity_field {
+    visibility: hidden;
+    background-color:white; 
+    color:black;
+    width:30px;
+}
+
+#cart_content .delete_btn {
+    visibility: hidden;
+    background-color:white; 
+    color:black;
+}
+
+#send_quote_container {
+    text-align:center;
+    margin-top:20px;
+    width:350px;
+    margin-left:35%;
+    vertical-align:top;
+}
+
+/* order_success.html styles */
 #order_summary{
     margin-left:40%;
     margin-top:20px;

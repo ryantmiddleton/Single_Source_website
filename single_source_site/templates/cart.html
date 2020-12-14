@@ -6,7 +6,7 @@
     <title>Single Source Grip and Lighting</title>
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/cart_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script
         src="http://code.jquery.com/jquery-1.12.4.js"
         integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
@@ -41,16 +41,20 @@
                     var del_btn_id = "#" + selected_product_id + "_del_btn";
 
                     //if num_quantity is visible then update 
-                    if ($(num_quantity_id).is(':visible')){
+                    if ($(num_quantity_id).css('visibility') == 'visible'){
                         var new_quantity = $(num_quantity_id).val();
                         $(displayed_quantity_id).html("("+ new_quantity + ")");
-                        $(del_btn_id).hide();
-                        $(num_quantity_id).hide();
+                        $(num_quantity_id).css("visibility","hidden");
+                        $(del_btn_id).css("visibility","hidden");
+                        // $(del_btn_id).hide();
+                        // $(num_quantity_id).hide();
 
                     }
-                    else if ($(num_quantity_id).is(':hidden')){
-                        $(num_quantity_id).show();
-                        $(del_btn_id).show();
+                    else if ($(num_quantity_id).css('visibility') == 'hidden'){
+                        $(num_quantity_id).css("visibility","visible");
+                        $(del_btn_id).css("visibility","visible");
+                        // $(num_quantity_id).show();
+                        // $(del_btn_id).show();
                     }
                 }
             );
@@ -69,13 +73,14 @@
 <body>
     <div id="header">
         <div id="menu_bar">
-            <a id="home-menu" class="menu-item" href="">Home</a>
+            <a id="home-menu" class="menu-item" href="/">Home</a>
             <a id="portfolio-menu" class="menu-item" href="">Portfolio</a>
             <a id="inventory-menu" class="menu-item" href="">Rentals</a>
             <a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a>
             <a id="about-menu" class="menu-item" href="">About</a>
             <a id="content-menu" class="menu-item" href="">Contact</a>
-            <div id="dropdown">
+            
+            <div id="portfolio-dropdown" class="dropdown">
                 <div id="portfolio-content" class="dropdown-content">
                     <a href="#">Music Videos</a><br>
                     <a href="#">Narrative</a><br>
@@ -83,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="dropdown">
+            <div id="inventory-dropdown" class="dropdown">
                 <div id="inventory-content" class="dropdown-content">
                     <a href="#">3-ton Grip Package</a><br>
                     <a href="#">1-ton Grip Package</a><br>
@@ -105,7 +110,7 @@
     </ul>
     {% endif %}
 
-    <div id="content">
+    <div id="cart_content">
         <h1>Thanks for your order, {{order.customer_name}}</h1>
         <h3>Please review your order below. If you need to make any changes, just click on the item, update the quantity and then click the item again to make it your heart's desire. </h3>
         <div id="product_list">
@@ -119,6 +124,7 @@
                 <!-- Go through all the products and append them into the correct containers -->
                 {% if product.category.name == "Grip" %}
                     <script>
+                        $('#Grip_col').css("visibility","visible");
                         $('#Grip_col').append(
                             "<div class='product_name' id='{{product.id}}_product'>\n"+
                             "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
@@ -129,6 +135,7 @@
                     </script>
                 {% elif product.category.name == "Electric" %}
                     <script>
+                        $('#Electric_col').css("visibility","visible");
                         $('#Electric_col').append(
                             "<div class='product_name' id='{{product.id}}_product'>\n"+
                             "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
@@ -139,6 +146,7 @@
                     </script>
                 {% elif product.category.name == "Accessories" %}
                     <script>
+                        $('#Accessories_col').css("visibility","visible");
                         $('#Accessories_col').append(
                             "<div class='product_name' id='{{product.id}}_product'>\n"+
                             "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +

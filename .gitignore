@@ -1,5 +1,12 @@
 Ryan_Middleton_Solo_Project/secrets.py
-Ryan_Middleton_Solo_Project/__pycache__
-single_source_site/__pycache__
-tmp/
-db.sqlite3
+Ryan_Middleton_Solo_Project/test.html
+Ryan_Middleton_Solo_Project/prod_settings.py
+Ryan_Middleton_Solo_Project/local_settings.py
+# Ryan_Middleton_Solo_Project/__pycache__/*
+# single_source_site/__pycache__/*
+tmp/*
+single_source_site/static/css/styles_tables.css
+single_source_site/templates/quote_builder_tables.html
+# db.sqlite3
+Rental_Quote_Generator.bmpr
+environment_activate.sh

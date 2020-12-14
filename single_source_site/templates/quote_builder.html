@@ -14,6 +14,41 @@
     </script>
     <script>
         $(document).ready(function(){
+            //Listeners for Menu Bar
+            $('#portfolio-menu').hover(
+                // Hover over
+                function(){
+                    $('#portfolio-content').slideToggle(); 
+                },
+                function(){
+                    $('#portfolio-content').show();
+                }
+            );
+            $('#portfolio-content').hover(
+                function(){},
+                function(){
+                    $('#portfolio-content').hide();
+                }
+            );
+                 //Do nothing while hovering over the sub-menu, on hover out hide the submenu
+            $('#inventory-menu').hover(
+                // Hover over
+                function(){
+                    $('#inventory-content').slideToggle();
+                },
+                function(){
+                    $('#inventory-content').show();
+                }
+            );
+            //Do nothing while hovering over the sub-menu, on hover out hide the submenu
+            $('#inventory-content').hover(
+                function(){},
+                function(){
+                    $('#inventory-content').hide();
+                }
+            );
+
+            // Front-end validation check 
             $('#quote_frm').submit(function(){
                 errormsgs={};
                 errormsg="";
@@ -36,56 +71,36 @@
                     return false;
                 }
             })
+
+            // Logic for checkboxes
             $('input:checkbox').change(
                 function(){
                     var product_id = $(this).val();
-                    var product_name = $(this).attr("name");
+                    // var product_name = $(this).attr("name");
                     if ($(this).is(':checked')) {
                         // update the corresponding quantity value to 1 if the checkbox is checked
                         $("#" + product_id + "_quantity").val(1);
-                        console.log(product_name + " is checked");
-                        // $.ajax({
-                        //     url: "/add_accessories/"+product_id, 
-                        //     method: 'get',
-                        //     success: function(serverResponse, checkbox_parent){
-                        //         console.log(serverResponse);
-                        //         console.log($(this).parent());
-                        //     }
-                        // });
                     }
                     else if ($(this).not(':checked')){
                         // update the corresponding quantity value to 0 if the checkbox is clicked
                         $("#" + product_id + "_quantity").val(0);
-                        console.log(product_name + " is unchecked");
                     }
                 }
             )
-            $('#portfolio-menu').hover(
-                // Hover over
-                function(){
-                    $('#portfolio-content').slideToggle();
-                }
-            );
-            $('#inventory-menu').hover(
-                // Hover over
-                function(){
-                    $('#inventory-content').slideToggle();
-                }
-            );
         })
     </script>
 </head>
 <body>
     <div id="header">
         <div id="menu_bar">
-            <a id="home-menu" class="menu-item" href="">Home</a>
+            <a id="home-menu" class="menu-item" href="/">Home</a>
             <a id="portfolio-menu" class="menu-item" href="">Portfolio</a>
             <a id="inventory-menu" class="menu-item" href="">Rentals</a>
             <a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a>
             <a id="about-menu" class="menu-item" href="">About</a>
             <a id="content-menu" class="menu-item" href="">Contact</a>
 
-            <div id="dropdown">
+            <div id="portfolio-dropdown" class="dropdown">
                 <div id="portfolio-content" class="dropdown-content">
                     <a href="#">Music Videos</a><br>
                     <a href="#">Narrative</a><br>
@@ -93,7 +108,7 @@
                 </div>
             </div>
 
-            <div class="dropdown">
+            <div id="inventory-dropdown" class="dropdown">
                 <div id="inventory-content" class="dropdown-content">
                     <a href="#">3-ton Grip Package</a><br>
                     <a href="#">1-ton Grip Package</a><br>
@@ -101,7 +116,6 @@
                     <a href="#">Dolly</a>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -115,64 +129,64 @@
     </ul>
     {% endif %}
 
-    <div id="content">
-            <h1 style="text-align:center;">Build Your Quote</h1>
-            <div id="product_list">
-            <form id="quote_frm" action="/add_to_cart" method="post">
-            {% csrf_token %}
-            <div id="Grip_col" class="product_type_col"><h3>Grip</h3></div>
-            <div id="Electric_col" class="product_type_col"><h3>Electric<h3></div>
-            <div id="Accessories_col" class="product_type_col"><h3>Accessories</h3></div>
-            {% for product in products %}
-                {% if product.category.name == "Grip" %}
-                    <script>
-                        $('#Grip_col').show();
-                        $('#Grip_col').append(
-                        "<div class='checkbox_field'>\n"+
-                        "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
-                        "<label> {{product.name}}</label>\n" +
-                        "</div>\n"+
-                        "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
-                        );
-                    </script>
-                {% elif product.category.name == "Electric" %}
-                    <script>
-                        $('#Electric_col').show();
-                        $('#Electric_col').append(
-                        "<div class='checkbox_field'>\n"+
-                        "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
-                        "<label> {{product.name}}</label>\n" +
-                        "</div>\n"+
-                        "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
-                        );
-                    </script>
-                {% elif product.category.name == "Accessories" %}
-                    <script>
-                        $('#Accessories_col').show();
-                        $('#Accessories_col').append(
-                        "<div class='checkbox_field'>\n"+
-                        "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
-                        "<label> {{product.name}}</label>\n" +
-                        "</div>\n"+
-                        "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
-                        );
-                    </script>
-                {% endif %}
-            {% endfor %}
+    <div id="quote_content">
+        <h1>Build Your Quote</h1>
+        <div id="product_list">
+        <form id="quote_frm" action="/add_to_cart" method="post">
+        {% csrf_token %}
+        <div id="Grip_col" class="product_type_col"><h3>Grip</h3></div>
+        <div id="spacer" class="product_type_col"></div>
+        <div id="Electric_col" class="product_type_col"><h3>Electric<h3></div>
+        <div id="spacer" class="product_type_col"></div>
+        <div id="Accessories_col" class="product_type_col"><h3>Accessories</h3></div>
+        {% for product in products %}
+            {% if product.category.name == "Grip" %}
+                <script>
+                    $('#Grip_col').show();
+                    $('#Grip_col').append(
+                    "<div class='checkbox_field'>\n"+
+                    "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
+                    "<label> {{product.name}}</label>\n" +
+                    "</div>\n"+
+                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                    );
+                </script>
+            {% elif product.category.name == "Electric" %}
+                <script>
+                    $('#Electric_col').show();
+                    $('#Electric_col').append(
+                    "<div class='checkbox_field'>\n"+
+                    "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
+                    "<label> {{product.name}}</label>\n" +
+                    "</div>\n"+
+                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                    );
+                </script>
+            {% elif product.category.name == "Accessories" %}
+                <script>
+                    $('#Accessories_col').show();
+                    $('#Accessories_col').append(
+                    "<div class='checkbox_field'>\n"+
+                    "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
+                    "<label> {{product.name}}</label>\n" +
+                    "</div>\n"+
+                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                    );
+                </script>
+            {% endif %}
+        {% endfor %}
         </div>    
         <div id="customer_container">
-            <div style="width:150px;vertical-align:top;">
+            <div>
                 <p>Your Name:</p>
                 <p>Email:</p>
             </div>
             <div>
                 <input type="text" id="name_txt" name="name_txt" class="customer_info_field"><br>
                 <input type="email" id="email_txt" name="email_txt" class="customer_info_field"><br>
-                <input type="submit" value="Add to Cart" style="background-color:white;color:black;margin-top:10px;">
+                <input type="submit" value="Add to Cart">
             </div><br>
-            
         </div>
-        
         </form>
     </div>
 </div>
