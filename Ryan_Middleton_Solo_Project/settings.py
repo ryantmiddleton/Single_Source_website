@@ -52,7 +52,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "gettingstarted.urls"
+ROOT_URLCONF = "single_soource_site.urls"
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "gettingstarted.wsgi.application"
+WSGI_APPLICATION = "Ryan_Middleton_Solo_Project.wsgi.application"
 
 
 # Database
