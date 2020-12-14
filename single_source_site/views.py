@@ -2,10 +2,15 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from single_source_site.models import Category, Product, Order
+from django.http import HttpResponse
+import requests
 
 # Create your views here.
 def index (request):
-    return render (request, "index.html")
+    r = requests.get('http://httpbin.org/status/418')
+    print(r.text)
+    return HttpResponse('<pre>' + r.text + '</pre>')
+    # return render (request, "index.html")
 
 def build_quote(request):
     context={

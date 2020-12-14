@@ -1,0 +1,158 @@
+* {
+    color:white;
+    margin:0px;
+    padding:0px;
+    border: 1px dotted transparent;
+}
+
+body {
+    background-image: url("../img/SS_Logo.4831bc7eeaaf.jpg");
+    background-repeat: no-repeat; 
+    background-size:cover;
+} 
+
+#header{
+    text-align:center;
+    margin-top:15%;
+}
+#menu_bar a{
+    display:inline-block;
+}
+
+.menu-item{
+    display:inline-block;
+    padding-right:5%;
+    padding-left:5%;
+    padding-bottom:5px;
+    border-bottom:2px solid grey;
+}  
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none; 
+    position: absolute;
+    background-color: black;
+    min-width:160px;
+}
+
+.dropdown-content *{
+    display:block;
+    color: white;
+    border-bottom:1px solid white;
+    text-align:center;
+    padding-bottom:5px;
+    text-decoration: none;
+}
+
+
+#home-menu{
+    border-right:1px solid white;
+}
+#portfolio-menu{
+    border-right:1px solid white;
+}
+#inventory-menu{
+    border-right:1px solid white;
+}
+#quote-menu{
+    border-right:1px solid white;
+}
+#about-menu{
+    border-right:1px solid white;
+}
+
+#product_list{
+    /* width:1325px;*/
+    margin-left:25%;
+}
+
+#product_list h3{
+    text-align:center;
+    text-decoration: underline;
+}
+
+.product_type_col {
+    /* display:inline-block;
+    height:100%;
+    margin-left:3%;*/
+    vertical-align:top;
+    /* padding-right:10px; */
+    /* border-right:2px solid white;  */
+}
+
+#Grip_col {
+    /* margin-left:5%; */
+}
+.checkbox_field {
+    /* display:inline-block; */
+    /* width:175px; */
+}
+.num_quantity_field {
+
+    float:right;
+    color:black;
+    width:30px;
+}
+
+table {
+	display: table;
+}
+table tr {
+	display: table-cell;
+}
+table tr td {
+	display: block;
+}
+
+.spacer {
+    margin-left:20px;
+}
+
+.divider{
+    border-left:2px solid white;
+}
+
+#customer_container {
+    margin-top:20px;
+    width:350px;
+    margin-left:35%;
+    vertical-align:top;
+}
+#customer_container div{
+    display:inline-block;
+}
+
+.customer_info_field {
+    background-color:white; 
+    color:black;
+}
+
+#order_summary{
+    margin-left:40%;
+    margin-top:20px;
+    width:30%;
+}
+
+#order_table h1{
+    background-color: black;
+    color:white;
+    text-align:center;
+}
+
+#order_table {
+    border:1px solid white;
+}
+
+#order_table *{
+    color:black;
+}
+#order_table tr:nth-child(odd){ 
+    background: lightgrey;
+}
+#order_table tr:nth-child(even){
+    background: darkgrey;
+}
