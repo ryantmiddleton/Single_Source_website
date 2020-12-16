@@ -65,6 +65,7 @@ class OrderManager(models.Manager):
         return errors  
     
 class Order(models.Model):
+    customer_id = models.CharField(max_length=255)
     customer_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     products = models.ManyToManyField(Product, related_name="orders")

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Source Grip and Lighting</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script
+        src="http://code.jquery.com/jquery-1.12.4.js"
+        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function(){
+            
+            $('.navbar .dropdown').hover(
+                function(){
+                    $(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
+                }, 
+                function() {
+                    $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
+                }
+            )
+        });
+    </script>
+</head>
+<body>
+    <div id="header">
+    <nav id="navbar-container" class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <ul id="navbar-list" class="nav navbar-nav">
+            <li><a id="home-menu" href="#">Home</a></li>
+            <li class="dropdown">
+              <a id="portfolio-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio</a>
+              <ul id="portfolio-dropdown" class="dropdown-menu">
+                <li><a href="/music_videos">Music Videos</a></li>
+                <li><a href="#">Narrative</a></li>
+                <li><a href="#">Commercial</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+                <a id="rentals-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Rentals</a>
+                <ul id="rentals-dropdown" class="dropdown-menu">
+                  <li><a href="#">3-ton Grip Package</a></li>
+                  <li><a href="#">1-ton Grip Package</a></li>
+                  <li><a href="#">Electric</a></li>
+                  <li><a href="#">Dolly</a></li>
+                </ul>
+            </li>
+            <li><a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a></li>
+            <li><a id="about-menu" href="#">About</a></li>
+            <li><a id="contact-menu" href="#">Contact</a></li>
+            {% if order %}
+            <li><a href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png"></a></li>
+            {% endif %}
+          </ul>
+        </div>
+    </nav>
+    </div>
+    <div id="music_video_content">
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/qQXP6TDtW0w?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=1">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/jWQYYavheUA?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=1">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/1yYV9-KoSUM?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=5">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/WcCcBANAyKk?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=7">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/kJfytKspp-A?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=9">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/9uAEb8XXLK0?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=11">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/-7hwrEDjikA?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=13">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/LIWa4okMqzo?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=15">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/9LUSZ570GD8?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=7">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/hNOceS9J4Tw?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=3">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/mWZ-cu3OJ_o?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=21">
+        </iframe>
+
+        <iframe height="100%"
+        src="https://www.youtube.com/embed/oU0xad1JNNQ?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=23">
+        </iframe>
+        
+        
+
+    </div>
+
+</body>
+</html>

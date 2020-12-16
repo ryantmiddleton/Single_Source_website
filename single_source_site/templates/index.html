@@ -6,6 +6,9 @@
     <title>Single Source Grip and Lighting</title>
 
     {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script
         src="http://code.jquery.com/jquery-1.12.4.js"
@@ -14,69 +17,54 @@
     </script>
     <script>
         $(document).ready(function(){
-            $('#portfolio-menu').hover(
-                // Hover over
+            
+            $('.navbar .dropdown').hover(
                 function(){
-                    $('#portfolio-content').slideToggle(); 
-                },
-                function(){
-                    $('#portfolio-content').show();
+                    $(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
+                }, 
+                function() {
+                    $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
                 }
-            );
-            $('#portfolio-content').hover(
-                function(){},
-                function(){
-                    $('#portfolio-content').hide();
-                }
-            );
-                 //Do nothing while hovering over the sub-menu, on hover out hide the submenu
-            $('#inventory-menu').hover(
-                // Hover over
-                function(){
-                    $('#inventory-content').slideToggle();
-                },
-                function(){
-                    $('#inventory-content').show();
-                }
-            );
-            //Do nothing while hovering over the sub-menu, on hover out hide the submenu
-            $('#inventory-content').hover(
-                function(){},
-                function(){
-                    $('#inventory-content').hide();
-                }
-            );
-        })
+            )
+        });
     </script>
 </head>
 <body>
     <div id="header">
-        <div id="menu_bar">
-            <a id="home-menu" class="menu-item" href="/">Home</a>
-            <a id="portfolio-menu" class="menu-item" href="">Portfolio</a>
-            <a id="inventory-menu" class="menu-item" href="">Rentals</a>
-            <a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a>
-            <a id="about-menu" class="menu-item" href="">About</a>
-            <a id="content-menu" class="menu-item" href="">Contact</a>
-
-            <div id="portfolio-dropdown" class="dropdown">
-                <div id="portfolio-content" class="dropdown-content">
-                    <a href="#">Music Videos</a><br>
-                    <a href="#">Narrative</a><br>
-                    <a href="#">Commercial</a>
-                </div>
-            </div>
-
-            <div id="inventory-dropdown" class="dropdown">
-                <div id="inventory-content" class="dropdown-content">
-                    <a href="#">3-ton Grip Package</a><br>
-                    <a href="#">1-ton Grip Package</a><br>
-                    <a href="#">Electric</a><br>
-                    <a href="#">Dolly</a>
-                </div>
-            </div>
+    <nav id="navbar-container" class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <ul id="navbar-list" class="nav navbar-nav">
+            <li><a id="home-menu" href="#">Home</a></li>
+            <li class="dropdown">
+              <a id="portfolio-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio</a>
+              <ul id="portfolio-dropdown" class="dropdown-menu">
+                <li><a href="/music_videos">Music Videos</a></li>
+                <li><a href="#">Narrative</a></li>
+                <li><a href="#">Commercial</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+                <a id="rentals-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Rentals</a>
+                <ul id="rentals-dropdown" class="dropdown-menu">
+                  <li><a href="#">3-ton Grip Package</a></li>
+                  <li><a href="#">1-ton Grip Package</a></li>
+                  <li><a href="#">Electric</a></li>
+                  <li><a href="#">Dolly</a></li>
+                </ul>
+            </li>
+            <li><a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a></li>
+            <li><a id="about-menu" href="#">About</a></li>
+            <li><a id="contact-menu" href="#">Contact</a></li>
+            {% if order %}
+            <li><a href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png"></a></li>
+            {% endif %}
+          </ul>
         </div>
+    </nav>
     </div>
-    <div id="content"></div>
+    <div id="content">
+          
+    </div>
+
 </body>
 </html>

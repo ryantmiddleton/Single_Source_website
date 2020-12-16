@@ -3,6 +3,7 @@
     margin:0px;
     padding:0px;
     border:0px;
+    font-family: Garamond, Times, serif;
     /* border: 1px dotted red; */
 }
 
@@ -13,76 +14,82 @@ body {
 } 
 
 /* Main Menu Styles */
-#menu_bar {
-    display:block;
-    height:20px;
-    margin-top:12%;
-    margin-left:8%
-    /* border: 1px dotted red; */
+.dropdown {
+    background:none;
 }
 
-#menu_bar a{
-    display:inline-block;
+.dropdown-menu {
+    color:white;
+    background:black;
+    text-align:center;
 }
 
-.menu-item{
-    display:inline-block;
-    padding-right:5%;
-    padding-left:5%;
-    padding-bottom:5px;
-    border-bottom:2px solid grey;
-}  
+.dropdown-menu li a{
+    color:white;
+    border-bottom:1px solid white;
+}
+#navbar-container{
+    background:none;
+    margin-left:12%;
+    margin-top:165px;
+
+}
+#navbar-container *{
+    padding:0px;
+
+}
+#navbar-list {
+    border-bottom:2px solid darkgrey;
+}
 
 #home-menu{
-    border-right:1px solid white;
-}
-#portfolio-menu{
-    border-right:1px solid white;
-}
-#inventory-menu{
-    border-right:1px solid white;
-}
-#quote-menu{
-    border-right:1px solid white;
-}
-#about-menu{
-    border-right:1px solid white;
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
 }
 
-/* Dropdown Menu Styles */
-.dropdown{
-    position: relative;
-    display: inline-block;
+#portfolio-menu {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
 }
 
-.dropdown-content {
-    display: none; 
-    position: absolute;
-    background-color: black;
-    min-width:160px;
+#rentals-menu {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
+}
+#quote-menu {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
+}
+#about-menu {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
+}
+#contact-menu {
+    text-align:center;
+    padding:0px 60px;
+}
+#rentals-dropdown {
+    padding-top:10px;
+}
+#portfolio-dropdown {
+    padding-top:10px;
 }
 
-.dropdown-content *{
-    display:block;
-    color: white;
-    border-bottom:1px solid white;
-    padding-bottom:5px;
-    text-decoration: none;
-}
-
-#portfolio-dropdown{
-    margin-left:225px;
-}
-
-#inventory-dropdown{
-    margin-left:175px;
+#cart {
+    height:25px;
+    margin-left:87%;
 }
 
 /* quote_builder.html styles */
 #quote_content {
-    width:50%;
+    width:70%;
     margin-top:3%;
-    margin-left:22%;
+    margin-left:12%;
     background-color:rgb(70, 70, 70, 0.7);
 }
 
@@ -94,6 +101,7 @@ body {
     display:inline-block;
     margin-right:10px;
     vertical-align:top;
+    text-decoration:underline;
 }
 
 #quote_content #Grip_col {
@@ -102,7 +110,7 @@ body {
 
 .checkbox_field {
     display:inline-block;
-    width:175px;
+    width:250px;
 }
 
 #quote_content .num_quantity_field {
@@ -119,20 +127,25 @@ body {
 #customer_container {
     margin-top:20px;
     width:350px;
-    margin-left:20%;
+    margin-left:35%;
     vertical-align:top;
+    /* border:1px dotted red; */
 }
 
-#customer_container div{
+#customer_container *{
     display:inline-block;
     width:150px;
     vertical-align:top;
+
 }
 
 #customer_container input[type="submit"] {
+    width:83px;
+    margin-left:150px;
     background-color:white;
     color:black;
     margin-top:10px;
+    margin-bottom: 10px;
 }
 
 .customer_info_field {
@@ -145,21 +158,21 @@ body {
     width:70%;
     margin-top:3%;
     margin-left:12%;
-    background-color:rgb(70, 70, 70, 0.7);
+    background-color:rgb(70, 70, 70, 0.7)
 }
 
-#cart_content h1, h3 {
+#cart_content h1, h3{
     text-align:center;
+
     /* border:1px dotted red; */
 }
 #cart_content #product_list{
-    margin-top:10px;
     margin-left:25%;
     /* border:1px dotted red; */
 }
 
 #cart_content #product_list h3{
-    text-align:center;
+    text-align:left;
     text-decoration: underline;
 }
 
@@ -167,10 +180,11 @@ body {
     display:inline-block;
     visibility:hidden;
     padding-right:10px;
-    vertical-align:top;
     /* border:1px dotted red; */
 }
-
+#cart_content .product_type_col *{
+    vertical-align:top;
+}
 #cart_content .product_name {
     display:inline-block;
     width:150px;
@@ -189,12 +203,20 @@ body {
     color:black;
 }
 
+
 #send_quote_container {
     text-align:center;
     margin-top:20px;
     width:350px;
-    margin-left:35%;
-    vertical-align:top;
+    margin-left:32%;
+    /* border: 1px dotted red; */
+}
+#send_quote_container input[type="submit"] {
+    background-color:white;
+    color:black;
+    margin-top:10px;
+    margin-bottom:10px;
+    width:75px;
 }
 
 /* order_success.html styles */
@@ -222,4 +244,9 @@ body {
 }
 #order_table tr:nth-child(even){
     background: darkgrey;
+}
+
+/* Music Videos Page */
+#music_video_content{
+    text-align:center;
 }

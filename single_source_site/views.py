@@ -5,11 +5,24 @@ from single_source_site.models import Category, Product, Order
 
 # Create your views here.
 def index (request):
-    return render (request, "index.html")
+
+    if not Order.objects.filter(customer_id=request.session.session_key).exists():
+        cart = None
+    else:
+        cart = Order.objects.filter(customer_id=request.session.session_key).last()
+    context = {
+        'order' : cart
+    }
+    return render (request, "index.html", context)
 
 def build_quote(request):
+    if not Order.objects.filter(customer_id=request.session.session_key).exists():
+            cart = None
+    else:
+        cart = Order.objects.filter(customer_id=request.session.session_key).last()
     context={
-        'products':Product.objects.all()
+        'products':Product.objects.all(),
+        'order' : cart
     }
     return render(request, "quote_builder.html", context)
 
@@ -22,11 +35,13 @@ def get_accessories(request, product_id):
 def display_cart(request):
     if request.method == "POST":
         # Create a new Order
+        print(request.session.session_key)
         new_order = Order.objects.create(
+            customer_id = request.session.session_key,
             customer_name = request.POST['name_txt'],
             email = request.POST['email_txt']
         )
-        print(new_order.customer_name + " email: " + new_order.email + " created a new order.")
+        # print(new_order.customer_name + " email: " + new_order.email + " created a new order.")
         for key in request.POST:
             if "quantity" in key and int(request.POST[key]) > 0:
                 # Add the product to the newly created order and store the quantity
@@ -37,7 +52,7 @@ def display_cart(request):
                 # Update the order quantity of this product for the order
                 product_in_order.quantity_in_order = request.POST[key]
                 product_in_order.save()
-                print("adding " + product_in_order.quantity_in_order + " of product id " + product_in_order_id + " to order# " + str(new_order.id))
+                # print("adding " + product_in_order.quantity_in_order + " of product id " + product_in_order_id + " to order# " + str(new_order.id))
                 # add the product to the order 
                 new_order.products.add(product_in_order)
 
@@ -98,3 +113,13 @@ def send_quote(request, order_id):
             html_message = email_message
         )
     return render (request, "order_success.html", {'order': send_order})
+
+def display_music_videos(request):
+    if not Order.objects.filter(customer_id=request.session.session_key).exists():
+            cart = None
+    else:
+        cart = Order.objects.filter(customer_id=request.session.session_key).last()
+    context = {
+        'order' : cart
+    }
+    return render(request, "music_videos.html", context)
