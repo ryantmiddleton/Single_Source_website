@@ -246,7 +246,44 @@ body {
     background: darkgrey;
 }
 
-/* Music Videos Page */
-#music_video_content{
+/* Video Page */
+#video_content{
+    text-align:center;
+}
+
+/* Contact Page */
+#contact_me_container{
+    margin-left:25%;
+    width:40%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#contact_me_container h1 {
+    text-align:center;
+}
+
+#contact_info *{
+    margin:0px;
+}
+
+#email_me_container div, textarea{
+    color:black;
+    vertical-align:top;
+    display:inline-block;
+}
+
+/* About Page */
+#about_content {
+    margin-left:25%;
+    width:40%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#about_content *{
+    margin:0px;
+}
+
+#about_heading {
+    text-decoration: underline;
     text-align:center;
 }

@@ -66,7 +66,7 @@
     </script>
 </head>
 <body>
-
+    <div id="header">
         <nav id="navbar-container" class="navbar navbar-inverse">
             <div class="container-fluid">
               <ul id="navbar-list" class="nav navbar-nav">
@@ -75,30 +75,29 @@
                   <a id="portfolio-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio</a>
                   <ul id="portfolio-dropdown" class="dropdown-menu">
                     <li><a href="/music_videos">Music Videos</a></li>
-                    <li><a href="#">Narrative</a></li>
-                    <li><a href="#">Commercial</a></li>
+                    <li><a href="/narrative">Narrative</a></li>
+                    <li><a href="/commercial">Commercial</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
                     <a id="rentals-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Rentals</a>
                     <ul id="rentals-dropdown" class="dropdown-menu">
-                      <li><a href="#">3-ton Grip Package</a></li>
-                      <li><a href="#">1-ton Grip Package</a></li>
-                      <li><a href="#">Electric</a></li>
-                      <li><a href="#">Dolly</a></li>
+                      <li><a href="/3_ton_list">3-ton Grip Package</a></li>
+                      <li><a href="/1_ton_list">1-ton Grip Package</a></li>
+                      <li><a href="/electric_list">Electric</a></li>
+                      <li><a href="/dolly_list">Dolly</a></li>
                     </ul>
                 </li>
                 <li><a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a></li>
-                <li><a id="about-menu" href="#">About</a></li>
-                <li><a id="contact-menu" href="#">Contact</a></li>
+                <li><a id="about-menu" href="/about">About</a></li>
+                <li><a id="contact-menu" href="/contact">Contact</a></li>
                 {% if order %}
                 <li><a href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png"></a></li>
                 {% endif %}
               </ul>
             </div>
         </nav>
-
-
+    </div>
     {% if messages %}
     <ul class="error_messages">
         {% for msg in messages %}

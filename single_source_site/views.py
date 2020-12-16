@@ -68,6 +68,16 @@ def get_order(request, order_id):
     }
     return render(request, "cart.html", context)
 
+def get_cart_order(request):
+    if not Order.objects.filter(customer_id=request.session.session_key).exists():
+            cart = None
+    else:
+        cart = Order.objects.filter(customer_id=request.session.session_key).last()
+    context = {
+        'order' : cart
+    }
+    return context
+
 def delete_order_product(request, order_id, product_id):
     # Get references to the order and product
     update_order = Order.objects.get(id=order_id)
@@ -115,11 +125,31 @@ def send_quote(request, order_id):
     return render (request, "order_success.html", {'order': send_order})
 
 def display_music_videos(request):
-    if not Order.objects.filter(customer_id=request.session.session_key).exists():
-            cart = None
-    else:
-        cart = Order.objects.filter(customer_id=request.session.session_key).last()
-    context = {
-        'order' : cart
-    }
-    return render(request, "music_videos.html", context)
+    return render(request, "music_videos.html", get_cart_order(request))
+
+def display_narrative(request):
+    return render(request, "narrative.html", get_cart_order(request))
+
+def display_commercial(request):
+    return render(request, "commercial.html", get_cart_order(request))
+
+def display_3_ton_list(request):
+    return render(request, "3_ton.html", get_cart_order(request))
+
+def display_1_ton_list(request):
+    return render(request, "1_ton.html", get_cart_order(request))
+
+def display_electric_list(request):
+    return render(request, "electric.html", get_cart_order(request))
+
+def display_about(request):
+    return render(request, "about.html", get_cart_order(request))
+
+def display_contact(request):
+    return render(request, "contact.html", get_cart_order(request))
+
+def display_dolly_list(request):
+    return render(request, "dolly.html", get_cart_order(request))
+
+
+
