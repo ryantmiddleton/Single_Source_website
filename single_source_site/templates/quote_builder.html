@@ -119,7 +119,7 @@
         <div id="spacer" class="product_type_col"></div>
         <div id="Accessories_col" class="product_type_col"><h3>Accessories</h3></div>
         {% for product in products %}
-            {% if product.category.name == "Grip" %}
+            {% if product.category.parent_category.name == "Grip" or product.category.name == "Grip" %}
                 <script>
                     $('#Grip_col').show();
                     $('#Grip_col').append(
@@ -130,7 +130,7 @@
                     "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
                     );
                 </script>
-            {% elif product.category.name == "Electric" %}
+            {% elif product.category.parent_category.name == "Electric" and product.category.name != "Accessories" %}
                 <script>
                     $('#Electric_col').show();
                     $('#Electric_col').append(

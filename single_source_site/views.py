@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from single_source_site.models import Category, Product, Order
+from single_source_site.models import Category, Product, Order, Package, PackageItem
 
 # Create your views here.
 def index (request):
@@ -134,7 +134,12 @@ def display_commercial(request):
     return render(request, "commercial.html", get_cart_order(request))
 
 def display_3_ton_list(request):
-    return render(request, "3_ton.html", get_cart_order(request))
+    context = {
+        'order' : get_cart_order(request),
+        'package': PackageItem.objects.filter(package__id=1)
+    }
+
+    return render(request, "3_ton.html", context)
 
 def display_1_ton_list(request):
     return render(request, "1_ton.html", get_cart_order(request))

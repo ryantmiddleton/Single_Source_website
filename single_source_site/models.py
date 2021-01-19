@@ -2,24 +2,14 @@ from django.db import models
 
 class Category (models.Model):
     name = models.CharField(max_length=255)
+    parent_category = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
     #products - a list of products that belong to this category
+    #packages - a list of packages that belong to this category
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self): 
          return self.name
-
-# class Accessory (models.Model):
-#     name = models.CharField(max_length=255)
-#     price = models.DecimalField(max_digits=6, decimal_places=2)
-#     num_inventory = models.IntegerField()
-#     description = models.TextField()
-#     #products - a list of products that this Accessory belongs to
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-    # def __str__(self): 
-    #      return self.name
 
 class ProductManager(models.Manager):
     def validate_data(self, postData):
@@ -29,8 +19,6 @@ class ProductManager(models.Manager):
         # if len(postData['content_txt']) < 10:
         #      errors["content_txt"] = "The quote must have at least 10 characters."
         return errors
-
-
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -50,8 +38,6 @@ class Product(models.Model):
 
     def get_total(self):
         return self.price * self.quantity_in_order
-
-
 
 class OrderManager(models.Manager):
     def validate_data(self, postData):
@@ -82,10 +68,23 @@ class Order(models.Model):
             total += product.price * product.quantity_in_order
         return total
 
-# class RentedProduct(models.Model):
-#     product = models.ForeignKey(Product, on_delete = models.CASCADE)
-#     order = models.ForeignKey(Order, on_delete = models.CASCADE)
-#     quantity = models.IntegerField(null=True)
+class Package(models.Model):
+    name = models.CharField(max_length=255, default="No Name")
+    quantity = models.IntegerField(default=1)
+    category = models.ForeignKey(Category, null=True, related_name="packages", on_delete = models.CASCADE)
+    products = models.ManyToManyField(Product, through='PackageItem')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
-#     def __str__(self): 
-#         return "Order# " + str(self.order.id) + ": " + self.product.name + " (" + str(self.quantity) + ") for " + self.order.email 
+    def __str__(self): 
+        return str(self.name) 
+    
+class PackageItem(models.Model):
+    package = models.ForeignKey(Package, null=True, on_delete = models.CASCADE)
+    product = models.ForeignKey(Product, null=True, on_delete = models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self): 
+        return str(self.package.name) + str(self.product.name)

@@ -64,6 +64,9 @@
     </div>
     <div id="content">
           This is where the 3-ton package will be displayed.
+          {% for item in package %}
+            <p>{{item.product.name}} ({{item.quantity}})</p>
+          {% endfor %}
     </div>
 
 </body>
