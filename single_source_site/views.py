@@ -22,6 +22,7 @@ def build_quote(request):
         cart = Order.objects.filter(customer_id=request.session.session_key).last()
     context={
         'products':Product.objects.all(),
+        'packages': Package.objects.all(),
         'order' : cart
     }
     return render(request, "quote_builder.html", context)
@@ -43,18 +44,31 @@ def display_cart(request):
         )
         # print(new_order.customer_name + " email: " + new_order.email + " created a new order.")
         for key in request.POST:
+
             if "quantity" in key and int(request.POST[key]) > 0:
+                print(key)
                 # Add the product to the newly created order and store the quantity
                 # parse the product id out of the name of the 'number' element from the form 
-                product_in_order_id = key.replace("_quantity", "")
-                product_in_order = Product.objects.get(id=int(product_in_order_id))
-                # value of the 'number' element is the quantity ordered
-                # Update the order quantity of this product for the order
-                product_in_order.quantity_in_order = request.POST[key]
-                product_in_order.save()
-                # print("adding " + product_in_order.quantity_in_order + " of product id " + product_in_order_id + " to order# " + str(new_order.id))
-                # add the product to the order 
-                new_order.products.add(product_in_order)
+                if "product" in key:
+                    product_in_order_id = key.replace("product_", "").replace("_quantity", "")
+                    product_in_order = Product.objects.get(id=int(product_in_order_id))
+                    # value of the 'number' element is the quantity ordered
+                    # Update the order quantity of this product for the order
+                    product_in_order.quantity_in_order = request.POST[key]
+                    product_in_order.save()
+                    print("adding " + product_in_order.quantity_in_order + " of product id " + product_in_order_id + " to order# " + str(new_order.id))
+                    # add the product to the order 
+                    new_order.products.add(product_in_order)
+                elif "package" in key:
+                    package_in_order_id = key.replace("package_", "").replace("_quantity", "")
+                    package_in_order = Package.objects.get(id=int(package_in_order_id))
+                    # value of the 'number' element is the quantity ordered
+                    # Update the order quantity of this package for the order
+                    package_in_order.quantity_in_order = request.POST[key]
+                    package_in_order.save()
+                    print("adding " + package_in_order.quantity_in_order + " of package id " + package_in_order_id + " to order# " + str(new_order.id))
+                    # add the product to the order 
+                    new_order.packages.add(package_in_order)
 
         context = {
             'order' : new_order
@@ -78,23 +92,39 @@ def get_cart_order(request):
     }
     return context
 
-def delete_order_product(request, order_id, product_id):
+def delete_order_product(request, order_id, item_id):
     # Get references to the order and product
     update_order = Order.objects.get(id=order_id)
-    delete_product = Product.objects.get(id=product_id)
-    #Remove the product fromt he order
-    update_order.products.remove(delete_product)
+    if "product" in item_id:
+        item_id = item_id.replace("product_", "")
+        delete_item = Product.objects.get(id=item_id)
+        #Remove the product fromt he order
+        update_order.products.remove(delete_item)
+    elif "package" in item_id:
+        item_id = item_id.replace("package_", "")
+        delete_item = Package.objects.get(id=item_id)
+        #Remove the product fromt he order
+        update_order.packages.remove(delete_item)
 
     #Update any/all of the products in the order with  quantities from the form
     for key in request.POST:
         if "quantity" in key and int(request.POST[key]) > 0:
-            # parse the product id out of the name of the 'number' element from the form 
-            product_in_order_id = key.replace("_quantity", "")
-            product_in_order = Product.objects.get(id=int(product_in_order_id))
-            # value of the 'number' element is the quantity ordered
-            # Update the order quantity of this product for the order
-            product_in_order.quantity_in_order = request.POST[key]
-            product_in_order.save()
+            if "product" in key:
+                # parse the product id out of the name of the 'number' element from the form 
+                product_in_order_id = key.replace("product_", "").replace("_quantity", "")
+                product_in_order = Product.objects.get(id=int(product_in_order_id))
+                # value of the 'number' element is the quantity ordered
+                # Update the order quantity of this product for the order
+                product_in_order.quantity_in_order = request.POST[key]
+                product_in_order.save()
+            elif "package" in key:
+                # parse the package id out of the name of the 'number' element from the form 
+                package_in_order_id = key.replace("package_", "").replace("_quantity", "")
+                package_in_order = Package.objects.get(id=int(package_in_order_id))
+                # value of the 'number' element is the quantity ordered
+                # Update the order quantity of this package for the order
+                package_in_order.quantity_in_order = request.POST[key]
+                package_in_order.save()
 
     return redirect("/get_order/"+ str(order_id))
 

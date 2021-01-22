@@ -33,12 +33,42 @@
                     //Get the product ID from the element that was clicked
                     var selected_product_id = this.id.replace("_product", "");
                     //Get the correct num_quantity_field element id
-                    var num_quantity_id = "#" + selected_product_id + "_quantity";
+                    var num_quantity_id = "#product_" + selected_product_id + "_quantity";
                     //Get the correct displayed_quantity element id
-                    var displayed_quantity_id = "#" + selected_product_id + "_displayed_quantity";
+                    var displayed_quantity_id = "#product_" + selected_product_id + "_displayed_quantity";
                     //Get the correct del_btn element id
-                    var del_btn_id = "#" + selected_product_id + "_del_btn";
+                    var del_btn_id = "#product_" + selected_product_id + "_del_btn";
 
+                    //if num_quantity is visible then update 
+                    if ($(num_quantity_id).css('visibility') == 'visible'){
+                        var new_quantity = $(num_quantity_id).val();
+                        $(displayed_quantity_id).html("("+ new_quantity + ")");
+                        $(num_quantity_id).css("visibility","hidden");
+                        $(del_btn_id).css("visibility","hidden");
+                        // $(del_btn_id).hide();
+                        // $(num_quantity_id).hide();
+
+                    }
+                    else if ($(num_quantity_id).css('visibility') == 'hidden'){
+                        $(num_quantity_id).css("visibility","visible");
+                        $(del_btn_id).css("visibility","visible");
+                        // $(num_quantity_id).show();
+                        // $(del_btn_id).show();
+                    }
+                }
+            );
+
+            //On-click Listener to edit the quantity or delete items in cart
+            $('.package_name').click(
+                function(){
+                    //Get the product ID from the element that was clicked
+                    var selected_package_id = this.id.replace("_package", "");
+                    //Get the correct num_quantity_field element id
+                    var num_quantity_id = "#package_" + selected_package_id + "_quantity";
+                    //Get the correct displayed_quantity element id
+                    var displayed_quantity_id = "#package_" + selected_package_id + "_displayed_quantity";
+                    //Get the correct del_btn element id
+                    var del_btn_id = "#package_" + selected_package_id + "_del_btn";
                     //if num_quantity is visible then update 
                     if ($(num_quantity_id).css('visibility') == 'visible'){
                         var new_quantity = $(num_quantity_id).val();
@@ -122,39 +152,40 @@
             <div id="Grip_col" class="product_type_col"><h3>Grip</h3></div>
             <div id="Electric_col" class="product_type_col"><h3>Electric</h3></div>
             <div id="Accessories_col" class="product_type_col"><h3>Accessories</h3></div>
+            {% for package in order.packages.all %}
+                <script>
+                    $('#Grip_col').css("visibility","visible");
+                    $('#Grip_col').append(
+                        "<div class='package_name' id='{{package.id}}_package'>\n"+
+                        "{{package.name}} <label class='displayed_quantity' id='package_{{package.id}}_displayed_quantity' value='{{package.quantity_in_order}}'>({{package.quantity_in_order}})</label>" +
+                        "</div>"+
+                        "<input type='number' min=1 max='{{package.num_inventory}}' value='{{package.quantity_in_order}}' id='package_{{package.id}}_quantity' name='package_{{package.id}}_quantity' class='num_quantity_field'>\n"+
+                        "<button type='submit' class='delete_btn' value='/delete_product_in_order/{{product.id}}' id='package_{{package.id}}_del_btn'>X</button><br>"
+                    );
+                </script>
+            {% endfor %}
             {% for product in order.products.all %}
                 <!-- Go through all the products and append them into the correct containers -->
-                {% if product.category.name == "Grip" %}
-                    <script>
-                        $('#Grip_col').css("visibility","visible");
-                        $('#Grip_col').append(
-                            "<div class='product_name' id='{{product.id}}_product'>\n"+
-                            "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
-                            "</div>"+
-                            "<input type='number' min=1 max='{{product.num_inventory}}' value='{{product.quantity_in_order}}' id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'>\n"+
-                            "<button type='submit' class='delete_btn' value='/delete_product_in_order/{{product.id}}' id='{{product.id}}_del_btn'>X</button><br>"
-                        );
-                    </script>
-                {% elif product.category.name == "Electric" %}
-                    <script>
-                        $('#Electric_col').css("visibility","visible");
-                        $('#Electric_col').append(
-                            "<div class='product_name' id='{{product.id}}_product'>\n"+
-                            "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
-                            "</div>"+
-                            "<input type='number' min=1 max='{{product.num_inventory}}' value='{{product.quantity_in_order}}' id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'>\n"+
-                            "<button class='delete_btn' id='{{product.id}}_del_btn'>X</button><br>"
-                        );
-                    </script>
-                {% elif product.category.name == "Accessories" %}
+                {% if product.category.name == "Accessories" %}
                     <script>
                         $('#Accessories_col').css("visibility","visible");
                         $('#Accessories_col').append(
                             "<div class='product_name' id='{{product.id}}_product'>\n"+
-                            "{{product.name}}<label class='displayed_quantity' id='{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
+                            "{{product.name}} <label class='displayed_quantity' id='product_{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
                             "</div>"+
-                            "<input type='number' min=1 max='{{product.num_inventory}}' value='{{product.quantity_in_order}}' id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'>\n"+
-                            "<button class='delete_btn' id='{{product.id}}_del_btn'>X</button><br>"
+                            "<input type='number' min=1 max='{{product.num_inventory}}' value='{{product.quantity_in_order}}' id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'>\n"+
+                            "<button class='delete_btn' id='product_{{product.id}}_del_btn'>X</button><br>"
+                        );
+                    </script>
+                {% elif product.category.parent_category.name == "Electric" %}
+                    <script>
+                        $('#Electric_col').css("visibility","visible");
+                        $('#Electric_col').append(
+                            "<div class='product_name' id='{{product.id}}_product'>\n"+
+                            "{{product.name}} <label class='displayed_quantity' id='product_{{product.id}}_displayed_quantity' value='{{product.quantity_in_order}}'>({{product.quantity_in_order}})</label>" +
+                            "</div>"+
+                            "<input type='number' min=1 max='{{product.num_inventory}}' value='{{product.quantity_in_order}}' id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'>\n"+
+                            "<button class='delete_btn' id='product_{{product.id}}_del_btn'>X</button><br>"
                         );
                     </script>
                 {% endif %}

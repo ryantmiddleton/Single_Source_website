@@ -51,15 +51,17 @@
 
             // Logic for checkboxes
             $('input:checkbox').change(function(){
-                    var product_id = $(this).val();
-                    // var product_name = $(this).attr("name");
+                    var prod_pack_id = $(this).val();
+                    var product_type = $(this).attr("name");
+                    var strindex = product_type.search("_");
+                    product_type = product_type.slice(strindex+1)
                     if ($(this).is(':checked')) {
                         // update the corresponding quantity value to 1 if the checkbox is checked
-                        $("#" + product_id + "_quantity").val(1);
+                        $("#" + product_type + "_" + prod_pack_id + "_quantity").val(1);
                     }
                     else if ($(this).not(':checked')){
                         // update the corresponding quantity value to 0 if the checkbox is clicked
-                        $("#" + product_id + "_quantity").val(0);
+                        $("#" + product_type + "_" + prod_pack_id + "_quantity").val(0);
                     }
             })
         });
@@ -118,19 +120,20 @@
         <div id="Electric_col" class="product_type_col"><h3>Electric</h3></div>
         <div id="spacer" class="product_type_col"></div>
         <div id="Accessories_col" class="product_type_col"><h3>Accessories</h3></div>
+        {% for package in packages %}
+            <script>
+                $('#Grip_col').show();
+                $('#Grip_col').append(
+                "<div class='checkbox_field'>\n"+
+                "<input type='checkbox' class='{{package.category.name}}' value='{{package.id}}' id='{{package.id}}' name='{{package.id}}_package'>\n"+
+                "<label> {{package.name}}</label>\n" +
+                "</div>\n"+
+                "<input type='number' min=0 max='{{package.num_inventory}}' value=0 id='package_{{package.id}}_quantity' name='package_{{package.id}}_quantity' class='num_quantity_field'><br>\n"
+                );
+            </script>
+        {% endfor %}
         {% for product in products %}
-            {% if product.category.parent_category.name == "Grip" or product.category.name == "Grip" %}
-                <script>
-                    $('#Grip_col').show();
-                    $('#Grip_col').append(
-                    "<div class='checkbox_field'>\n"+
-                    "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
-                    "<label> {{product.name}}</label>\n" +
-                    "</div>\n"+
-                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
-                    );
-                </script>
-            {% elif product.category.parent_category.name == "Electric" and product.category.name != "Accessories" %}
+            {% if product.category.parent_category.name == "Electric" and product.category.name != "Accessories" %}
                 <script>
                     $('#Electric_col').show();
                     $('#Electric_col').append(
@@ -138,7 +141,7 @@
                     "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
                     "<label> {{product.name}}</label>\n" +
                     "</div>\n"+
-                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>\n"
                     );
                 </script>
             {% elif product.category.name == "Accessories" %}
@@ -149,7 +152,7 @@
                     "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
                     "<label> {{product.name}}</label>\n" +
                     "</div>\n"+
-                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='{{product.id}}_quantity' name='{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>\n"
                     );
                 </script>
             {% endif %}

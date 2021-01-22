@@ -38,6 +38,28 @@ class Product(models.Model):
 
     def get_total(self):
         return self.price * self.quantity_in_order
+        
+class Package(models.Model):
+    name = models.CharField(max_length=255, default="No Name")
+    quantity = models.IntegerField(default=1)
+    category = models.ForeignKey(Category, null=True, related_name="packages", on_delete = models.CASCADE)
+    products = models.ManyToManyField(Product, through='PackageItem')
+    quantity_in_order = models.IntegerField(default=0);
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self): 
+        return str(self.name) 
+    
+class PackageItem(models.Model):
+    package = models.ForeignKey(Package, null=True, on_delete = models.CASCADE)
+    product = models.ForeignKey(Product, null=True, on_delete = models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self): 
+        return str(self.package.name) + ": " + str(self.product.name) + " (" + str(self.quantity) + ")"
 
 class OrderManager(models.Manager):
     def validate_data(self, postData):
@@ -55,6 +77,7 @@ class Order(models.Model):
     customer_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     products = models.ManyToManyField(Product, related_name="orders")
+    packages = models.ManyToManyField(Package, related_name="orders")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = OrderManager()
@@ -68,23 +91,3 @@ class Order(models.Model):
             total += product.price * product.quantity_in_order
         return total
 
-class Package(models.Model):
-    name = models.CharField(max_length=255, default="No Name")
-    quantity = models.IntegerField(default=1)
-    category = models.ForeignKey(Category, null=True, related_name="packages", on_delete = models.CASCADE)
-    products = models.ManyToManyField(Product, through='PackageItem')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    def __str__(self): 
-        return str(self.name) 
-    
-class PackageItem(models.Model):
-    package = models.ForeignKey(Package, null=True, on_delete = models.CASCADE)
-    product = models.ForeignKey(Product, null=True, on_delete = models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self): 
-        return str(self.package.name) + str(self.product.name)

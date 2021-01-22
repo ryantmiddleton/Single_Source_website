@@ -62,12 +62,60 @@
         </div>
     </nav>
     </div>
-    <div id="content">
-          This is where the 3-ton package will be displayed.
-          {% for item in package %}
-            <p>{{item.product.name}} ({{item.quantity}})</p>
-          {% endfor %}
-    </div>
+    <div id="three_ton_content">
+      <h1>3-ton Grip Package</h1>
+      <div id="item_list">
+      <div id="column1" class="product_type_col">
+        <div id="Stands_col"><h3>Stands</h3></div>
+        <div id="Electric_col"><h3>Electric</h3></div>
+      </div>
+      <div id="spacer" class="product_type_col"></div>
+      <div id="Overheads_col" class="product_type_col"><h3>Overheads</h3></div>
+      <div id="spacer" class="product_type_col"></div>
+      <div id="LightMods_col" class="product_type_col"><h3>Light Modifiers</h3></div>
+      <div id="spacer" class="product_type_col"></div>
+      <div id="Hardware_col" class="product_type_col"><h3>Rigging/Hardware</h3></div>
+      {% for item in package %}
+          {% if item.product.category.name == "Stands" %}
+              <script>
+                  $('#Stands_col').show();
+                  $('#Stands_col').append(
+                    "<p>{{item.product.name}} ({{item.quantity}})</p>\n"
+                  );
+              </script>
+          {% elif item.product.category.name == "Overheads" %}
+              <script>
+                  $('#Overheads_col').show();
+                  $('#Overheads_col').append(
+                    "<p>{{item.product.name}} ({{item.quantity}})</p>\n"
+                  );
+              </script>
+          {% elif item.product.category.name == "Light Modifiers" %}
+              <script>
+                  $('#LightMods_col').show();
+                  $('#LightMods_col').append(
+                    "<p>{{item.product.name}} ({{item.quantity}})</p>\n"
+                  );
+              </script>
+          {% elif item.product.category.parent_category.name == "Electric" %}
+              <script>
+                  $('#Electric_col').show();
+                  $('#Electric_col').append(
+                    "<p>{{item.product.name}} ({{item.quantity}})</p>\n"
+                  );
+              </script>
+          {% elif item.product.category.name == "Rigging/Hardware" %}
+              <script>
+                  $('#Hardware_col').show();
+                  $('#Hardware_col').append(
+                    "<p>{{item.product.name}} ({{item.quantity}})</p>\n"
+                  );
+              </script>
+          {% endif %}
+      {% endfor %}
+      </div>    
+      </form>
+  </div>
 
 </body>
 </html>
