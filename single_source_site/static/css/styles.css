@@ -105,9 +105,9 @@ body {
 #quote_content .product_type_col h3 {
     text-decoration:underline;
 }
-#quote_content #Grip_col {
+/* #quote_content #column1 {
     margin-left:5%;
-}
+} */
 
 .checkbox_field {
     display:inline-block;
@@ -233,6 +233,11 @@ body {
     border:1px solid white;
 }
 
+#order_table .order_heading{
+    font-weight:bold;
+    text-decoration:underline;
+    text-align:center;
+}
 #order_table *{
     color:black;
 }
@@ -271,9 +276,105 @@ body {
 #three_ton_content #column1 {
     margin-left:7%;
 }
+
+/* 1-ton Package */
+#one_ton_content {
+    width:60%;
+    margin-top:3%;
+    margin-left:20%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#one_ton_content h1 {
+    text-align:center;
+    text-decoration:underline;
+}
+#one_ton_content #item_list{
+    margin-bottom:10px;
+}
+#one_ton_content .product_type_col {
+    display:inline-block;
+    margin-right:10px;
+    vertical-align:top;
+    height:100%;
+}
+#one_ton_content .product_type_col h3 {
+    text-decoration:underline;
+}
+#one_ton_content .product_type_col p {
+    padding:0px;
+    margin:0px;
+}
+#one_ton_content #column1 {
+    margin-left:15%;
+}
 /* Video Page */
 #video_content{
     text-align:center;
+}
+
+/* Dolly Page */
+#dolly_content {
+    width:20%;
+    margin-top:3%;
+    margin-left:37%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#dolly_content h1 {
+    text-align:center;
+    text-decoration:underline;
+}
+#dolly_content #item_list{
+    margin-bottom:10px;
+}
+#dolly_content .product_type_col {
+    display:inline-block;
+    margin-right:10px;
+    vertical-align:top;
+    height:100%;
+}
+#dolly_content .product_type_col h3 {
+    text-decoration:underline;
+}
+#dolly_content .product_type_col p {
+    padding:0px;
+    margin:0px;
+}
+#dolly_content #column1 {
+    margin-left:15%;
+}
+
+/* Electric Page */
+#electric_content {
+    width:40%;
+    margin-top:3%;
+    margin-left:27%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#electric_content h1 {
+    text-align:center;
+    text-decoration:underline;
+}
+#electric_content #item_list{
+    margin-bottom:10px;
+}
+#electric_content .product_type_col {
+    display:inline-block;
+    margin-right:10px;
+    vertical-align:top;
+    height:100%;
+}
+#electric_content .product_type_col h3 {
+    text-decoration:underline;
+}
+#electric_content .product_type_col p {
+    padding:0px;
+    margin:0px;
+}
+#electric_content #column1 {
+    margin-left:15%;
 }
 
 /* Contact Page */

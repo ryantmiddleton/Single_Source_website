@@ -44,7 +44,6 @@ def display_cart(request):
         )
         # print(new_order.customer_name + " email: " + new_order.email + " created a new order.")
         for key in request.POST:
-
             if "quantity" in key and int(request.POST[key]) > 0:
                 print(key)
                 # Add the product to the newly created order and store the quantity
@@ -130,17 +129,28 @@ def delete_order_product(request, order_id, item_id):
 
 def send_quote(request, order_id):
     if request.method == "POST":
+        print("retrieving, updating ad sending order#"+str(order_id))
         send_order = Order.objects.get(id=order_id)
         # First update the order with any edits the user may have made
         for key in request.POST:
+            print(key)
             if "quantity" in key and int(request.POST[key]) > 0:
-                # parse the product id out of the name of the 'number' element from the form 
-                product_in_order_id = key.replace("_quantity", "")
-                product_in_order = Product.objects.get(id=int(product_in_order_id))
-                # value of the 'number' element is the quantity ordered
-                # Update the order quantity of this product for the order
-                product_in_order.quantity_in_order = request.POST[key]
-                product_in_order.save()
+                if "product" in key:
+                    # parse the product id out of the name of the 'number' element from the form 
+                    product_in_order_id = key.replace("product_", "").replace("_quantity", "")
+                    product_in_order = Product.objects.get(id=int(product_in_order_id))
+                    # value of the 'number' element is the quantity ordered
+                    # Update the order quantity of this product for the order
+                    product_in_order.quantity_in_order = request.POST[key]
+                    product_in_order.save()
+                elif "package" in key:
+                    # parse the package id out of the name of the 'number' element from the form 
+                    package_in_order_id = key.replace("package_", "").replace("_quantity", "")
+                    package_in_order = Package.objects.get(id=int(package_in_order_id))
+                    # value of the 'number' element is the quantity ordered
+                    # Update the order quantity of this package for the order
+                    package_in_order.quantity_in_order = request.POST[key]
+                    package_in_order.save()
 
         #Build the html string to put into the email
         email_message = render_to_string('email.html',{'order': send_order})
@@ -152,7 +162,10 @@ def send_quote(request, order_id):
             fail_silently=False,
             html_message = email_message
         )
-    return render (request, "order_success.html", {'order': send_order})
+        request.session.flush()
+        return render (request, "order_success.html", {'order': send_order})
+    else:
+        return redirect ("/quote_page/")
 
 def display_music_videos(request):
     return render(request, "music_videos.html", get_cart_order(request))
@@ -172,10 +185,23 @@ def display_3_ton_list(request):
     return render(request, "3_ton.html", context)
 
 def display_1_ton_list(request):
-    return render(request, "1_ton.html", get_cart_order(request))
+    context = {
+        'order' : get_cart_order(request),
+        'package': PackageItem.objects.filter(package__id=2)
+    }
+    return render(request, "1_ton.html", context)
 
 def display_electric_list(request):
-    return render(request, "electric.html", get_cart_order(request))
+    context = {
+        'order' : get_cart_order(request),
+        'hmi_products': Category.objects.get(name="HMI").products.all(),
+        'tungsten_products': Category.objects.get(name="Tungsten").products.all(),
+        'led_products': Category.objects.get(name="LED").products.all(),
+        'distro_products': Category.objects.get(name="Distribution").products.all(),
+        'acc_products': Category.objects.get(name="Accessories").products.all()
+
+    }
+    return render(request, "electric.html", context)
 
 def display_about(request):
     return render(request, "about.html", get_cart_order(request))
@@ -184,7 +210,11 @@ def display_contact(request):
     return render(request, "contact.html", get_cart_order(request))
 
 def display_dolly_list(request):
-    return render(request, "dolly.html", get_cart_order(request))
+    context = {
+        'order' : get_cart_order(request),
+        'dolly_products': Category.objects.get(name="Dolly").products.all()
+    }
+    return render(request, "dolly.html", context)
 
 
 

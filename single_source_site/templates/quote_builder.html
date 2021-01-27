@@ -115,7 +115,10 @@
         <div id="product_list">
         <form id="quote_frm" action="/add_to_cart" method="post">
         {% csrf_token %}
-        <div id="Grip_col" class="product_type_col"><h3>Grip</h3></div>
+        <div id="column1" class="product_type_col">
+            <div id="Grip_col"><h3>Grip</h3></div>
+            <div id="Dolly_col"><h3>Dolly</h3></div>
+        </div>
         <div id="spacer" class="product_type_col"></div>
         <div id="Electric_col" class="product_type_col"><h3>Electric</h3></div>
         <div id="spacer" class="product_type_col"></div>
@@ -137,6 +140,17 @@
                 <script>
                     $('#Electric_col').show();
                     $('#Electric_col').append(
+                    "<div class='checkbox_field'>\n"+
+                    "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
+                    "<label> {{product.name}}</label>\n" +
+                    "</div>\n"+
+                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>\n"
+                    );
+                </script>
+            {% elif product.category.name == "Dolly" %}
+                <script>
+                    $('#Dolly_col').show();
+                    $('#Dolly_col').append(
                     "<div class='checkbox_field'>\n"+
                     "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
                     "<label> {{product.name}}</label>\n" +

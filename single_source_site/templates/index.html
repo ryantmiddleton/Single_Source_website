@@ -62,9 +62,38 @@
         </div>
     </nav>
     </div>
-    <div id="content">
-          
+    <div id="content" style="margin-left:30%;">
+      <iframe height="300%" class="mySlides"
+      src="https://www.youtube.com/embed/qQXP6TDtW0w?autoplay=1&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=1">
+      </iframe>
+      <iframe height="100%" class="mySlides"
+      src="https://www.youtube.com/embed/jWQYYavheUA?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=1">
+      </iframe>
+      <iframe height="100%" class="mySlides"
+      src="https://www.youtube.com/embed/1yYV9-KoSUM?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=5">
+      </iframe>
+      <iframe height="100%" class="mySlides"
+      src="https://www.youtube.com/embed/WcCcBANAyKk?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=7">
+      </iframe>
+      <button class="w3-button w3-display-left" style="background:gray;" onclick="plusDivs(-1)">&#10094;</button>
+      <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
     </div>
 
 </body>
+<script>
+  var slideIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > x.length) {slideIndex = 1}
+  x[slideIndex-1].style.display = "block";
+  setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+</script>
 </html>

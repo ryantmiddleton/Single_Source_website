@@ -2,7 +2,7 @@ from django.db import models
 
 class Category (models.Model):
     name = models.CharField(max_length=255)
-    parent_category = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
+    parent_category = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
     #products - a list of products that belong to this category
     #packages - a list of packages that belong to this category
     created_at = models.DateTimeField(auto_now_add=True)
@@ -38,12 +38,14 @@ class Product(models.Model):
 
     def get_total(self):
         return self.price * self.quantity_in_order
-        
+
 class Package(models.Model):
     name = models.CharField(max_length=255, default="No Name")
-    quantity = models.IntegerField(default=1)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    num_inventory = models.IntegerField(default=1)
     category = models.ForeignKey(Category, null=True, related_name="packages", on_delete = models.CASCADE)
     products = models.ManyToManyField(Product, through='PackageItem')
+    #orders - a list of the orders that this product belongs to
     quantity_in_order = models.IntegerField(default=0);
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -51,6 +53,9 @@ class Package(models.Model):
     def __str__(self): 
         return str(self.name) 
     
+    def get_total(self):
+        return self.price * self.quantity_in_order
+
 class PackageItem(models.Model):
     package = models.ForeignKey(Package, null=True, on_delete = models.CASCADE)
     product = models.ForeignKey(Product, null=True, on_delete = models.CASCADE)
@@ -78,6 +83,8 @@ class Order(models.Model):
     email = models.CharField(max_length=255)
     products = models.ManyToManyField(Product, related_name="orders")
     packages = models.ManyToManyField(Package, related_name="orders")
+    # products = models.ManyToManyField(Product, through='ProductsInOrder')
+    # packages = models.ManyToManyField(Package, through='PackagesInOrder')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = OrderManager()
@@ -89,5 +96,26 @@ class Order(models.Model):
         total = 0
         for product in self.products.all():
             total += product.price * product.quantity_in_order
+        for package in self.packages.all():
+            total += package.price * package.quantity_in_order
         return total
 
+class ProductsInOrder(models.Model):
+    order = models.ForeignKey(Order, on_delete = models.CASCADE)
+    product = models.ForeignKey(Product, on_delete = models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self): 
+            return "Order#" + str(self.order.id) + ": " + str(self.product.name) + " (" + str(self.quantity) + ")"
+
+class PackagesInOrder(models.Model):
+    order = models.ForeignKey(Order, on_delete = models.CASCADE)
+    package = models.ForeignKey(Package, on_delete = models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self): 
+            return "Order#" + str(self.order.id) + ": " + str(self.package.name) + " (" + str(self.quantity) + ")"

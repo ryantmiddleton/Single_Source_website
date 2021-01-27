@@ -69,10 +69,17 @@
             <tbody>
                 <tr><td colspan="3"><h1>Order# {{order.id}}</h1></td></tr>
                 <tr>
-                    <td>Item</td>
-                    <td>Quantity</td>
-                    <td>Price</td>
+                    <td class="order_heading">Item</td>
+                    <td class="order_heading">Quantity</td>
+                    <td class="order_heading">Price</td>
                 </tr>
+                {% for package in order.packages.all %}
+                <tr>
+                    <td>{{package.name}}</td>
+                    <td style="text-align:center;">{{package.quantity_in_order}}</td>
+                    <td>{{package.get_total}}</td>
+                </tr>
+                {% endfor %}
                 {% for product in order.products.all %}
                 <tr>
                     <td>{{product.name}}</td>

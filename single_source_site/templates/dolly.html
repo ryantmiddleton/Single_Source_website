@@ -62,9 +62,15 @@
         </div>
     </nav>
     </div>
-    <div id="content">
-          This is my Dolly Page.
+    <div id="dolly_content">
+      <h1>Dollies</h1>
+      <div id="item_list">
+        <div id="column1" class="product_type_col">
+          {% for product in dolly_products %}
+            <p>{{product.name}} ({{product.num_inventory}})</p>
+          {% endfor %}
+        </div>
+      </div>    
     </div>
-
 </body>
 </html>

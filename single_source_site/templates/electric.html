@@ -62,8 +62,36 @@
         </div>
     </nav>
     </div>
-    <div id="content">
-          This is where all of the Electric Inventory will be displayed.
+    <div id="electric_content">
+      <h1>Electric</h1>
+      <div id="item_list">
+        <div id="column1" class="product_type_col">
+          <h3>HMI</h3>
+          {% for product in hmi_products %}
+            <p>{{product.name}} ({{product.num_inventory}})</p>
+          {% endfor %}
+          <h3>LED</h3>
+          {% for product in led_products %}
+            <p>{{product.name}} ({{product.num_inventory}})</p>
+          {% endfor %}
+          <h3>Tungsten</h3>
+          {% for product in tungsten_products %}
+            <p>{{product.name}} ({{product.num_inventory}})</p>
+          {% endfor %}
+
+        </div>
+        <div id="spacer" class="product_type_col"></div>
+        <div id="column2" class="product_type_col">
+          <h3>Accessories</h3>
+          {% for product in acc_products %}
+            <p>{{product.name}} ({{product.num_inventory}})</p>
+          {% endfor %}
+          <h3>Distribution</h3>
+          {% for product in distro_products %}
+            <p>{{product.name}} ({{product.num_inventory}})</p>
+          {% endfor %}
+        </div>
+      </div>    
     </div>
 
 </body>
