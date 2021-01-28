@@ -45,15 +45,11 @@
                         $(displayed_quantity_id).html("("+ new_quantity + ")");
                         $(num_quantity_id).css("visibility","hidden");
                         $(del_btn_id).css("visibility","hidden");
-                        // $(del_btn_id).hide();
-                        // $(num_quantity_id).hide();
 
                     }
                     else if ($(num_quantity_id).css('visibility') == 'hidden'){
                         $(num_quantity_id).css("visibility","visible");
                         $(del_btn_id).css("visibility","visible");
-                        // $(num_quantity_id).show();
-                        // $(del_btn_id).show();
                     }
                 }
             );
@@ -75,15 +71,11 @@
                         $(displayed_quantity_id).html("("+ new_quantity + ")");
                         $(num_quantity_id).css("visibility","hidden");
                         $(del_btn_id).css("visibility","hidden");
-                        // $(del_btn_id).hide();
-                        // $(num_quantity_id).hide();
 
                     }
                     else if ($(num_quantity_id).css('visibility') == 'hidden'){
                         $(num_quantity_id).css("visibility","visible");
                         $(del_btn_id).css("visibility","visible");
-                        // $(num_quantity_id).show();
-                        // $(del_btn_id).show();
                     }
                 }
             );
@@ -91,9 +83,9 @@
             $('.delete_btn').click(
                 function(){
                     //Get the product ID from the delete button that was clicked
-                    var selected_product_id = this.id.replace("_del_btn", "");
+                    var selected_item_id = this.id.replace("_del_btn", "");
                     //Change where the form submits
-                    $('#send_quote_frm').attr("action", "/delete_order_product/{{order.id}}/" + selected_product_id);
+                    $('#send_quote_frm').attr("action", "/delete_order_item/{{order.id}}/" + selected_item_id);
                 }
             )
         })
@@ -160,7 +152,7 @@
                         "{{item.package.name}} <label class='displayed_quantity' id='package_{{item.package.id}}_displayed_quantity' value='{{item.quantity}}'>({{item.quantity}})</label>" +
                         "</div>"+
                         "<input type='number' min=1 max='{{item.package.num_inventory}}' value='{{item.quantity}}' id='package_{{item.package.id}}_quantity' name='package_{{item.package.id}}_quantity' class='num_quantity_field'>\n"+
-                        "<button type='submit' class='delete_btn' value='/delete_product_in_order/{{item.product.id}}' id='package_{{item.package.id}}_del_btn'>X</button><br>"
+                        "<button class='delete_btn' id='package_{{item.package.id}}_del_btn'>X</button><br>"
                     );
                 </script>
             {% endfor %}

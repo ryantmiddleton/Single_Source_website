@@ -115,62 +115,77 @@
         <div id="product_list">
         <form id="quote_frm" action="/add_to_cart" method="post">
         {% csrf_token %}
-        <div id="column1" class="product_type_col">
-            <div id="Grip_col"><h3>Grip</h3></div>
-            <div id="Dolly_col"><h3>Dolly</h3></div>
-        </div>
-        <div id="spacer" class="product_type_col"></div>
-        <div id="Electric_col" class="product_type_col"><h3>Electric</h3></div>
-        <div id="spacer" class="product_type_col"></div>
-        <div id="Accessories_col" class="product_type_col"><h3>Accessories</h3></div>
-        {% for package in packages %}
-            <script>
-                $('#Grip_col').show();
-                $('#Grip_col').append(
-                "<div class='checkbox_field'>\n"+
-                "<input type='checkbox' class='{{package.category.name}}' value='{{package.id}}' id='{{package.id}}' name='{{package.id}}_package'>\n"+
-                "<label> {{package.name}}</label>\n" +
-                "</div>\n"+
-                "<input type='number' min=0 max='{{package.num_inventory}}' value=0 id='package_{{package.id}}_quantity' name='package_{{package.id}}_quantity' class='num_quantity_field'><br>\n"
-                );
-            </script>
-        {% endfor %}
-        {% for product in products %}
-            {% if product.category.parent_category.name == "Electric" and product.category.name != "Accessories" %}
-                <script>
-                    $('#Electric_col').show();
-                    $('#Electric_col').append(
-                    "<div class='checkbox_field'>\n"+
-                    "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
-                    "<label> {{product.name}}</label>\n" +
-                    "</div>\n"+
-                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>\n"
-                    );
-                </script>
-            {% elif product.category.name == "Dolly" %}
-                <script>
-                    $('#Dolly_col').show();
-                    $('#Dolly_col').append(
-                    "<div class='checkbox_field'>\n"+
-                    "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
-                    "<label> {{product.name}}</label>\n" +
-                    "</div>\n"+
-                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>\n"
-                    );
-                </script>
-            {% elif product.category.name == "Accessories" %}
-                <script>
-                    $('#Accessories_col').show();
-                    $('#Accessories_col').append(
-                    "<div class='checkbox_field'>\n"+
-                    "<input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>\n"+
-                    "<label> {{product.name}}</label>\n" +
-                    "</div>\n"+
-                    "<input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>\n"
-                    );
-                </script>
-            {% endif %}
-        {% endfor %}
+            <div id="column1" class="product_type_col">
+                <div id="Grip_col"><h3>Grip</h3>
+                {% for package in grip_packages %}
+                    <div class='checkbox_field'>
+                        <input type='checkbox' class='{{package.category.name}}' value='{{package.id}}' id='{{package.id}}' name='{{package.id}}_package'>
+                        <label> {{package.name}}</label>
+                    </div>
+                    <input type='number' min=0 max='{{package.num_inventory}}' value=0 id='package_{{package.id}}_quantity' name='package_{{package.id}}_quantity' class='num_quantity_field'><br>
+                {% endfor %}            
+                </div>
+                <div id="Dolly_col"><h3>Dolly</h3>
+                {% for product in dolly_products %}
+                    <div class='checkbox_field'>
+                        <input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>
+                        <label> {{product.name}}</label>
+                    </div>
+                    <input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>
+                {% endfor %}            
+                </div>
+            </div>
+            <div id="spacer" class="product_type_col"></div>
+            <div id="column2" class="product_type_col">
+                <div id="HMI_col"><h3>HMI</h3>
+                {% for product in hmi_products %}
+                    <div class='checkbox_field'>
+                        <input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>
+                        <label> {{product.name}}</label>
+                    </div>
+                    <input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>
+                {% endfor %}
+                </div>
+                <div id="LED_col"><h3>LED</h3>
+                {% for product in led_products %}
+                    <div class='checkbox_field'>
+                        <input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>
+                        <label> {{product.name}}</label>
+                    </div>
+                    <input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>
+                {% endfor %}
+                </div>
+                <div id="Tungsten_col"><h3>Tungsten</h3>
+                {% for product in tungsten_products %}
+                    <div class='checkbox_field'>
+                        <input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>
+                        <label> {{product.name}}</label>
+                    </div>
+                    <input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>
+                {% endfor %}            
+                </div>
+            </div>
+            <div id="spacer" class="product_type_col"></div>
+            <div id="column3" class="product_type_col">
+                <div id="Accessories_col"><h3>Accessories</h3>
+                {% for product in acc_products %}
+                    <div class='checkbox_field'>
+                        <input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>
+                        <label> {{product.name}}</label>
+                    </div>
+                    <input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>
+                {% endfor %}        
+                </div>
+                <div id="Distro_col"><h3>Distribution</h3>
+                {% for product in distro_products %}
+                    <div class='checkbox_field'>
+                        <input type='checkbox' class='{{product.category.name}}' value='{{product.id}}' id='{{product.id}}' name='{{product.id}}_product'>
+                        <label> {{product.name}}</label>
+                    </div>
+                    <input type='number' min=0 max='{{product.num_inventory}}' value=0 id='product_{{product.id}}_quantity' name='product_{{product.id}}_quantity' class='num_quantity_field'><br>
+                {% endfor %}
+                </div>
+            </div>
         </div>    
         <div id="customer_container">
             <label for="name_txt">Your Name:</label>

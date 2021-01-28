@@ -21,8 +21,13 @@ def build_quote(request):
     else:
         cart = Order.objects.filter(customer_id=request.session.session_key).last()
     context={
-        'products':Product.objects.all(),
-        'packages': Package.objects.all(),
+        'grip_packages': Category.objects.get(name="Grip").packages.all().order_by('name'),
+        'dolly_products': Category.objects.get(name="Dolly").products.all(),
+        'hmi_products': Category.objects.get(name="HMI").products.all().order_by('name'),
+        'tungsten_products': Category.objects.get(name="Tungsten").products.all().order_by('name'),
+        'led_products': Category.objects.get(name="LED").products.all().order_by('name'),
+        'distro_products': Category.objects.get(name="Distribution").products.all().order_by('name'),
+        'acc_products': Category.objects.get(name="Accessories").products.all().order_by('name'),
         'order' : cart
     }
     return render(request, "quote_builder.html", context)
@@ -69,8 +74,8 @@ def display_cart(request):
                     )
         context = {
             'order' : new_order,
-            'order_packages': PackagesInOrder.objects.filter(order__id=new_order.id),
-            'order_products': ProductsInOrder.objects.filter(order__id=new_order.id)
+            'order_packages': PackagesInOrder.objects.filter(order__id=new_order.id).order_by('package__name'),
+            'order_products': ProductsInOrder.objects.filter(order__id=new_order.id).order_by('product__name')
         }       
         return render(request, "cart.html", context)
     return redirect("/quote_page")
@@ -84,14 +89,13 @@ def get_order(request, order_id):
     return render(request, "cart.html", context)
 
 def get_cart_order(request):
-    print(request.session.session_key)
     if not Order.objects.filter(customer_id=request.session.session_key).exists():
             cart = None
     else:
         cart = Order.objects.filter(customer_id=request.session.session_key).last()
     return cart
 
-def delete_order_product(request, order_id, item_id):
+def delete_order_item(request, order_id, item_id):
     # Get references to the order and product
     update_order = Order.objects.get(id=order_id)
     if "product" in item_id:
@@ -136,18 +140,18 @@ def send_quote(request, order_id):
                 if "product" in key:
                     # parse the product id out of the name of the 'number' element from the form 
                     product_in_order_id = key.replace("product_", "").replace("_quantity", "")
-                    product_in_order = Product.objects.get(id=int(product_in_order_id))
+                    product_in_order = ProductsInOrder.objects.get(order__id=send_order.id, product__id=int(product_in_order_id))
                     # value of the 'number' element is the quantity ordered
                     # Update the order quantity of this product for the order
-                    product_in_order.quantity_in_order = request.POST[key]
+                    product_in_order.quantity = request.POST[key]
                     product_in_order.save()
                 elif "package" in key:
                     # parse the package id out of the name of the 'number' element from the form 
                     package_in_order_id = key.replace("package_", "").replace("_quantity", "")
-                    package_in_order = Package.objects.get(id=int(package_in_order_id))
+                    package_in_order = PackagesInOrder.objects.get(order__id=send_order.id, package__id=int(package_in_order_id))
                     # value of the 'number' element is the quantity ordered
                     # Update the order quantity of this package for the order
-                    package_in_order.quantity_in_order = request.POST[key]
+                    package_in_order.quantity = request.POST[key]
                     package_in_order.save()
 
         context = {
@@ -182,7 +186,7 @@ def display_commercial(request):
 def display_3_ton_list(request):
     context = {
         'order' : get_cart_order(request),
-        'package': PackageItem.objects.filter(package__id=1)
+        'package': PackageItem.objects.filter(package__id=1).order_by('product__name')
     }
 
     return render(request, "3_ton.html", context)
@@ -190,18 +194,18 @@ def display_3_ton_list(request):
 def display_1_ton_list(request):
     context = {
         'order' : get_cart_order(request),
-        'package': PackageItem.objects.filter(package__id=2)
+        'package': PackageItem.objects.filter(package__id=2).order_by('product__name')
     }
     return render(request, "1_ton.html", context)
 
 def display_electric_list(request):
     context = {
         'order' : get_cart_order(request),
-        'hmi_products': Category.objects.get(name="HMI").products.all(),
-        'tungsten_products': Category.objects.get(name="Tungsten").products.all(),
-        'led_products': Category.objects.get(name="LED").products.all(),
-        'distro_products': Category.objects.get(name="Distribution").products.all(),
-        'acc_products': Category.objects.get(name="Accessories").products.all()
+        'hmi_products': Category.objects.get(name="HMI").products.all().order_by('name'),
+        'tungsten_products': Category.objects.get(name="Tungsten").products.all().order_by('name'),
+        'led_products': Category.objects.get(name="LED").products.all().order_by('name'),
+        'distro_products': Category.objects.get(name="Distribution").products.all().order_by('name'),
+        'acc_products': Category.objects.get(name="Accessories").products.all().order_by('name')
 
     }
     return render(request, "electric.html", context)

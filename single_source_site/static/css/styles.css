@@ -105,9 +105,9 @@ body {
 #quote_content .product_type_col h3 {
     text-decoration:underline;
 }
-/* #quote_content #column1 {
+#quote_content #column1{
     margin-left:5%;
-} */
+}
 
 .checkbox_field {
     display:inline-block;
@@ -400,16 +400,19 @@ body {
 
 /* About Page */
 #about_content {
-    margin-left:25%;
-    width:40%;
+    margin-left:11%;
+    width:70%;
     background-color:rgb(70, 70, 70, 0.7);
 }
 
 #about_content *{
     margin:0px;
 }
-
+#about_content p{
+    font-size: 20px;
+}
 #about_heading {
     text-decoration: underline;
     text-align:center;
+
 }
