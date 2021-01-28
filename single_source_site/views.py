@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from single_source_site.models import Category, Product, Order, Package, PackageItem
+from single_source_site.models import Category, Product, Order, Package, PackageItem, ProductsInOrder, PackagesInOrder
 
 # Create your views here.
 def index (request):
@@ -36,7 +36,7 @@ def get_accessories(request, product_id):
 def display_cart(request):
     if request.method == "POST":
         # Create a new Order
-        print(request.session.session_key)
+        # print("My session ID: " + str(request.session.session_key))
         new_order = Order.objects.create(
             customer_id = request.session.session_key,
             customer_name = request.POST['name_txt'],
@@ -45,51 +45,51 @@ def display_cart(request):
         # print(new_order.customer_name + " email: " + new_order.email + " created a new order.")
         for key in request.POST:
             if "quantity" in key and int(request.POST[key]) > 0:
-                print(key)
                 # Add the product to the newly created order and store the quantity
-                # parse the product id out of the name of the 'number' element from the form 
+                # parse the product/package id out of the name of the 'number' element from the form 
                 if "product" in key:
                     product_in_order_id = key.replace("product_", "").replace("_quantity", "")
                     product_in_order = Product.objects.get(id=int(product_in_order_id))
-                    # value of the 'number' element is the quantity ordered
-                    # Update the order quantity of this product for the order
-                    product_in_order.quantity_in_order = request.POST[key]
-                    product_in_order.save()
-                    print("adding " + product_in_order.quantity_in_order + " of product id " + product_in_order_id + " to order# " + str(new_order.id))
-                    # add the product to the order 
-                    new_order.products.add(product_in_order)
+                    # print("adding " + product_in_order.quantity_in_order + " of product id " + product_in_order_id + " to order# " + str(new_order.id))
+                    # add the product and quantity to the order
+                    new_product_in_order = ProductsInOrder.objects.create(
+                        order = new_order,
+                        product = product_in_order,
+                        quantity = request.POST[key]
+                    )
                 elif "package" in key:
                     package_in_order_id = key.replace("package_", "").replace("_quantity", "")
                     package_in_order = Package.objects.get(id=int(package_in_order_id))
-                    # value of the 'number' element is the quantity ordered
-                    # Update the order quantity of this package for the order
-                    package_in_order.quantity_in_order = request.POST[key]
-                    package_in_order.save()
-                    print("adding " + package_in_order.quantity_in_order + " of package id " + package_in_order_id + " to order# " + str(new_order.id))
-                    # add the product to the order 
-                    new_order.packages.add(package_in_order)
-
+                    # print("adding " + package_in_order.quantity_in_order + " of package id " + package_in_order_id + " to order# " + str(new_order.id))
+                    # add the product and quantity to the order
+                    new_package_in_order = PackagesInOrder.objects.create(
+                        order = new_order,
+                        package = package_in_order,
+                        quantity = request.POST[key]
+                    )
         context = {
-            'order' : new_order
+            'order' : new_order,
+            'order_packages': PackagesInOrder.objects.filter(order__id=new_order.id),
+            'order_products': ProductsInOrder.objects.filter(order__id=new_order.id)
         }       
         return render(request, "cart.html", context)
     return redirect("/quote_page")
 
 def get_order(request, order_id):
     context = {
-        'order' : Order.objects.get(id=order_id)
-    }
+            'order' : Order.objects.get(id=order_id),
+            'order_packages': PackagesInOrder.objects.filter(order__id=order_id),
+            'order_products': ProductsInOrder.objects.filter(order__id=order_id)
+    }  
     return render(request, "cart.html", context)
 
 def get_cart_order(request):
+    print(request.session.session_key)
     if not Order.objects.filter(customer_id=request.session.session_key).exists():
             cart = None
     else:
         cart = Order.objects.filter(customer_id=request.session.session_key).last()
-    context = {
-        'order' : cart
-    }
-    return context
+    return cart
 
 def delete_order_product(request, order_id, item_id):
     # Get references to the order and product
@@ -129,11 +129,9 @@ def delete_order_product(request, order_id, item_id):
 
 def send_quote(request, order_id):
     if request.method == "POST":
-        print("retrieving, updating ad sending order#"+str(order_id))
         send_order = Order.objects.get(id=order_id)
         # First update the order with any edits the user may have made
         for key in request.POST:
-            print(key)
             if "quantity" in key and int(request.POST[key]) > 0:
                 if "product" in key:
                     # parse the product id out of the name of the 'number' element from the form 
@@ -152,8 +150,13 @@ def send_quote(request, order_id):
                     package_in_order.quantity_in_order = request.POST[key]
                     package_in_order.save()
 
+        context = {
+            'order' : send_order,
+            'order_packages': PackagesInOrder.objects.filter(order__id=send_order.id),
+            'order_products': ProductsInOrder.objects.filter(order__id=send_order.id)
+        } 
         #Build the html string to put into the email
-        email_message = render_to_string('email.html',{'order': send_order})
+        email_message = render_to_string('email.html', context)
         send_mail(
             'Order# ' + str(send_order.id),
             'Hi ' + send_order.customer_name + ', \nThank-you for your inquiry. Please see your quote below.',
@@ -162,19 +165,19 @@ def send_quote(request, order_id):
             fail_silently=False,
             html_message = email_message
         )
-        request.session.flush()
-        return render (request, "order_success.html", {'order': send_order})
+        # request.session.flush()
+        return render (request, "order_success.html", context)
     else:
         return redirect ("/quote_page/")
 
 def display_music_videos(request):
-    return render(request, "music_videos.html", get_cart_order(request))
+    return render(request, "music_videos.html", {'order':get_cart_order(request)})
 
 def display_narrative(request):
-    return render(request, "narrative.html", get_cart_order(request))
+    return render(request, "narrative.html", {'order':get_cart_order(request)})
 
 def display_commercial(request):
-    return render(request, "commercial.html", get_cart_order(request))
+    return render(request, "commercial.html", {'order':get_cart_order(request)})
 
 def display_3_ton_list(request):
     context = {
@@ -204,10 +207,10 @@ def display_electric_list(request):
     return render(request, "electric.html", context)
 
 def display_about(request):
-    return render(request, "about.html", get_cart_order(request))
+    return render(request, "about.html", {'order':get_cart_order(request)})
 
 def display_contact(request):
-    return render(request, "contact.html", get_cart_order(request))
+    return render(request, "contact.html", {'order':get_cart_order(request)})
 
 def display_dolly_list(request):
     context = {

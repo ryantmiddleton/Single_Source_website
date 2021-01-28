@@ -26,9 +26,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name="products", on_delete = models.CASCADE)
     accessories = models.ManyToManyField('self', blank=True)
     num_inventory = models.IntegerField(default=0)
-    quantity_in_order = models.IntegerField(default=0);
+    # quantity_in_order = models.IntegerField(default=0);
     description = models.TextField(blank=True)
-    #orders - a list of the orders that this product belongs to
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = ProductManager()
@@ -36,25 +35,18 @@ class Product(models.Model):
     def __str__(self): 
          return self.name
 
-    def get_total(self):
-        return self.price * self.quantity_in_order
-
 class Package(models.Model):
     name = models.CharField(max_length=255, default="No Name")
     price = models.DecimalField(max_digits=6, decimal_places=2)
     num_inventory = models.IntegerField(default=1)
     category = models.ForeignKey(Category, null=True, related_name="packages", on_delete = models.CASCADE)
     products = models.ManyToManyField(Product, through='PackageItem')
-    #orders - a list of the orders that this product belongs to
-    quantity_in_order = models.IntegerField(default=0);
+    # quantity_in_order = models.IntegerField(default=0);
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self): 
         return str(self.name) 
-    
-    def get_total(self):
-        return self.price * self.quantity_in_order
 
 class PackageItem(models.Model):
     package = models.ForeignKey(Package, null=True, on_delete = models.CASCADE)
@@ -76,15 +68,13 @@ class OrderManager(models.Manager):
         if not EMAIL_REGEX.match(postData['email_txt']):
             errors['email'] = ("Invalid email address!")
         return errors  
-    
+  
 class Order(models.Model):
-    customer_id = models.CharField(max_length=255)
+    customer_id = models.CharField(null=True, max_length=255)
     customer_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
-    products = models.ManyToManyField(Product, related_name="orders")
-    packages = models.ManyToManyField(Package, related_name="orders")
-    # products = models.ManyToManyField(Product, through='ProductsInOrder')
-    # packages = models.ManyToManyField(Package, through='PackagesInOrder')
+    products = models.ManyToManyField(Product, through='ProductsInOrder')
+    packages = models.ManyToManyField(Package, through='PackagesInOrder')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = OrderManager()
@@ -94,10 +84,12 @@ class Order(models.Model):
         
     def get_total(self):
         total = 0
-        for product in self.products.all():
-            total += product.price * product.quantity_in_order
-        for package in self.packages.all():
-            total += package.price * package.quantity_in_order
+        order_products = ProductsInOrder.objects.filter(order__id=self.id)
+        order_packages = PackagesInOrder.objects.filter(order__id=self.id)
+        for item in order_products:
+            total += item.product.price * item.quantity
+        for item in order_packages:
+            total += item.package.price * item.quantity
         return total
 
 class ProductsInOrder(models.Model):
@@ -108,7 +100,10 @@ class ProductsInOrder(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self): 
-            return "Order#" + str(self.order.id) + ": " + str(self.product.name) + " (" + str(self.quantity) + ")"
+        return "Order#" + str(self.order.id) + ": " + str(self.product.name) + " (" + str(self.quantity) + ")"
+    
+    def get_total(self):
+        return self.product.price * self.quantity
 
 class PackagesInOrder(models.Model):
     order = models.ForeignKey(Order, on_delete = models.CASCADE)
@@ -118,4 +113,7 @@ class PackagesInOrder(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self): 
-            return "Order#" + str(self.order.id) + ": " + str(self.package.name) + " (" + str(self.quantity) + ")"
+        return "Order#" + str(self.order.id) + ": " + str(self.package.name) + " (" + str(self.quantity) + ")"
+    
+    def get_total(self):
+        return self.package.price * self.quantity

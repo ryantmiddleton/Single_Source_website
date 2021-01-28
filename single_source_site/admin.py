@@ -1,5 +1,5 @@
 from django.contrib import admin
-from single_source_site.models import Category, Product, Order, Package, PackageItem
+from single_source_site.models import Category, Product, Order, Package, PackageItem, ProductsInOrder, PackagesInOrder
 
 class CategoryAdmin(admin.ModelAdmin):
       pass
@@ -21,12 +21,10 @@ class PackageItemAdmin(admin.ModelAdmin):
       pass
 admin.site.register(PackageItem, PackageItemAdmin)
 
-# class RentedProductAdmin(admin.ModelAdmin):
-#       pass
-# admin.site.register(RentedProduct, RentedProductAdmin)
+class ProductsInOrderAdmin(admin.ModelAdmin):
+      pass
+admin.site.register(ProductsInOrder, ProductsInOrderAdmin)
 
-# class AccessoryAdmin(admin.ModelAdmin):
-#       pass
-# admin.site.register(Accessory, AccessoryAdmin)
-
-
+class PackagesInOrderAdmin(admin.ModelAdmin):
+      pass
+admin.site.register(PackagesInOrder, PackagesInOrderAdmin)
