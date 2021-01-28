@@ -1,4 +1,4 @@
-# Single_Source_website
+# Single Source Website
 This website displays all available lighting rental items, a portfolio of work, and allows the user to build a customized quote.
 
 An example of items in the 3-ton package
