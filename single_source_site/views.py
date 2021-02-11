@@ -169,6 +169,7 @@ def send_quote(request, order_id):
             fail_silently=False,
             html_message = email_message
         )
+        print("Order Sent to " + send_order.email)
         # request.session.flush()
         return render (request, "order_success.html", context)
     else:
