@@ -43,22 +43,22 @@ ALLOWED_HOSTS = ['*']
 # EMAIL_USE_TLS = True
 
 # Mailgun SMTP settings for email service on Heroku
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
-# EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
-# EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
-# EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
-# EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+EMAIL_USE_TLS = True
 
 #Mailgun API settings for email service on Heroku
-ANYMAIL = {
-    # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": os.environ.get('MAILGUN_API_KEY', ''),
-    "MAILGUN_SENDER_DOMAIN": os.environ.get('MAILGUN_DOMAIN', '')  # your Mailgun domain, if needed
-}
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL = 'ryan_middleton@sandbox8372c9f3d0b341a380d5a9e2bcc67a6e.mailgun.org' # if you don't already have this in settings
-SERVER_EMAIL = os.environ.get('MAILGUN_SMTP_LOGIN', '') # ditto (default from-email for Django errors)
+# ANYMAIL = {
+#     # (exact settings here depend on your ESP...)
+#     "MAILGUN_API_KEY": os.environ.get('MAILGUN_API_KEY', ''),
+#     "MAILGUN_SENDER_DOMAIN": os.environ.get('MAILGUN_DOMAIN', '')  # your Mailgun domain, if needed
+# }
+# EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+# DEFAULT_FROM_EMAIL = 'ryan_middleton@sandbox8372c9f3d0b341a380d5a9e2bcc67a6e.mailgun.org' # if you don't already have this in settings
+# SERVER_EMAIL = os.environ.get('MAILGUN_SMTP_LOGIN', '') # ditto (default from-email for Django errors)
 
 # Application definition
 INSTALLED_APPS = [
@@ -119,18 +119,6 @@ DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# local postgres database configuration
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'single_source_db',
-#         'USER': 'single_source_user',
-#         'PASSWORD': 'My3rd(-)',
-#         'HOST': 'localhost',
-#         'PORT': '5432'
 #     }
 # }
 
