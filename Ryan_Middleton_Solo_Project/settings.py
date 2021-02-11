@@ -44,7 +44,7 @@ ALLOWED_HOSTS = ['*']
 # EMAIL_USE_TLS = True
 
 #Mailgun API settings for email service on Heroku
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 MAILGUN_ACCESS_KEY = os.environ.get('MAILGUN_API_KEY', '')
 MAILGUN_SERVER_NAME = os.environ.get('MAILGUN_DOMAIN', '')
 EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
@@ -53,6 +53,7 @@ EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
 INSTALLED_APPS = [
     'single_source_site',
     'whitenoise.runserver_nostatic',
+    "anymail",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
