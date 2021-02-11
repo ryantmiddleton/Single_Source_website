@@ -50,7 +50,7 @@ ANYMAIL = {
     "MAILGUN_SENDER_DOMAIN": os.environ.get('MAILGUN_DOMAIN', '')  # your Mailgun domain, if needed
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL = "ryan@singlesource.com"  # if you don't already have this in settings
+# DEFAULT_FROM_EMAIL = "ryan@singlesource.com"  # if you don't already have this in settings
 SERVER_EMAIL = os.environ.get('MAILGUN_SMTP_LOGIN', ''),  # ditto (default from-email for Django errors)
 
 # Application definition
