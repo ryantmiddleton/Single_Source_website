@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-messages/'
@@ -82,6 +82,12 @@ WSGI_APPLICATION = 'Ryan_Middleton_Solo_Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# Heroku Postgres database configuration 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    }
+}
 # SQlite3 database configuration 
 # DATABASES = {
 #     'default': {
@@ -91,16 +97,16 @@ WSGI_APPLICATION = 'Ryan_Middleton_Solo_Project.wsgi.application'
 # }
 
 # local postgres database configuration"
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'single_source_db',
-        'USER': 'single_source_user',
-        'PASSWORD': 'My3rd(-)',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'single_source_db',
+#         'USER': 'single_source_user',
+#         'PASSWORD': 'My3rd(-)',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
