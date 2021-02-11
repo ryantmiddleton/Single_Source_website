@@ -29,13 +29,27 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = 'tmp/email-messages/'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+# Local settings for email service
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = 'tmp/email-messages/'
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
+
+# Mailgun SMTP settings for email service on Heroku
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+# EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+# EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+# EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+# EMAIL_USE_TLS = True
+
+#Mailgun API settings for email service on Heroku
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY = os.environ.get('MAILGUN_API_KEY', '')
+MAILGUN_SERVER_NAME = os.environ.get('MAILGUN_DOMAIN', '')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
 
 # Application definition
-
 INSTALLED_APPS = [
     'single_source_site',
     'whitenoise.runserver_nostatic',
@@ -96,7 +110,7 @@ DATABASES = {
 #     }
 # }
 
-# local postgres database configuration"
+# local postgres database configuration
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
