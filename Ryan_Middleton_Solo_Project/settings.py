@@ -44,10 +44,14 @@ ALLOWED_HOSTS = ['*']
 # EMAIL_USE_TLS = True
 
 #Mailgun API settings for email service on Heroku
-EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
-MAILGUN_ACCESS_KEY = os.environ.get('MAILGUN_API_KEY', '')
-MAILGUN_SERVER_NAME = os.environ.get('MAILGUN_DOMAIN', '')
-EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILGUN_API_KEY": os.environ.get('MAILGUN_API_KEY', ''),
+    "MAILGUN_SENDER_DOMAIN": os.environ.get('MAILGUN_DOMAIN', '')  # your Mailgun domain, if needed
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "ryan@singlesource.com"  # if you don't already have this in settings
+SERVER_EMAIL = os.environ.get('MAILGUN_SMTP_LOGIN', ''),  # ditto (default from-email for Django errors)
 
 # Application definition
 INSTALLED_APPS = [
