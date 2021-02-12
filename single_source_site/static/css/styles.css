@@ -218,11 +218,17 @@ body {
 
 /* order_success.html styles */
 #order_summary{
-    margin-left:40%;
+    margin-left:25%;
     margin-top:20px;
-    width:30%;
+    background-color:rgb(70, 70, 70, 0.7);
+    height:100px;
+    width:50%;
 }
 
+#order_summary h2{
+    text-align:center;
+    padding-top: 25px;;
+}
 #order_table h1{
     background-color: black;
     color:white;

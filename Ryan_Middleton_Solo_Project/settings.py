@@ -23,24 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
-# Local settings for email service
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = 'tmp/email-messages/'
-# EMAIL_HOST = 'localhost'
-# EMAIL_PORT = 1025
-
-# SendGric SMTP settings for email service on Heroku
-# EMAIL_HOST = 'smtp.sendgrid.net'
-# EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME', '') # this is exactly the value 'apikey'
-# EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
 
 # Mailgun SMTP settings for email service on Heroku
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
