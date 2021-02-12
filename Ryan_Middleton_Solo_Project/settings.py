@@ -51,7 +51,7 @@ EMAIL_USE_TLS = True
 INSTALLED_APPS = [
     'single_source_site',
     'whitenoise.runserver_nostatic',
-    "anymail",
+    # "anymail",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

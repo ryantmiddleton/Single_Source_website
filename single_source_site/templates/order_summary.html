@@ -63,6 +63,34 @@
         </div>
     <div id="order_summary">
         <h2>Your order has been sent to: {{order.email}}</h2>
+        <table id="order_table">
+            <tbody>
+                <tr><td colspan="3"><h1>Order# {{order.id}}</h1></td></tr>
+                <tr>
+                    <td class="order_heading">Item</td>
+                    <td class="order_heading">Quantity</td>
+                    <td class="order_heading">Price</td>
+                </tr>
+                {% for item in order_packages %}
+                <tr>
+                    <td>{{item.package.name}}</td>
+                    <td style="text-align:center;">{{item.quantity}}</td>
+                    <td>{{item.get_total}}</td>
+                </tr>
+                {% endfor %}
+                {% for item in order_products %}
+                <tr>
+                    <td>{{item.product.name}}</td>
+                    <td style="text-align:center;">{{item.quantity}}</td>
+                    <td>{{item.get_total}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2"><b>Total:</b></td>
+                    <td><b>{{order.get_total}}</b><td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </body>

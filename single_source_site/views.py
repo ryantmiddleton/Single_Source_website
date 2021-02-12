@@ -1,3 +1,5 @@
+from Ryan_Middleton_Solo_Project.local_settings import DEBUG
+import os
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -162,16 +164,19 @@ def send_quote(request, order_id):
         #Build the html string to put into the email
         email_message = render_to_string('email.html', context)
         send_mail(
-            'Order# ' + str(send_order.id),
-            'Hi ' + send_order.customer_name + ', \nThank-you for your inquiry. Please see your quote below.',
-            '',
+            'Single Source Order# ' + str(send_order.id),
+            'Hi ' + str(send_order.customer_name) + ', \nThank-you for your inquiry. Please see your quote below.',
+            'owner@single-source.com',
             [send_order.email, 'ryantmiddleton@gmail.com'],
             fail_silently=False,
             html_message = email_message
         )
         print("Order Sent to " + send_order.email)
         # request.session.flush()
-        return render (request, "order_success.html", context)
+        if DEBUG = True
+            return render (request, "order_summary.html", context)
+        else
+            return render (request, "order_success.html", context)
     else:
         return redirect ("/quote_page/")
 
