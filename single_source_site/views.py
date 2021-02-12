@@ -1,4 +1,4 @@
-import os
+from Ryan_Middleton_Solo_Project.settings import DEBUG
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
