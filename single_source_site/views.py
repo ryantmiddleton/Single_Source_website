@@ -173,9 +173,9 @@ def send_quote(request, order_id):
         )
         print("Order Sent to " + send_order.email)
         # request.session.flush()
-        if DEBUG = True
+        if DEBUG == True:
             return render (request, "order_summary.html", context)
-        else
+        else:
             return render (request, "order_success.html", context)
     else:
         return redirect ("/quote_page/")
