@@ -1,4 +1,3 @@
-from Ryan_Middleton_Solo_Project.local_settings import DEBUG
 import os
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
