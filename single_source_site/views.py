@@ -166,7 +166,7 @@ def send_quote(request, order_id):
         send_mail(
             subject='Single Source Order# ' + str(send_order.id),
             message='Hi ' + str(send_order.customer_name) + ', \nThank-you for your inquiry. Please see your quote below.\n',
-            from_email='Single Source Grip and Lighting',
+            from_email='SingleSource@singlesource.com',
             recipient_list=[send_order.email, 'ryantmiddleton@gmail.com'],
             fail_silently=False,
             html_message = email_message
