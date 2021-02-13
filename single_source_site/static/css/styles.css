@@ -218,25 +218,27 @@ body {
 
 /* order_success.html styles */
 #order_summary{
-    margin-left:40%;
+    margin-left:30%;
     margin-top:20px;
     background-color:rgb(70, 70, 70, 0.7);
-    height:100px;
-    width:50%;
+    width:500px;
+    padding-bottom:15px;
 }
 
 #order_summary h2{
     text-align:center;
-    padding-top: 25px;;
+    padding-top: 25px;
 }
+
 #order_table h1{
     background-color: black;
     color:white;
     text-align:center;
 }
 
-#order_table {
+#order_table{
     border:1px solid white;
+    margin-left:27%;
 }
 
 #order_table .order_heading{
