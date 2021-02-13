@@ -1,6 +1,6 @@
 from Ryan_Middleton_Solo_Project.settings import DEBUG
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mail
 import html2text
 from django.template.loader import render_to_string
 from single_source_site.models import Category, Product, Order, Package, PackageItem, ProductsInOrder, PackagesInOrder
@@ -163,19 +163,14 @@ def send_quote(request, order_id):
         } 
         #Build the html string to put into the email
         email_message = render_to_string('email.html', context)
-        cust_email_msg = (
-            'Single Source Order# ' + str(send_order.id),
-            email_message,
-            'SingleSource@singlesource.com',
-            send_order.email
+        send_mail(
+            subject='Single Source Order# ' + str(send_order.id),
+            message='Hi',
+            from_email='SingleSource@singlesource.com',
+            recipient_list=[send_order.email, 'ryantmiddleton@gmail.com'],
+            fail_silently=False,
+            html_message = email_message
         )
-        my_email_msg = (
-            'Single Source Order# ' + str(send_order.id),
-            email_message,
-            send_order.email,
-            'ryantmiddleton@gmail.com',
-        )
-        send_mass_mail((cust_email_msg, my_email_msg), fail_silently=False)
         # print("Order Sent to " + send_order.email)
         # request.session.flush()
         if DEBUG == True:
