@@ -163,14 +163,21 @@ def send_quote(request, order_id):
         } 
         #Build the html string to put into the email
         email_message = render_to_string('email.html', context)
-        send_mail(
+        cust_email_msg = (
             subject='Single Source Order# ' + str(send_order.id),
             message='Hi ' + str(send_order.customer_name) + ', \nThank-you for your inquiry. Please see your quote below.\n',
             from_email='SingleSource@singlesource.com',
-            recipient_list=[send_order.email, 'ryantmiddleton@gmail.com'],
-            fail_silently=False,
+            recipient_list=send_order.email,
             html_message = email_message
         )
+        my_email_msg = (
+            subject='Single Source Order# ' + str(send_order.id),
+            message=' ',
+            from_email=send_order.email,
+            recipient_list='ryantmiddleton@gmail.com',
+            html_message = email_message
+        )
+        send_mass_mail((cust_email_msg, my_email_msg), fail_silently=False)
         # print("Order Sent to " + send_order.email)
         # request.session.flush()
         if DEBUG == True:
