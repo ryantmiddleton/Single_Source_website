@@ -174,7 +174,6 @@ def send_quote(request, order_id):
             email_message,
             send_order.email,
             'ryantmiddleton@gmail.com',
-            email_message
         )
         send_mass_mail((cust_email_msg, my_email_msg), fail_silently=False)
         # print("Order Sent to " + send_order.email)
