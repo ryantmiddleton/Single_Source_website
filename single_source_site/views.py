@@ -165,7 +165,7 @@ def send_quote(request, order_id):
         email_message = render_to_string('email.html', context)
         send_mail(
             subject='Single Source Order# ' + str(send_order.id),
-            message=html2text.HTML2Text(email_message),
+            message=html2text(email_message),
             # 'Hi ' + str(send_order.customer_name) + ', \nThank-you for your inquiry. Please see your quote below.\n'),
             from_email='Single Source Grip and Lighting',
             recipient_list=[send_order.email, 'ryantmiddleton@gmail.com'],
