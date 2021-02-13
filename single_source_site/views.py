@@ -165,17 +165,9 @@ def send_quote(request, order_id):
         email_message = render_to_string('email.html', context)
         send_mail(
             subject='Single Source Order# ' + str(send_order.id),
-            message='Hi',
+            message='',
             from_email='SingleSource@singlesource.com',
-            recipient_list=[send_order.email],
-            fail_silently=False,
-            html_message = email_message
-        )
-        send_mail(
-            subject='Single Source Order# ' + str(send_order.id),
-            message='Hi',
-            from_email=send_order.email,
-            recipient_list=['ryantmiddleton@gmail.com'],
+            recipient_list=[send_order.email, 'ryantmiddleton@gmail.com'],
             fail_silently=False,
             html_message = email_message
         )
