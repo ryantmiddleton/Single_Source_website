@@ -167,7 +167,15 @@ def send_quote(request, order_id):
             subject='Single Source Order# ' + str(send_order.id),
             message='Hi',
             from_email='SingleSource@singlesource.com',
-            recipient_list=[send_order.email, 'ryantmiddleton@gmail.com'],
+            recipient_list=send_order.email,
+            fail_silently=False,
+            html_message = email_message
+        )
+        send_mail(
+            subject='Single Source Order# ' + str(send_order.id),
+            message='Hi',
+            from_email=send_order.email,
+            recipient_list='ryantmiddleton@gmail.com',
             fail_silently=False,
             html_message = email_message
         )
