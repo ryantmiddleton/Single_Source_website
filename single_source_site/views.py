@@ -1,6 +1,7 @@
 from Ryan_Middleton_Solo_Project.settings import DEBUG
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
+import html2text
 from django.template.loader import render_to_string
 from single_source_site.models import Category, Product, Order, Package, PackageItem, ProductsInOrder, PackagesInOrder
 
@@ -164,9 +165,9 @@ def send_quote(request, order_id):
         email_message = render_to_string('email.html', context)
         send_mail(
             subject='Single Source Order# ' + str(send_order.id),
-            message='Hi , \nThank-you for your inquiry. Please see your quote below.\n',
+            message=html2text(email_message),
             # 'Hi ' + str(send_order.customer_name) + ', \nThank-you for your inquiry. Please see your quote below.\n'),
-            from_email='ryan@single-source.com',
+            from_email='Single Source Grip and Lighting',
             recipient_list=[send_order.email, 'ryantmiddleton@gmail.com'],
             fail_silently=False,
             html_message = email_message
