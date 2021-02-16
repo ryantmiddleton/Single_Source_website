@@ -65,7 +65,7 @@ def display_cart(request):
                     from_email='SingleSource@singlesource.com',
                     recipient_list=['ryantmiddleton@gmail.com'],
                     fail_silently=False,
-                    html_message = email_message
+                    # html_message = email_message
                 )
                 return render (request, "order_success.html", {'order':get_cart_order(request)})
         
