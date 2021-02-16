@@ -292,7 +292,7 @@ def contact_me(request):
     if request.method == "POST":
         send_mail(
             subject=request.POST["cust_subject"],
-            message=request.POST["cust_name"] + ": " + request.POST["cust_email"] + "Sent you the following message:\n" + request.POST["cust_msg"],
+            message=request.POST["cust_name"] + ": " + request.POST["cust_email"] + "\nSent you the following message:\n" + request.POST["cust_msg"],
             from_email=request.POST["cust_email"],
             recipient_list=['ryantmiddleton@gmail.com'],
             fail_silently=False,
