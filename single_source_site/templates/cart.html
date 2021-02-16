@@ -136,9 +136,8 @@
 
     <div id="cart_content">
         <h1>Thanks for your order, {{order.customer_name}}</h1>
-        <h3>Please review your order below. If you need to make any changes, just click on the item, update the quantity and then click the item again to make it your heart's desire. </h3>
+        <h3>A verification code has been sent to {{order.email}}. After reviewing your order, enter the code and click the 'Send Quote' button. If you need to make any changes, just click on the item, update the quantity and then click the item again to make it your heart's desire. </h3>
         <div id="product_list">
-    
             <form id="send_quote_frm" action="/send_quote/{{order.id}}" method="post">
             {% csrf_token %}
             <div id="Grip_col" class="product_type_col"><h3>Grip</h3></div>
@@ -185,7 +184,10 @@
         </div> 
 
         <div id="send_quote_container">
-            <p>If you're all done, hit the send quote button below. Thanks again for stopping by. Take care now.</p>
+            <p>If you're all done, enter your verification code and hit the send quote button below. Thanks again for stopping by. Take care now.</p>
+            <label for veri_code_input>Verification Code</label>
+            <input type="text" name="veri_code_input" style="color:black;"><br>
+            <input type="hidden" name="veri_code_hdn" value={{veri_code}}>
             <input type="submit" value="Send Quote">
         </div>
     </form>

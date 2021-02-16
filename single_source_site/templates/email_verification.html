@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unauthorized Request</title>
+    <title>Verify Email</title>
     </style>
 </head>
 <body>
-    <p>Sorry {{order.customer_name}},<br>
-    We are unable to send you a quote at this time. Try back later.<br>
+    <p>Hi {{order.customer_name}},<br>
+    Your verifiaction code is <label style="color:blue;font-weight:bold;">{{veri_code}}</label><br>
     If you believe you have received this email in error, please contact SingleSourceGripAndLighting@gmail.com.
     </p>
 

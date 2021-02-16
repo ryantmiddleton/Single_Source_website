@@ -1,7 +1,7 @@
 from Ryan_Middleton_Solo_Project.settings import BLACKLIST, DEBUG
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-import html2text
+from random import randint
 from django.template.loader import render_to_string
 from single_source_site.models import Category, Product, Order, Package, PackageItem, ProductsInOrder, PackagesInOrder
 
@@ -40,7 +40,7 @@ def get_accessories(request, product_id):
     return render(request, "accessory_list.html", context)
 
 def display_cart(request):
-    if request.method == "POST":        
+    if request.method == "POST":       
         # Create a new Order
         # print("My session ID: " + str(request.session.session_key))
         new_order = Order.objects.create(
@@ -49,6 +49,22 @@ def display_cart(request):
             email = request.POST['email_txt']
         )
         # print(new_order.customer_name + " email: " + new_order.email + " created a new order.")
+        # Send verification 
+        rand_code = randint(100000, 999999)
+        print(rand_code)
+        context = {
+            'order':new_order,
+            'veri_code': rand_code
+        }
+        email_message = render_to_string('email_verification.html', context)
+        send_mail(
+            subject='Verify Email Address',
+            message= 'Hi ' + new_order.customer_name + ', \nYour verifiaction code is ' + str(rand_code) + 'If you believe you have received this email in error, please contact SingleSourceGripAndLighting@gmail.com.',
+            from_email='SingleSource@singlesourcelight.com',
+            recipient_list=[new_order.email],
+            fail_silently=False,
+            html_message = email_message
+        )
         for key in request.POST:
             if "quantity" in key and int(request.POST[key]) > 0:
                 # Add the product to the newly created order and store the quantity
@@ -76,7 +92,8 @@ def display_cart(request):
         context = {
             'order' : new_order,
             'order_packages': PackagesInOrder.objects.filter(order__id=new_order.id).order_by('package__name'),
-            'order_products': ProductsInOrder.objects.filter(order__id=new_order.id).order_by('product__name')
+            'order_products': ProductsInOrder.objects.filter(order__id=new_order.id).order_by('product__name'),
+            'veri_code': rand_code
         }       
         return render(request, "cart.html", context)
     return redirect("/quote_page")
@@ -158,7 +175,8 @@ def send_quote(request, order_id):
         context = {
             'order' : send_order,
             'order_packages': PackagesInOrder.objects.filter(order__id=send_order.id),
-            'order_products': ProductsInOrder.objects.filter(order__id=send_order.id)
+            'order_products': ProductsInOrder.objects.filter(order__id=send_order.id),
+            'veri_code': request.POST["veri_code_hdn"]
         }
         #Check if email is blacklisted
         for customer in BLACKLIST:
@@ -185,6 +203,9 @@ def send_quote(request, order_id):
                     html_message = email_message
                 )
                 return render (request, "order_success.html", {'order':get_cart_order(request)})
+        # Check if user has verified their email address
+        if request.POST["veri_code_input"] != request.POST["veri_code_hdn"]:
+            return render(request, "cart.html", context)
 
         #Send an email to the customer
         #Build the html string to put into the email
