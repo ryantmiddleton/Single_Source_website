@@ -162,23 +162,23 @@ def send_quote(request, order_id):
         }
         #Check if email is blacklisted
         for customer in BLACKLIST:
-            if customer["email"] == request.POST['email_txt']:
+            if customer["email"] == send_order.email:
                 #Send an email to the blacklisted party
                 #Build the html string to put into the email
                 email_message = render_to_string('email_blacklist.html', context)
                 send_mail(
                     subject='Unauthorized Request',
-                    message='Sorry ' + customer["name"] + 
+                    message='Sorry ' + send_order.customer_name + 
                     ", \nWe are unable to send you a quote at this time. Try back later.\nIf you believe this email has been incorrectly sent to you, please contact rtmiddleton7@gmail.com.",
                     from_email='SingleSource@singlesource.com',
-                    recipient_list=[request.POST['email_txt']],
+                    recipient_list=[send_order.email],
                     fail_silently=False,
                     html_message = email_message
                 )
                 email_message = render_to_string('email_blacklist_owner.html', context)
                 send_mail(
-                    subject='Attempted Quote Request from ' + customer["name"],
-                    message='Dude,\n' + customer["name"] + ": " + customer["email"] + "\nTried to price check you. I say we go get the mutha fuckas.",
+                    subject='Attempted Quote Request from ' + send_order.customer_name,
+                    message='Dude,\n' + send_order.customer_name + ": " + send_order.email + "\nTried to price check you. I say we go get the mutha fuckas.",
                     from_email='SingleSource@singlesource.com',
                     recipient_list=['ryantmiddleton@gmail.com'],
                     fail_silently=False,
