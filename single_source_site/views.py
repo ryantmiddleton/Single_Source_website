@@ -49,16 +49,16 @@ def display_cart(request):
                 context = {
                     'cust_name': customer["name"],
                 }
-                # email_message = render_to_string('email_blacklist.html', context)
+                email_message = render_to_string('email_blacklist.html', context)
                 send_mail(
                     subject='Unauthorized Request',
-                    message='Sorry ' + customer["name"] + ", \nWe are unable to send you a quote at this time. Try back later.",
+                    message='Sorry ' + customer["name"] + 
+                    ", \nWe are unable to send you a quote at this time. Try back later.\nIf you believe this email has been incorrectly sent to you, please contact rtmiddleton7@gmail.com.",
                     from_email='SingleSource@singlesource.com',
                     recipient_list=[request.POST['email_txt']],
                     fail_silently=False,
-                    # html_message = email_message
+                    html_message = email_message
                 )
-                # email_message = render_to_string('email_blacklist.html', context)
                 send_mail(
                     subject='Attempted Quote Request from ' + customer["name"],
                     message='Dude,\n' + customer["name"] + ": " + customer["email"] + "\nTried to price check you. I say we go get the mutha fuckas.",
