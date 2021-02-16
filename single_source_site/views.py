@@ -170,7 +170,7 @@ def send_quote(request, order_id):
                     subject='Unauthorized Request',
                     message='Sorry ' + send_order.customer_name + 
                     ", \nWe are unable to send you a quote at this time. Try back later.\nIf you believe this email has been incorrectly sent to you, please contact rtmiddleton7@gmail.com.",
-                    from_email='SingleSource@singlesource.com',
+                    from_email='SingleSource@singlesourcelight.com',
                     recipient_list=[send_order.email],
                     fail_silently=False,
                     html_message = email_message
@@ -179,7 +179,7 @@ def send_quote(request, order_id):
                 send_mail(
                     subject='Attempted Quote Request from ' + send_order.customer_name,
                     message='Dude,\n' + send_order.customer_name + ": " + send_order.email + "\nTried to price check you. I say we go get the mutha fuckas.",
-                    from_email='SingleSource@singlesource.com',
+                    from_email='SingleSource@singlesourcelight.com',
                     recipient_list=['ryantmiddleton@gmail.com'],
                     fail_silently=False,
                     html_message = email_message
