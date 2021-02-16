@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script
+        src="http://code.jquery.com/jquery-1.12.4.js"
+        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function(){
+            //Listeners for Menu Bar
+            $('.navbar .dropdown').hover(
+                function(){
+                    $(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
+                }, 
+                function() {
+                    $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
+                }
+            )
+        });
+    </script>
+</head>
+<body>
+    <div id="header">
+        <nav id="navbar-container" class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <ul id="navbar-list" class="nav navbar-nav">
+                <li><a id="home-menu" href="/">Home</a></li>
+                <li class="dropdown">
+                  <a id="portfolio-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio</a>
+                  <ul id="portfolio-dropdown" class="dropdown-menu">
+                    <li><a href="/music_videos">Music Videos</a></li>
+                    <li><a href="/narrative">Narrative</a></li>
+                    <li><a href="/commercial">Commercial</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                    <a id="rentals-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Rentals</a>
+                    <ul id="rentals-dropdown" class="dropdown-menu">
+                      <li><a href="/3_ton_list">3-ton Grip Package</a></li>
+                      <li><a href="/1_ton_list">1-ton Grip Package</a></li>
+                      <li><a href="/electric_list">Electric</a></li>
+                      <li><a href="/dolly_list">Dolly</a></li>
+                    </ul>
+                </li>
+                <li><a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a></li>
+                <li><a id="about-menu" href="/about">About</a></li>
+                <li><a id="contact-menu" href="/contact">Contact</a></li>
+                {% if order %}
+                <li><a href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png"></a></li>
+                {% endif %}
+              </ul>
+            </div>
+        </nav>
+        </div>
+    <div id="contact_success">
+        <h3>Thanks for contacting us. Your email has been successfuly sent. We monitor these emails daily and will get back with you shortly.</h3>
+    </div>
+
+</body>
+</html>

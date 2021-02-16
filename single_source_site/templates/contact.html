@@ -64,6 +64,8 @@
     </div>
     <div id="content">
           <div id="contact_me_container">
+            <form id="contact_frm" action="/contact_me" method="post">
+            {% csrf_token %}
             <h1>Contact</h1>
             <div id="contact_info">
               <p>Ryan Middlton</p>
@@ -75,12 +77,16 @@
             <div id="email_me_container">
               </p>DROP US A LINE</p>
               <div>
-                <input type="text" style="color:black;"placeholder="Name*"><br><br>
-                <input type="text" placeholder="Email*"><br><br>
-                <input type="text" placeholder="Subject*"><br>
+                <input type="text" style="color:black;"placeholder="Name*" name="cust_name"><br><br>
+                <input type="text" placeholder="Email*" name="cust_email"><br><br>
+                <input type="text" placeholder="Subject*" name="cust_subject"><br>
               </div>
-                <textarea placeholder="Message" rows=5 cols=50></textarea>
+                <textarea placeholder="Message" rows=5 cols=50 name="cust_msg"></textarea>
             </div>
+            <div>
+              <input id="contact_me_btn" type="submit" value="Send">
+            </div>
+            </form>
           </div>
     </div>
 

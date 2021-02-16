@@ -1,4 +1,4 @@
-from Ryan_Middleton_Solo_Project.settings import DEBUG
+from Ryan_Middleton_Solo_Project.settings import BLACKLIST, DEBUG
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 import html2text
@@ -7,7 +7,6 @@ from single_source_site.models import Category, Product, Order, Package, Package
 
 # Create your views here.
 def index (request):
-
     if not Order.objects.filter(customer_id=request.session.session_key).exists():
         cart = None
     else:
@@ -42,6 +41,25 @@ def get_accessories(request, product_id):
 
 def display_cart(request):
     if request.method == "POST":
+        #Check if email is blacklisted
+        for customer in BLACKLIST:
+            if customer["email"] == request.POST['email_txt']:
+                #Send an email to the blacklisted party
+                #Build the html string to put into the email
+                context = {
+                    'cust_name': customer["name"],
+                }
+                email_message = render_to_string('email_blacklist.html', context)
+                send_mail(
+                    subject='Unauthorized Request',
+                    message='Sorry ' + customer["name"] + ", \nWe are unable to send you a quote at this time. Try back later.",
+                    from_email='SingleSource@singlesource.com',
+                    recipient_list=[request.POST['email_txt'], 'ryantmiddleton@gmail.com'],
+                    fail_silently=False,
+                    html_message = email_message
+                )
+                return render (request, "order_success.html", {'order':get_cart_order(request)})
+        
         # Create a new Order
         # print("My session ID: " + str(request.session.session_key))
         new_order = Order.objects.create(
@@ -161,13 +179,25 @@ def send_quote(request, order_id):
             'order_packages': PackagesInOrder.objects.filter(order__id=send_order.id),
             'order_products': ProductsInOrder.objects.filter(order__id=send_order.id)
         } 
+        #Send an email to the customer
         #Build the html string to put into the email
-        email_message = render_to_string('email.html', context)
+        email_message = render_to_string('email_cust.html', context)
         send_mail(
             subject='Single Source Order# ' + str(send_order.id),
             message='',
             from_email='SingleSource@singlesource.com',
-            recipient_list=[send_order.email, 'ryantmiddleton@gmail.com'],
+            recipient_list=[send_order.email],
+            fail_silently=False,
+            html_message = email_message
+        )
+        #Send the email to the owner
+        #Build the html string to put into the email
+        email_message = render_to_string('email_owner.html', context)
+        send_mail(
+            subject='Single Source Order# ' + str(send_order.id),
+            message='',
+            from_email=send_order.email,
+            recipient_list=['ryantmiddleton@gmail.com'],
             fail_silently=False,
             html_message = email_message
         )
@@ -229,5 +259,17 @@ def display_dolly_list(request):
     }
     return render(request, "dolly.html", context)
 
-
+def contact_me(request):
+    if request.method == "POST":
+        print("Here is the email.\n" + request.POST["cust_email"] + ": " + request.POST["cust_subject"] + ": " + request.POST["cust_msg"])
+        send_mail(
+            subject=request.POST["cust_subject"],
+            message=request.POST["cust_msg"],
+            from_email=request.POST["cust_email"],
+            recipient_list=['ryantmiddleton@gmail.com'],
+            fail_silently=False,
+        )
+        return render(request, "contact_success.html", {'order':get_cart_order(request)})
+    else:
+        return redirect ("/contact")
 

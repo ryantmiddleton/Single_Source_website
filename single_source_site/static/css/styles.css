@@ -406,6 +406,29 @@ body {
     display:inline-block;
 }
 
+#contact_me_btn {
+    text-align:center;
+    padding:2px 5px;
+    margin-left:45%;
+    margin-top:10px;
+    margin-bottom:10px;
+    background-color:white;
+    color:black;
+    
+}
+
+#contact_success{
+    margin-left:30%;
+    margin-top:20px;
+    background-color:rgb(70, 70, 70, 0.7);
+    width:500px;
+    padding:10px 5px 15px;
+}
+
+#order_summary h3{
+    text-align:center;
+    padding-top: 25px;
+}
 /* About Page */
 #about_content {
     margin-left:11%;
