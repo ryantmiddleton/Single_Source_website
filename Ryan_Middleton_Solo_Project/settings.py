@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import dj_database_url
 import os
 import django_heroku
-from . secrets import secret_key
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,32 +22,27 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secret_key
 
+SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = 'tmp/email-messages/'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+# Mailgun SMTP settings for email service on Heroku
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+EMAIL_USE_TLS = True
 
 BLACKLIST = [
     {'name': 'Domenic Barbero', 'email': 'domenicthedp@gmail.com'},
-    {'name': 'Ray Hammond', 'email': 'ray@pacific-grip.com'},
-    {'name': 'Chris Taranto', 'email': 'ctmovies@icloud.com'},
-    {'name': 'Dumbass', 'email': 'rtmiddleton7@gmail.com'},
+    # {'name': 'Ray Hammond', 'email': 'ray@pacific-grip.com'},
+    # {'name': 'Chris Taranto', 'email': 'ctmovies@icloud.com'},
+    # {'name': 'Dumbass', 'email': 'rtmiddleton7@gmail.com'},
 ]
-
-# Mailgun SMTP settings for email service on Heroku
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
-# EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
-# EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
-# EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
-# EMAIL_USE_TLS = True
 
 #Mailgun API settings for email service on Heroku
 # ANYMAIL = {
@@ -60,10 +55,10 @@ BLACKLIST = [
 # SERVER_EMAIL = os.environ.get('MAILGUN_SMTP_LOGIN', '') # ditto (default from-email for Django errors)
 
 # Application definition
-
 INSTALLED_APPS = [
     'single_source_site',
     'whitenoise.runserver_nostatic',
+    "anymail",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -107,13 +102,12 @@ WSGI_APPLICATION = 'Ryan_Middleton_Solo_Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
+# Heroku Postgres database configuration 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    }
+}
 # SQlite3 database configuration 
 # DATABASES = {
 #     'default': {
@@ -121,17 +115,6 @@ WSGI_APPLICATION = 'Ryan_Middleton_Solo_Project.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'single_source_db',
-        'USER': 'single_source_user',
-        'PASSWORD': 'My3rd(-)',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
