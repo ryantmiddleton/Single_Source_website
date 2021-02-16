@@ -50,16 +50,16 @@ def display_cart(request):
         )
         # print(new_order.customer_name + " email: " + new_order.email + " created a new order.")
         # Send verification 
-        rand_code = randint(100000, 999999)
-        print(rand_code)
+        request.session["veri_code"] = randint(100000, 999999)
+        print(request.session["veri_code"])
         context = {
             'order':new_order,
-            'veri_code': rand_code
+            'veri_code': request.session["veri_code"]
         }
         email_message = render_to_string('email_verification.html', context)
         send_mail(
             subject='Verify Email Address',
-            message= 'Hi ' + new_order.customer_name + ', \nYour verifiaction code is ' + str(rand_code) + 'If you believe you have received this email in error, please contact SingleSourceGripAndLighting@gmail.com.',
+            message= 'Hi ' + new_order.customer_name + ', \nYour verifiaction code is ' + str(request.session["veri_code"]) + 'If you believe you have received this email in error, please contact SingleSourceGripAndLighting@gmail.com.',
             from_email='SingleSource@singlesourcelight.com',
             recipient_list=[new_order.email],
             fail_silently=False,
@@ -93,7 +93,7 @@ def display_cart(request):
             'order' : new_order,
             'order_packages': PackagesInOrder.objects.filter(order__id=new_order.id).order_by('package__name'),
             'order_products': ProductsInOrder.objects.filter(order__id=new_order.id).order_by('product__name'),
-            'veri_code': rand_code
+            'veri_code': request.session["veri_code"]
         }       
         return render(request, "cart.html", context)
     return redirect("/quote_page")
@@ -102,7 +102,8 @@ def get_order(request, order_id):
     context = {
             'order' : Order.objects.get(id=order_id),
             'order_packages': PackagesInOrder.objects.filter(order__id=order_id),
-            'order_products': ProductsInOrder.objects.filter(order__id=order_id)
+            'order_products': ProductsInOrder.objects.filter(order__id=order_id),
+            'veri_code': request.session["veri_code"]
     }  
     return render(request, "cart.html", context)
 
