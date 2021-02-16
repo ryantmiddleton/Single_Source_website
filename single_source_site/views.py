@@ -40,35 +40,7 @@ def get_accessories(request, product_id):
     return render(request, "accessory_list.html", context)
 
 def display_cart(request):
-    if request.method == "POST":
-        #Check if email is blacklisted
-        for customer in BLACKLIST:
-            if customer["email"] == request.POST['email_txt']:
-                #Send an email to the blacklisted party
-                #Build the html string to put into the email
-                context = {
-                    'cust_name': customer["name"],
-                }
-                email_message = render_to_string('email_blacklist.html', context)
-                send_mail(
-                    subject='Unauthorized Request',
-                    message='Sorry ' + customer["name"] + 
-                    ", \nWe are unable to send you a quote at this time. Try back later.\nIf you believe this email has been incorrectly sent to you, please contact rtmiddleton7@gmail.com.",
-                    from_email='SingleSource@singlesource.com',
-                    recipient_list=[request.POST['email_txt']],
-                    fail_silently=False,
-                    html_message = email_message
-                )
-                send_mail(
-                    subject='Attempted Quote Request from ' + customer["name"],
-                    message='Dude,\n' + customer["name"] + ": " + customer["email"] + "\nTried to price check you. I say we go get the mutha fuckas.",
-                    from_email='SingleSource@singlesource.com',
-                    recipient_list=['ryantmiddleton@gmail.com'],
-                    fail_silently=False,
-                    # html_message = email_message
-                )
-                return render (request, "order_success.html", {'order':get_cart_order(request)})
-        
+    if request.method == "POST":        
         # Create a new Order
         # print("My session ID: " + str(request.session.session_key))
         new_order = Order.objects.create(
@@ -187,7 +159,33 @@ def send_quote(request, order_id):
             'order' : send_order,
             'order_packages': PackagesInOrder.objects.filter(order__id=send_order.id),
             'order_products': ProductsInOrder.objects.filter(order__id=send_order.id)
-        } 
+        }
+        #Check if email is blacklisted
+        for customer in BLACKLIST:
+            if customer["email"] == request.POST['email_txt']:
+                #Send an email to the blacklisted party
+                #Build the html string to put into the email
+                email_message = render_to_string('email_blacklist.html', context)
+                send_mail(
+                    subject='Unauthorized Request',
+                    message='Sorry ' + customer["name"] + 
+                    ", \nWe are unable to send you a quote at this time. Try back later.\nIf you believe this email has been incorrectly sent to you, please contact rtmiddleton7@gmail.com.",
+                    from_email='SingleSource@singlesource.com',
+                    recipient_list=[request.POST['email_txt']],
+                    fail_silently=False,
+                    html_message = email_message
+                )
+                email_message = render_to_string('email_blacklist_owner.html', context)
+                send_mail(
+                    subject='Attempted Quote Request from ' + customer["name"],
+                    message='Dude,\n' + customer["name"] + ": " + customer["email"] + "\nTried to price check you. I say we go get the mutha fuckas.",
+                    from_email='SingleSource@singlesource.com',
+                    recipient_list=['ryantmiddleton@gmail.com'],
+                    fail_silently=False,
+                    html_message = email_message
+                )
+                return render (request, "order_success.html", {'order':get_cart_order(request)})
+
         #Send an email to the customer
         #Build the html string to put into the email
         email_message = render_to_string('email_cust.html', context)

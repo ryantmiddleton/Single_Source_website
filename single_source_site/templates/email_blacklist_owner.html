@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Source Grip and Lighting</title>
+
+    <style>
+        #order_summary{
+            margin-top:20px;
+            width:30%;
+        }
+
+        #order_table h1{
+            background-color: black;
+            color:white;
+            text-align:center;
+        }
+
+        #order_table {
+            /* border:1px solid black; */
+            /* background-color: black; */
+        }
+
+        #order_table *{
+            color:black;
+        }
+        #order_table tr:nth-child(odd){ 
+            background-color: lightgray;
+        }
+        #order_table tr:nth-child(even){
+            background-color: darkgrey;
+        }  
+    </style>
+</head>
+<body>
+    <p>Dude,<br>
+    {{order.customer_name}}: {{order.email}}<br>
+    Has price checked on the following items:</p>
+    <div id="order_summary">
+        <table id="order_table">
+            <tbody>
+                <tr><td colspan="3"><h1>Order# {{order.id}}</h1></td></tr>
+                <tr>
+                    <td>Item</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                </tr>
+                {% for item in order_packages %}
+                <tr>
+                    <td>{{item.package.name}}</td>
+                    <td style="text-align:center;">{{item.quantity}}</td>
+                    <td>{{item.get_total}}</td>
+                </tr>
+                {% endfor %}
+                {% for item in order_products %}
+                <tr>
+                    <td>{{item.product.name}}</td>
+                    <td style="text-align:center;">{{item.quantity}}</td>
+                    <td>{{item.get_total}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2"><b>Total:</b></td>
+                    <td><b>{{order.get_total}}</b><td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
