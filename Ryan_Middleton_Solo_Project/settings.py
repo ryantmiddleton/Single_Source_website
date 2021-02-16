@@ -41,7 +41,7 @@ BLACKLIST = [
     {'name': 'Domenic Barbero', 'email': 'domenicthedp@gmail.com'},
     # {'name': 'Ray Hammond', 'email': 'ray@pacific-grip.com'},
     # {'name': 'Chris Taranto', 'email': 'ctmovies@icloud.com'},
-    # {'name': 'Dumbass', 'email': 'rtmiddleton7@gmail.com'},
+    {'name': 'Dumbass', 'email': 'rtmiddleton7@gmail.com'},
 ]
 
 #Mailgun API settings for email service on Heroku
