@@ -16,6 +16,9 @@ def index (request):
     }
     return render (request, "index.html", context)
 
+def boostrap_index(request):
+    return render (request, "bootstrap_index.html")
+
 def build_quote(request):
     if not Order.objects.filter(customer_id=request.session.session_key).exists():
             cart = None

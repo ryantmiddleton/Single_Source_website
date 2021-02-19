@@ -7,7 +7,9 @@ single_source_site/__pycache__/*
 tmp/*
 single_source_site/static/css/styles_tables.css
 single_source_site/static/css/styles_old.css
+single_source_site/static/css/bootstrap.css
 single_source_site/templates/quote_builder_tables.html
+single_source_site/templates/bootstrap_index.html
 db.sqlite3
 Rental_Quote_Generator.bmpr
 environment_activate.sh

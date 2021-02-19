@@ -28,16 +28,17 @@ body {
     color:white;
     border-bottom:1px solid white;
 }
+
 #navbar-container{
     background:none;
     margin-left:12%;
     margin-top:165px;
-
 }
+
 #navbar-container *{
     padding:0px;
-
 }
+
 #navbar-list {
     border-bottom:2px solid darkgrey;
 }

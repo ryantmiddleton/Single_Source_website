@@ -19,4 +19,5 @@ urlpatterns = [
     path('delete_order_item/<int:order_id>/<str:item_id>', views.delete_order_item),
     path('send_quote/<int:order_id>', views.send_quote),
     path('contact_me', views.contact_me),
+    path('bootstrap', views.boostrap_index),
 ]
