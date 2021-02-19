@@ -17,13 +17,17 @@
     </script>
     <script>
         $(document).ready(function(){
-            
+
             $('.navbar .dropdown').hover(
                 function(){
+                  if (window.matchMedia('(min-width: 767px)').matches){
                     $(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
+                  }
                 }, 
                 function() {
+                  if (window.matchMedia('(min-width: 767px)').matches){
                     $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
+                  }
                 }
             )
         });
@@ -31,36 +35,43 @@
 </head>
 <body>
     <div id="header">
+      <img src="../static/img/SS_Logo_Header_cropped.jpg" style="width:100%;" alt="Not found">
+      <div class="container">
         <nav id="navbar-container" class="navbar navbar-inverse">
-            <div class="container-fluid">
-              <ul id="navbar-list" class="nav navbar-nav">
-                <li><a id="home-menu" href="/">Home</a></li>
-                <li class="dropdown">
-                  <a id="portfolio-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio</a>
-                  <ul id="portfolio-dropdown" class="dropdown-menu">
-                    <li><a href="/music_videos">Music Videos</a></li>
-                    <li><a href="/narrative">Narrative</a></li>
-                    <li><a href="/commercial">Commercial</a></li>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- <span class="navbar-toggle icon-bar"></span> -->
+            <span class="icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarMenu"> 
+            <ul id="navbar-list" class="nav navbar-nav">
+              <li><a id="home-menu" href="/">Home</a></li>
+              <li class="dropdown active">
+                <a id="portfolio-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio</a>
+                <ul id="portfolio-dropdown" class="dropdown-menu">
+                  <li><a href="/music_videos">Music Videos</a></li>
+                  <li><a href="/narrative">Narrative</a></li>
+                  <li><a href="/commercial">Commercial</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                  <a id="rentals-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Rentals</a>
+                  <ul id="rentals-dropdown" class="dropdown-menu">
+                    <li><a href="/3_ton_list">3-ton</a></li>
+                    <li><a href="/1_ton_list">1-ton</a></li>
+                    <li><a href="/electric_list">Electric</a></li>
+                    <li><a href="/dolly_list">Dolly</a></li>
                   </ul>
-                </li>
-                <li class="dropdown">
-                    <a id="rentals-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Rentals</a>
-                    <ul id="rentals-dropdown" class="dropdown-menu">
-                      <li><a href="/3_ton_list">3-ton Grip Package</a></li>
-                      <li><a href="/1_ton_list">1-ton Grip Package</a></li>
-                      <li><a href="/electric_list">Electric</a></li>
-                      <li><a href="/dolly_list">Dolly</a></li>
-                    </ul>
-                </li>
-                <li><a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a></li>
-                <li><a id="about-menu" href="/about">About</a></li>
-                <li><a id="contact-menu" href="/contact">Contact</a></li>
-                {% if order %}
-                <li><a href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png"></a></li>
-                {% endif %}
-              </ul>
-            </div>
+              </li>
+              <li><a id="quote-menu" class="menu-item" href="/quote_page">Get A Quote</a></li>
+              <li><a id="about-menu" href="/about">About</a></li>
+              <li><a id="contact-menu" href="/contact">Contact</a></li>
+            </ul>
+            {% if order %}
+            <a href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png"></a>
+            {% endif %}
+          </div>
         </nav>
+      </div>
     </div>
     <div id="video_content">
         <iframe height="100%"
