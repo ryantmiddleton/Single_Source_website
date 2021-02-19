@@ -8,39 +8,45 @@
 }
 
 body {
-    background-image: url('../img/SS_Logo_NoBorder.jpg');
+    background-image: url('../img/SS_Logo.png');
     background-repeat: no-repeat; 
-    background-size:cover;
-} 
-
-/* Main Menu Styles */
-.dropdown {
-    background:none;
+    background-size:100%;
+    background-color:black;
 }
 
-.dropdown-menu {
-    color:white;
-    background:black;
-    text-align:center;
+.container {
+    width:100%;
+    height:30px;
+    /* border: 1px dotted red; */
 }
 
-.dropdown-menu li a{
-    color:white;
-    border-bottom:1px solid white;
-}
-
-#navbar-container{
-    background:none;
-    margin-left:12%;
-    margin-top:165px;
-}
-
-#navbar-container *{
+#navbar-container {
+    background-color:black;
+    margin-left:10%;
     padding:0px;
+    /* border: 1px dotted red; */
 }
 
 #navbar-list {
     border-bottom:2px solid darkgrey;
+}
+.dropdown-menu {
+    text-align:center;
+    background-color:black;
+    /* background-color:rgb(70, 70, 70, 0.7); */
+    /* border: 1px dotted red; */
+}
+
+.dropdown-menu li a{
+    border-bottom:1px solid white;
+}
+
+.navbar-toggle {
+    background-color: black;
+}
+.dropdown-menu li a{
+    padding:0px;
+    color:white;
 }
 
 #home-menu{
@@ -83,7 +89,7 @@ body {
 
 #cart {
     height:25px;
-    margin-left:87%;
+    margin-left:5px;
 }
 
 /* quote_builder.html styles */
@@ -446,5 +452,111 @@ body {
 #about_heading {
     text-decoration: underline;
     text-align:center;
+}
 
+@media only screen and (max-width: 1225px) {
+    #navbar-container {
+        margin-left:8%;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    #home-menu{
+        text-align:left;
+        padding:0px 45px;
+    }
+
+    #portfolio-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    
+    #rentals-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    #quote-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    #about-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    #contact-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    #rentals-dropdown {
+        margin-right:15px;
+    }
+    #portfolio-dropdown {
+        margin-right:15px;
+    }
+    #rentals-dropdown {
+        margin-left:5px;
+    }
+    .dropdown-menu li a {
+        width:120px;
+    }
+    .dropdown-menu {
+        width:120px;
+    }
+  }
+
+@media only screen and (max-width: 1020px) {
+    #navbar-container {
+        margin-left:5%;
+    }
+}
+
+@media only screen and (max-width: 975px) {
+    #navbar-container {
+        margin-left:2%;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    #navbar-container {
+        /* margin-left:2%; */
+    }
+
+    #home-menu{
+        text-align:left;
+        padding:0px 30px;
+    }
+
+    #portfolio-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+    
+    #rentals-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+    #quote-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+    #about-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+    #contact-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+
+    .dropdown-menu li a {
+        width:90px;
+    }
+    #rentals-dropdown {
+        margin-left:0px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #navbar-list {
+        border:none;
+    }
 }
