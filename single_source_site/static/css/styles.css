@@ -502,6 +502,7 @@ body {
     }
     .dropdown-menu {
         width:120px;
+        min-width: auto;
     }
   }
 
@@ -549,6 +550,10 @@ body {
         padding:0px 30px;
     }
 
+    .dropdown-menu {
+        width:90px;
+        min-width: auto;
+    }
     .dropdown-menu li a {
         width:90px;
     }
