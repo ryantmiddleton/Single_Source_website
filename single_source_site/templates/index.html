@@ -73,9 +73,12 @@
         </nav>
       </div>
     </div>
-
-    <!-- <div id="content" style="margin-left:30%;">
-      <iframe height="300%" class="mySlides"
+    {% for photo in photos %}
+    <div id="content" style="margin-left:30%;">
+      <img class="mySlides" width="40%;" src="../static/img/set_photos/{{photo}}">
+    </div>
+    {% endfor %}
+      <!-- <iframe height="300%" class="mySlides"
       src="https://www.youtube.com/embed/qQXP6TDtW0w?autoplay=1&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=1">
       </iframe>
       <iframe height="100%" class="mySlides"
@@ -86,11 +89,9 @@
       </iframe>
       <iframe height="100%" class="mySlides"
       src="https://www.youtube.com/embed/WcCcBANAyKk?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=7">
-      </iframe>
-      <button class="w3-button w3-display-left" style="background:gray;" onclick="plusDivs(-1)">&#10094;</button>
-      <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
-    </div> -->
-
+      </iframe>-->
+      <!-- <button class="w3-button w3-display-left" style="background:gray;" onclick="plusDivs(-1)">&#10094;</button>
+      <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button> -->
 </body>
 <script>
   var slideIndex = 0;
@@ -105,7 +106,7 @@ function carousel() {
   slideIndex++;
   if (slideIndex > x.length) {slideIndex = 1}
   x[slideIndex-1].style.display = "block";
-  setTimeout(carousel, 2000); // Change image every 2 seconds
+  setTimeout(carousel, 4000); // Change image every 2 seconds
 }
 </script>
 </html>

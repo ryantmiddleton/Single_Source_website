@@ -1,4 +1,5 @@
-from Ryan_Middleton_Solo_Project.settings import BLACKLIST, DEBUG
+import os
+import Ryan_Middleton_Solo_Project.settings as settings
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from random import randint
@@ -7,17 +8,21 @@ from single_source_site.models import Category, Product, Order, Package, Package
 
 # Create your views here.
 def index (request):
+    # Get all images from img/set_photos
+    photos = []
+    photo_path = os.path.abspath(os.path.join(settings.STATICFILES_DIRS[0], 'img/set_photos'))
+    for file in os.listdir(photo_path):
+        photos.append(file)
+
     if not Order.objects.filter(customer_id=request.session.session_key).exists():
         cart = None
     else:
         cart = Order.objects.filter(customer_id=request.session.session_key).last()
     context = {
-        'order' : cart
+        'order' : cart,
+        'photos': photos
     }
     return render (request, "index.html", context)
-
-def boostrap_index(request):
-    return render (request, "bootstrap_index.html")
 
 def build_quote(request):
     if not Order.objects.filter(customer_id=request.session.session_key).exists():

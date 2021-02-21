@@ -38,15 +38,13 @@ body {
 }
 
 .dropdown-menu li a{
+    padding:0px;
+    color:white;
     border-bottom:1px solid white;
 }
 
 .navbar-toggle {
     background-color: black;
-}
-.dropdown-menu li a{
-    padding:0px;
-    color:white;
 }
 
 #home-menu{
@@ -408,10 +406,18 @@ body {
     margin:0px;
 }
 
+#email_me_container * {
+    width:90%;
+}
+
 #email_me_container div, textarea{
     color:black;
     vertical-align:top;
     display:inline-block;
+}
+
+#email_me_container textarea{
+    margin-top:20px;
 }
 
 #contact_me_btn {
@@ -456,10 +462,16 @@ body {
     text-align:center;
 }
 
+@media only screen and (max-width: 1375px) {
+    #customer_container {
+        margin-left:30%;
+    }
+}
 @media only screen and (max-width: 1225px) {
     #navbar-container {
         margin-left:8%;
     }
+
 }
 @media only screen and (max-width: 1200px) {
     #home-menu{
@@ -504,6 +516,7 @@ body {
         width:120px;
         min-width: auto;
     }
+
   }
 
 @media only screen and (max-width: 1020px) {
@@ -560,10 +573,35 @@ body {
     #rentals-dropdown {
         margin-left:0px;
     }
+    #customer_container {
+        margin-left:20%;
+    }
 }
 
 @media only screen and (max-width: 768px) {
     #navbar-list {
         border:none;
+    }
+    .dropdown-menu *{
+        text-align:left;
+    }
+    .navbar-toggle {
+        margin-right:45%;
+    }
+    #customer_container {
+        margin-left:5%;
+    }
+    #customer_container *{
+        display:block;
+        width:auto;
+    }
+    #customer_container input[type="submit"] {
+        margin-left:5%;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    #quote_content {
+        width:auto;
     }
 }

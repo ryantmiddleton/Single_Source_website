@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import dj_database_url
 import os
 import django_heroku
-
+from . secrets import GMAIL_APP_PASSWORD, secret_key
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,12 +22,32 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = secret_key
 
-SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
+
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = 'tmp/email-messages/'
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
+
+# Google SMTP Server
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'SingleSourceGripAndLighting@gmail.com'
+EMAIL_HOST_PASSWORD = GMAIL_APP_PASSWORD
+
+BLACKLIST = [
+    {'name': 'Domenic Barbero', 'email': 'domenicthedp@gmail.com'},
+    # {'name': 'Ray Hammond', 'email': 'ray@pacific-grip.com'},
+    # {'name': 'Chris Taranto', 'email': 'ctmovies@icloud.com'},
+    # {'name': 'Dumbass', 'email': 'rtmiddleton7@gmail.com'},
+]
 
 # Mailgun SMTP settings for email service on Heroku
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -36,21 +56,6 @@ ALLOWED_HOSTS = ['*']
 # EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 # EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
 # EMAIL_USE_TLS = True
-
-# Google SMTP Server
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'SingleSourceGripAndLighting@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD', '')
-
-BLACKLIST = [
-    {'name': 'Domenic Barbero', 'email': 'domenicthedp@gmail.com'},
-    # {'name': 'Ray Hammond', 'email': 'ray@pacific-grip.com'},
-    # {'name': 'Chris Taranto', 'email': 'ctmovies@icloud.com'},
-    # {'name': 'Dumbass', 'email': 'rtmiddleton7@gmail.com'},
-]
 
 #Mailgun API settings for email service on Heroku
 # ANYMAIL = {
@@ -63,10 +68,10 @@ BLACKLIST = [
 # SERVER_EMAIL = os.environ.get('MAILGUN_SMTP_LOGIN', '') # ditto (default from-email for Django errors)
 
 # Application definition
+
 INSTALLED_APPS = [
     'single_source_site',
     'whitenoise.runserver_nostatic',
-    "anymail",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -110,12 +115,13 @@ WSGI_APPLICATION = 'Ryan_Middleton_Solo_Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# Heroku Postgres database configuration 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 # SQlite3 database configuration 
 # DATABASES = {
 #     'default': {
@@ -123,6 +129,17 @@ DATABASES = {
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'single_source_db',
+        'USER': 'single_source_user',
+        'PASSWORD': 'My3rd(-)',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -166,6 +183,6 @@ STATIC_URL = "/static/"
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'single_source_site/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'single_source_site\static')]
 
 django_heroku.settings(locals())

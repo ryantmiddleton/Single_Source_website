@@ -3,86 +3,100 @@
     margin:0px;
     padding:0px;
     border:0px;
+    font-family: Garamond, Times, serif;
     /* border: 1px dotted red; */
 }
 
 body {
-    background-image: url('../img/SS_Logo_NoBorder.jpg');
+    background-image: url('../img/SS_Logo.png');
     background-repeat: no-repeat; 
-    background-size:cover;
-} 
+    background-size:100%;
+    background-color:black;
+}
 
-/* Main Menu Styles */
-#menu_bar {
-    display:block;
-    height:20px;
-    margin-top:12%;
-    margin-left:8%
+.container {
+    width:100%;
+    height:30px;
     /* border: 1px dotted red; */
 }
 
-#menu_bar a{
-    display:inline-block;
+#navbar-container {
+    background-color:black;
+    margin-left:10%;
+    padding:0px;
+    /* border: 1px dotted red; */
 }
 
-.menu-item{
-    display:inline-block;
-    padding-right:5%;
-    padding-left:5%;
-    padding-bottom:5px;
-    border-bottom:2px solid grey;
-}  
+#navbar-list {
+    border-bottom:2px solid darkgrey;
+}
+.dropdown-menu {
+    text-align:center;
+    background-color:black;
+    /* background-color:rgb(70, 70, 70, 0.7); */
+    /* border: 1px dotted red; */
+}
+
+.dropdown-menu li a{
+    border-bottom:1px solid white;
+}
+
+.navbar-toggle {
+    background-color: black;
+}
+.dropdown-menu li a{
+    padding:0px;
+    color:white;
+}
 
 #home-menu{
-    border-right:1px solid white;
-}
-#portfolio-menu{
-    border-right:1px solid white;
-}
-#inventory-menu{
-    border-right:1px solid white;
-}
-#quote-menu{
-    border-right:1px solid white;
-}
-#about-menu{
-    border-right:1px solid white;
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
 }
 
-/* Dropdown Menu Styles */
-.dropdown{
-    position: relative;
-    display: inline-block;
+#portfolio-menu {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
 }
 
-.dropdown-content {
-    display: none; 
-    position: absolute;
-    background-color: black;
-    min-width:160px;
+#rentals-menu {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
+}
+#quote-menu {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
+}
+#about-menu {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding:0px 60px;
+}
+#contact-menu {
+    text-align:center;
+    padding:0px 60px;
+}
+#rentals-dropdown {
+    padding-top:10px;
+}
+#portfolio-dropdown {
+    padding-top:10px;
 }
 
-.dropdown-content *{
-    display:block;
-    color: white;
-    border-bottom:1px solid white;
-    padding-bottom:5px;
-    text-decoration: none;
-}
-
-#portfolio-dropdown{
-    margin-left:225px;
-}
-
-#inventory-dropdown{
-    margin-left:175px;
+#cart {
+    height:25px;
+    margin-left:5px;
 }
 
 /* quote_builder.html styles */
 #quote_content {
-    width:50%;
+    width:70%;
     margin-top:3%;
-    margin-left:22%;
+    margin-left:12%;
     background-color:rgb(70, 70, 70, 0.7);
 }
 
@@ -95,14 +109,16 @@ body {
     margin-right:10px;
     vertical-align:top;
 }
-
-#quote_content #Grip_col {
+#quote_content .product_type_col h3 {
+    text-decoration:underline;
+}
+#quote_content #column1{
     margin-left:5%;
 }
 
 .checkbox_field {
     display:inline-block;
-    width:175px;
+    width:250px;
 }
 
 #quote_content .num_quantity_field {
@@ -111,7 +127,6 @@ body {
     color:black;
     width:30px;
 }
-
 .spacer {
     margin-left:5px;
 }
@@ -119,20 +134,24 @@ body {
 #customer_container {
     margin-top:20px;
     width:350px;
-    margin-left:20%;
+    margin-left:35%;
     vertical-align:top;
+    /* border:1px dotted red; */
 }
 
-#customer_container div{
+#customer_container *{
     display:inline-block;
     width:150px;
     vertical-align:top;
 }
 
 #customer_container input[type="submit"] {
+    width:83px;
+    margin-left:150px;
     background-color:white;
     color:black;
     margin-top:10px;
+    margin-bottom: 10px;
 }
 
 .customer_info_field {
@@ -145,21 +164,21 @@ body {
     width:70%;
     margin-top:3%;
     margin-left:12%;
-    background-color:rgb(70, 70, 70, 0.7);
+    background-color:rgb(70, 70, 70, 0.7)
 }
 
-#cart_content h1, h3 {
+#cart_content h1, h3{
     text-align:center;
+
     /* border:1px dotted red; */
 }
 #cart_content #product_list{
-    margin-top:10px;
-    margin-left:25%;
+    margin-left:5%;
     /* border:1px dotted red; */
 }
 
 #cart_content #product_list h3{
-    text-align:center;
+    text-align:left;
     text-decoration: underline;
 }
 
@@ -167,13 +186,12 @@ body {
     display:inline-block;
     visibility:hidden;
     padding-right:10px;
-    vertical-align:top;
+    vertical-align: top;
     /* border:1px dotted red; */
 }
-
-#cart_content .product_name {
+#cart_content .product_name, .package_name {
     display:inline-block;
-    width:150px;
+    width:250px;
 }
 
 #cart_content .num_quantity_field {
@@ -189,19 +207,34 @@ body {
     color:black;
 }
 
+
 #send_quote_container {
     text-align:center;
     margin-top:20px;
     width:350px;
-    margin-left:35%;
-    vertical-align:top;
+    margin-left:32%;
+    /* border: 1px dotted red; */
+}
+#send_quote_container input[type="submit"] {
+    background-color:white;
+    color:black;
+    margin-top:10px;
+    margin-bottom:10px;
+    width:75px;
 }
 
 /* order_success.html styles */
 #order_summary{
-    margin-left:40%;
+    margin-left:30%;
     margin-top:20px;
-    width:30%;
+    background-color:rgb(70, 70, 70, 0.7);
+    width:500px;
+    padding-bottom:15px;
+}
+
+#order_summary h2{
+    text-align:center;
+    padding-top: 25px;
 }
 
 #order_table h1{
@@ -210,10 +243,16 @@ body {
     text-align:center;
 }
 
-#order_table {
+#order_table{
     border:1px solid white;
+    margin-left:27%;
 }
 
+#order_table .order_heading{
+    font-weight:bold;
+    text-decoration:underline;
+    text-align:center;
+}
 #order_table *{
     color:black;
 }
@@ -222,4 +261,309 @@ body {
 }
 #order_table tr:nth-child(even){
     background: darkgrey;
+}
+
+/* 3-ton Package */
+#three_ton_content {
+    width:70%;
+    margin-top:3%;
+    margin-left:12%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#three_ton_content h1 {
+    text-align:center;
+    text-decoration:underline;
+}
+#three_ton_content .product_type_col {
+    display:inline-block;
+    margin-right:10px;
+    vertical-align:top;
+    height:100%;
+}
+#three_ton_content .product_type_col h3 {
+    text-decoration:underline;
+}
+#three_ton_content .product_type_col p {
+    padding:0px;
+    margin:0px;
+}
+#three_ton_content #column1 {
+    margin-left:7%;
+}
+
+/* 1-ton Package */
+#one_ton_content {
+    width:60%;
+    margin-top:3%;
+    margin-left:20%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#one_ton_content h1 {
+    text-align:center;
+    text-decoration:underline;
+}
+#one_ton_content #item_list{
+    margin-bottom:10px;
+}
+#one_ton_content .product_type_col {
+    display:inline-block;
+    margin-right:10px;
+    vertical-align:top;
+    height:100%;
+}
+#one_ton_content .product_type_col h3 {
+    text-decoration:underline;
+}
+#one_ton_content .product_type_col p {
+    padding:0px;
+    margin:0px;
+}
+#one_ton_content #column1 {
+    margin-left:15%;
+}
+/* Video Page */
+#video_content{
+    margin-top:20px;
+    text-align:center;
+}
+
+/* Dolly Page */
+#dolly_content {
+    width:20%;
+    margin-top:3%;
+    margin-left:37%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#dolly_content h1 {
+    text-align:center;
+    text-decoration:underline;
+}
+#dolly_content #item_list{
+    margin-bottom:10px;
+}
+#dolly_content .product_type_col {
+    display:inline-block;
+    margin-right:10px;
+    vertical-align:top;
+    height:100%;
+}
+#dolly_content .product_type_col h3 {
+    text-decoration:underline;
+}
+#dolly_content .product_type_col p {
+    padding:0px;
+    margin:0px;
+}
+#dolly_content #column1 {
+    margin-left:15%;
+}
+
+/* Electric Page */
+#electric_content {
+    width:40%;
+    margin-top:3%;
+    margin-left:27%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#electric_content h1 {
+    text-align:center;
+    text-decoration:underline;
+}
+#electric_content #item_list{
+    margin-bottom:10px;
+}
+#electric_content .product_type_col {
+    display:inline-block;
+    margin-right:10px;
+    vertical-align:top;
+    height:100%;
+}
+#electric_content .product_type_col h3 {
+    text-decoration:underline;
+}
+#electric_content .product_type_col p {
+    padding:0px;
+    margin:0px;
+}
+#electric_content #column1 {
+    margin-left:15%;
+}
+
+/* Contact Page */
+#contact_me_container{
+    margin-left:25%;
+    width:40%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#contact_me_container h1 {
+    text-align:center;
+}
+
+#contact_info *{
+    margin:0px;
+}
+
+#email_me_container div, textarea{
+    color:black;
+    vertical-align:top;
+    display:inline-block;
+}
+
+#contact_me_btn {
+    text-align:center;
+    padding:2px 5px;
+    margin-left:45%;
+    margin-top:10px;
+    margin-bottom:10px;
+    background-color:white;
+    color:black;
+    
+}
+
+#contact_success{
+    margin-left:30%;
+    margin-top:20px;
+    background-color:rgb(70, 70, 70, 0.7);
+    width:500px;
+    padding:10px 5px 15px;
+}
+
+#order_summary h3{
+    text-align:center;
+    padding-top: 25px;
+}
+/* About Page */
+#about_content {
+    margin-top:20px;
+    margin-left:11%;
+    width:70%;
+    background-color:rgb(70, 70, 70, 0.7);
+}
+
+#about_content *{
+    margin:0px;
+}
+#about_content p{
+    font-size: 20px;
+}
+#about_heading {
+    text-decoration: underline;
+    text-align:center;
+}
+
+@media only screen and (max-width: 1225px) {
+    #navbar-container {
+        margin-left:8%;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    #home-menu{
+        text-align:left;
+        padding:0px 45px;
+    }
+
+    #portfolio-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    
+    #rentals-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    #quote-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    #about-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    #contact-menu {
+        text-align:left;
+        padding:0px 45px;
+    }
+    #rentals-dropdown {
+        margin-right:15px;
+    }
+    #portfolio-dropdown {
+        margin-right:15px;
+    }
+    #rentals-dropdown {
+        margin-left:5px;
+    }
+    .dropdown-menu li a {
+        width:120px;
+    }
+    .dropdown-menu {
+        width:120px;
+        min-width: auto;
+    }
+  }
+
+@media only screen and (max-width: 1020px) {
+    #navbar-container {
+        margin-left:5%;
+    }
+}
+
+@media only screen and (max-width: 975px) {
+    #navbar-container {
+        margin-left:2%;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    #navbar-container {
+        /* margin-left:2%; */
+    }
+
+    #home-menu{
+        text-align:left;
+        padding:0px 30px;
+    }
+
+    #portfolio-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+    
+    #rentals-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+    #quote-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+    #about-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+    #contact-menu {
+        text-align:left;
+        padding:0px 30px;
+    }
+
+    .dropdown-menu {
+        width:90px;
+        min-width: auto;
+    }
+    .dropdown-menu li a {
+        width:90px;
+    }
+    #rentals-dropdown {
+        margin-left:0px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #navbar-list {
+        border:none;
+    }
 }
