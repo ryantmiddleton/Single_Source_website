@@ -530,7 +530,7 @@ a:hover {
         margin-left:5%;
     } 
 }
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 576px) {
     .nav-item {
         /* border:none; */
         padding-right:100px;
