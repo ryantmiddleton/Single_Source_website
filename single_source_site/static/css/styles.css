@@ -108,7 +108,7 @@ a:hover {
     display:inline-block;
     vertical-align:top;
     margin-left:4%;
-    border:1px dotted red;
+    /* border:1px dotted red; */
 }
 #quote_content .product_type_col h3 {
     text-decoration:underline;
