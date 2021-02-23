@@ -6,25 +6,23 @@
     <title>Single Source Grip and Lighting</title>
 
     {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script
-        src="http://code.jquery.com/jquery-1.12.4.js"
-        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-        crossorigin="anonymous">
-    </script>
+    <script src="http://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    
     <script>
         $(document).ready(function(){
             $('.navbar .dropdown').hover(
                 function(){
-                  if (window.matchMedia('(min-width: 767px)').matches){
+                  if (window.matchMedia('(min-width: 575px)').matches){
                     $(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
                   }
                 }, 
                 function() {
-                  if (window.matchMedia('(min-width: 767px)').matches){
+                  if (window.matchMedia('(min-width: 575px)').matches){
                     $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
                   }
                 }
@@ -72,12 +70,12 @@
     </script>
 </head>
 <body>
-    <div id="header">
+    <!-- <div id="header">
         <img src="../static/img/SS_Logo_Header_cropped.jpg" style="width:100%;" alt="Not found">
         <div class="container">
           <nav id="navbar-container" class="navbar navbar-inverse">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-              <!-- <span class="navbar-toggle icon-bar"></span> -->
+              <span class="navbar-toggle icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarMenu"> 
@@ -110,7 +108,62 @@
             </div>
           </nav>
         </div>
-      </div>
+      </div> -->
+      
+    <div id="header">
+        <img src="../static/img/SS_Logo_Header_cropped.jpg" style="width:100%;" alt="Not found">
+        <div class="navbar-container ">
+            <nav class="navbar navbar-expand-sm bg-black">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <!-- <span class="icon-bar"></span> -->
+                </button>             
+                <div class="collapse navbar-collapse" id="navbarMenu"> 
+                    <ul id="navbar-list" class="navbar-nav" style="white-space: nowrap">
+                        <li class="nav-item">
+                            <a class="nav-link" id="home-menu" href="/">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="portfolio-menu" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Portfolio
+                            </a>
+                            <div id="portfolio-dropdown" class="dropdown-menu" aria-labelledby="portfolio-menu">
+                                <a class="dropdown-item" href="/music_videos">Music Videos</a>
+                                <a class="dropdown-item" href="/narrative">Narrative</a>
+                                <a class="dropdown-item" href="/commercial">Commercial</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="rentals-menu" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Rentals
+                            </a>
+                            <div id="rentals-dropdown" class="dropdown-menu" aria-labelledby="rentals-menu">
+                                <a class="dropdown-item" href="/3_ton_list">3-ton</a>
+                                <a class="dropdown-item" href="/1_ton_list">1-ton</a>
+                                <a class="dropdown-item" href="/electric_list">Electric</a>
+                                <a class="dropdown-item" href="/dolly_list">Dolly</a>
+                            </div>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" id="quote-menu" href="/quote_page">Get A Quote</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="about-menu" href="/about">About</a>
+                        </li>
+                        <li class="nav-item" id="contact-menu">
+                            <a class="nav-link"  href="/contact">Contact</a>
+                        </li>
+                        <li class="nav-item" id="cart-link">
+                            {% if order %}
+                            <a  href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png"></a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+ 
     {% if messages %}
     <ul class="error_messages">
         {% for msg in messages %}
@@ -120,12 +173,17 @@
         {% endfor%}
     </ul>
     {% endif %}
-
+    <!-- <div class="d-flex flex-row justify-content-center">
+        <div class="p-2">Flex item 1</div>
+        <div class="p-2">Flex item 2</div>
+        <div class="p-2">Flex item 3</div>
+    </div> -->
     <div id="quote_content">
         <h1>Build Your Quote</h1>
         <div id="product_list">
         <form id="quote_frm" action="/add_to_cart" method="post">
         {% csrf_token %}
+            <!-- <div id="spacer" class="product_type_col"></div> -->
             <div id="column1" class="product_type_col">
                 <div id="Grip_col"><h3>Grip</h3>
                 {% for package in grip_packages %}
@@ -146,7 +204,7 @@
                 {% endfor %}            
                 </div>
             </div>
-            <div id="spacer" class="product_type_col"></div>
+            <!-- <div id="spacer" class="product_type_col"></div> -->
             <div id="column2" class="product_type_col">
                 <div id="HMI_col"><h3>HMI</h3>
                 {% for product in hmi_products %}
@@ -176,7 +234,7 @@
                 {% endfor %}            
                 </div>
             </div>
-            <div id="spacer" class="product_type_col"></div>
+            <!-- <div id="spacer" class="product_type_col"></div> -->
             <div id="column3" class="product_type_col">
                 <div id="Accessories_col"><h3>Accessories</h3>
                 {% for product in acc_products %}
@@ -207,6 +265,7 @@
         </div>
         </form>
     </div>
+
 </div>
 </body>
 <script>

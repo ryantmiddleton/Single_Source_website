@@ -14,75 +14,77 @@ body {
     background-color:black;
 }
 
-.container {
-    width:100%;
-    height:30px;
-    /* border: 1px dotted red; */
+/*Remove carat from dropdowns*/
+.dropdown-toggle:after { 
+    content: none 
 }
 
-#navbar-container {
-    background-color:black;
+.navbar-container {
+    height:35px;
+    width:75%;
     margin-left:10%;
+    border-bottom:1px solid white;
+    /* border: 1px dotted red; */
+}
+.navbar-container * {
     padding:0px;
+    margin:0px;
+}
+#navbarMenu {
+    background-color: black;
+}
+.navbar {
+    margin-left:5px;
+    height:25px;
+    /* border: 1px dotted red; */
+}
+.navbar * {
     /* border: 1px dotted red; */
 }
 
 #navbar-list {
-    border-bottom:2px solid darkgrey;
+    width:45%;
+    /* border:1px dotted red; */
 }
 .dropdown-menu {
-    text-align:center;
     background-color:black;
     /* background-color:rgb(70, 70, 70, 0.7); */
     /* border: 1px dotted red; */
 }
 
-.dropdown-menu li a{
+a:hover {
+    color:white;
+}
+/*Set active color for link in navbar */
+.navbar-nav .active a {
+    color:white;
+}
+
+.nav-item {
+    text-align:center;
+    border-right:2px solid darkgrey;
+    padding-top:0px;
+    padding-right: 10%;
+    padding-left:10%;
+}
+
+#contact-menu{
+    padding-right:5%;
+    border:none;
+}
+#cart-link{
     padding:0px;
+    border:none;
+    /* border:1px dotted red; */
+}
+
+.dropdown-item {
+    text-align:center;
     color:white;
     border-bottom:1px solid white;
 }
-
-.navbar-toggle {
-    background-color: black;
-}
-
-#home-menu{
-    text-align:center;
-    border-right:2px solid darkgrey;
-    padding:0px 60px;
-}
-
-#portfolio-menu {
-    text-align:center;
-    border-right:2px solid darkgrey;
-    padding:0px 60px;
-}
-
-#rentals-menu {
-    text-align:center;
-    border-right:2px solid darkgrey;
-    padding:0px 60px;
-}
-#quote-menu {
-    text-align:center;
-    border-right:2px solid darkgrey;
-    padding:0px 60px;
-}
-#about-menu {
-    text-align:center;
-    border-right:2px solid darkgrey;
-    padding:0px 60px;
-}
-#contact-menu {
-    text-align:center;
-    padding:0px 60px;
-}
-#rentals-dropdown {
-    padding-top:10px;
-}
-#portfolio-dropdown {
-    padding-top:10px;
+.nav-link{
+    color:grey;
 }
 
 #cart {
@@ -104,14 +106,12 @@ body {
 
 #quote_content .product_type_col {
     display:inline-block;
-    margin-right:10px;
     vertical-align:top;
+    margin-left:4%;
+    border:1px dotted red;
 }
 #quote_content .product_type_col h3 {
     text-decoration:underline;
-}
-#quote_content #column1{
-    margin-left:5%;
 }
 
 .checkbox_field {
@@ -407,6 +407,7 @@ body {
 }
 
 #email_me_container * {
+    color:black;
     width:90%;
 }
 
@@ -432,13 +433,12 @@ body {
 }
 
 #contact_success{
-    margin-left:30%;
+    margin-left:20%;
     margin-top:20px;
     background-color:rgb(70, 70, 70, 0.7);
-    width:500px;
+    width:60%;
     padding:10px 5px 15px;
 }
-
 #order_summary h3{
     text-align:center;
     padding-top: 25px;
@@ -450,7 +450,6 @@ body {
     width:70%;
     background-color:rgb(70, 70, 70, 0.7);
 }
-
 #about_content *{
     margin:0px;
 }
@@ -468,126 +467,58 @@ body {
     }
 }
 @media only screen and (max-width: 1225px) {
-    #navbar-container {
-        margin-left:8%;
-    }
 
 }
 @media only screen and (max-width: 1200px) {
-    #home-menu{
-        text-align:left;
-        padding:0px 45px;
-    }
-
-    #portfolio-menu {
-        text-align:left;
-        padding:0px 45px;
+    #navbar-list {
+        width:40%;
     }
     
-    #rentals-menu {
-        text-align:left;
-        padding:0px 45px;
-    }
-    #quote-menu {
-        text-align:left;
-        padding:0px 45px;
-    }
-    #about-menu {
-        text-align:left;
-        padding:0px 45px;
-    }
-    #contact-menu {
-        text-align:left;
-        padding:0px 45px;
-    }
-    #rentals-dropdown {
-        margin-right:15px;
-    }
-    #portfolio-dropdown {
-        margin-right:15px;
-    }
-    #rentals-dropdown {
-        margin-left:5px;
-    }
-    .dropdown-menu li a {
-        width:120px;
-    }
     .dropdown-menu {
-        width:120px;
+        width:140px;
         min-width: auto;
-    }
+    } 
 
   }
 
 @media only screen and (max-width: 1020px) {
-    #navbar-container {
-        margin-left:5%;
+    #navbar-list {
+        width:30%;
     }
+    .dropdown-menu {
+        width:110px;
+        min-width: auto;
+    } 
 }
 
 @media only screen and (max-width: 975px) {
-    #navbar-container {
-        margin-left:2%;
-    }
+
 }
 
 @media only screen and (max-width: 950px) {
-    #navbar-container {
-        /* margin-left:2%; */
+    #navbar-list {
+        width:25%;
     }
-
-    #home-menu{
-        text-align:left;
-        padding:0px 30px;
-    }
-
-    #portfolio-menu {
-        text-align:left;
-        padding:0px 30px;
-    }
-    
-    #rentals-menu {
-        text-align:left;
-        padding:0px 30px;
-    }
-    #quote-menu {
-        text-align:left;
-        padding:0px 30px;
-    }
-    #about-menu {
-        text-align:left;
-        padding:0px 30px;
-    }
-    #contact-menu {
-        text-align:left;
-        padding:0px 30px;
-    }
-
     .dropdown-menu {
-        width:90px;
+        width:85px;
         min-width: auto;
-    }
-    .dropdown-menu li a {
-        width:90px;
-    }
-    #rentals-dropdown {
-        margin-left:0px;
-    }
+        font-size:15px;
+    } 
     #customer_container {
         margin-left:20%;
-    }
+    } 
 }
 
 @media only screen and (max-width: 768px) {
     #navbar-list {
-        border:none;
+        width:7%;
     }
-    .dropdown-menu *{
-        text-align:left;
-    }
-    .navbar-toggle {
-        margin-right:45%;
-    }
+    .dropdown-menu {
+        width:75px;
+        min-width: auto;
+        font-size:10px;
+    }  
+
     #customer_container {
         margin-left:5%;
     }
@@ -597,9 +528,15 @@ body {
     }
     #customer_container input[type="submit"] {
         margin-left:5%;
+    } 
+}
+@media only screen and (max-width: 575px) {
+    .nav-item {
+        /* border:none; */
+        padding-right:100px;
+        /* border:1px dotted red; */
     }
 }
-
 @media only screen and (max-width: 375px) {
     #quote_content {
         width:auto;
