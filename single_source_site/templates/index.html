@@ -35,14 +35,13 @@
   <div id="header">
     <img src="../static/img/SS_Logo_Header_cropped.jpg" style="width:100%;" alt="Not found">
     <div class="navbar-container ">
-        <nav class="navbar navbar-expand-sm bg-black">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-black">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-                <!-- <span class="icon-bar"></span> -->
             </button>             
             <div class="collapse navbar-collapse" id="navbarMenu"> 
                 <ul id="navbar-list" class="navbar-nav" style="white-space: nowrap">
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" id="home-menu" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -66,7 +65,7 @@
                             <a class="dropdown-item" href="/dolly_list">Dolly</a>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" id="quote-menu" href="/quote_page">Get A Quote</a>
                     </li>
                     <li class="nav-item">
@@ -86,22 +85,10 @@
     </div>
 </div>
     {% for photo in photos %}
-    <div id="content" style="margin-left:30%;">
-      <img class="mySlides" width="40%;" src="../static/img/set_photos/{{photo}}">
+    <div id="content" class="photo_content">
+      <img class="mySlides" width="50%;" src="../static/img/set_photos/{{photo}}">
     </div>
     {% endfor %}
-      <!-- <iframe height="300%" class="mySlides"
-      src="https://www.youtube.com/embed/qQXP6TDtW0w?autoplay=1&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=1">
-      </iframe>
-      <iframe height="100%" class="mySlides"
-      src="https://www.youtube.com/embed/jWQYYavheUA?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=1">
-      </iframe>
-      <iframe height="100%" class="mySlides"
-      src="https://www.youtube.com/embed/1yYV9-KoSUM?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=5">
-      </iframe>
-      <iframe height="100%" class="mySlides"
-      src="https://www.youtube.com/embed/WcCcBANAyKk?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.singlesourcelight.com&playsinline=1&enablejsapi=1&widgetid=7">
-      </iframe>-->
       <!-- <button class="w3-button w3-display-left" style="background:gray;" onclick="plusDivs(-1)">&#10094;</button>
       <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button> -->
 </body>
