@@ -32,58 +32,55 @@
     </script>
 </head>
 <body>
-    <div id="header">
-        <img src="../static/img/SS_Logo_Header_cropped.jpg" style="width:100%;" alt="Not found">
-        <div class="navbar-container ">
-            <nav class="navbar navbar-expand-sm navbar-dark bg-black">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>             
-                <div class="collapse navbar-collapse" id="navbarMenu"> 
-                    <ul id="navbar-list" class="navbar-nav" style="white-space: nowrap">
-                        <li class="nav-item">
-                            <a class="nav-link" id="home-menu" href="/">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="portfolio-menu" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Portfolio
-                            </a>
-                            <div id="portfolio-dropdown" class="dropdown-menu" aria-labelledby="portfolio-menu">
-                                <a class="dropdown-item" href="/music_videos">Music Videos</a>
-                                <a class="dropdown-item" href="/narrative">Narrative</a>
-                                <a class="dropdown-item" href="/commercial">Commercial</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="rentals-menu" style="color:white;" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Rentals
-                            </a>
-                            <div id="rentals-dropdown" class="dropdown-menu" aria-labelledby="rentals-menu">
-                                <a class="dropdown-item" href="/3_ton_list">3-ton</a>
-                                <a class="dropdown-item" href="/1_ton_list">1-ton</a>
-                                <a class="dropdown-item" href="/electric_list">Electric</a>
-                                <a class="dropdown-item" href="/dolly_list">Dolly</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="quote-menu" href="/quote_page">Get A Quote</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="about-menu" href="/about">About</a>
-                        </li>
-                        <li class="nav-item" id="contact-menu">
-                            <a class="nav-link"  href="/contact">Contact</a>
-                        </li>
-                        <li class="nav-item" id="cart-link">
-                            {% if order %}
-                            <a  href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png"></a>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+    <img src="../static/img/SS_Logo_Header_cropped.jpg" style="width:100%;" alt="Not found">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-black">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>             
+        <div class="collapse navbar-collapse" id="navbarMenu"> 
+            <ul id="navbar-list" class="navbar-nav">
+                <li class="nav-item" id="home-menu">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="portfolio-menu" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Portfolio
+                    </a>
+                    <div id="portfolio-dropdown" class="dropdown-menu" aria-labelledby="portfolio-menu">
+                        <a class="dropdown-item" href="/music_videos">Music Videos</a>
+                        <a class="dropdown-item" href="/narrative">Narrative</a>
+                        <a class="dropdown-item" href="/commercial">Commercial</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="rentals-menu" class="nav-link dropdown-toggle active" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Rentals
+                    </a>
+                    <div id="rentals-dropdown" class="dropdown-menu" aria-labelledby="rentals-menu">
+                        <a class="dropdown-item" href="/3_ton_list">3-ton</a>
+                        <a class="dropdown-item" href="/1_ton_list">1-ton</a>
+                        <a class="dropdown-item" href="/electric_list">Electric</a>
+                        <a class="dropdown-item" href="/dolly_list">Dolly</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="quote-menu" href="/quote_page">Get A Quote</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="about-menu" href="/about">About</a>
+                </li>
+                <li class="nav-item" id="contact-menu">
+                    <a class="nav-link"  href="/contact">Contact</a>
+                </li>
+                <li class="nav-item" id="cart-link">
+                    {% if order %}
+                    <a  href="/get_order/{{order.id}}"><img id="cart" src="../static/img/cart.png" style="background-color: black;"></a>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
+
     <div id="three_ton_content">
       <h1>3-ton Grip Package</h1>
       <div id="item_list">
