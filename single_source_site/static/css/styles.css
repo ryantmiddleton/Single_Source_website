@@ -524,6 +524,7 @@ a:hover {
     }
     #contact-menu {
         padding-right:6.5%;
+    }
 }
 @media only screen and (max-width: 950px) {
     .nav-item {
@@ -575,6 +576,7 @@ a:hover {
         font-size:12px;
     } 
 }
+
 @media only screen and (max-width: 768px) {
     #navbar-list {
         width:30%;
