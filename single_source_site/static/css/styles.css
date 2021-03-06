@@ -255,7 +255,7 @@ a:hover {
 #three_ton_content {
     width:75%;
     margin-top:3%;
-    margin-left:10%;
+    margin-left:9.5%;
     background-color:rgb(70, 70, 70, 0.7);
 }
 
@@ -265,7 +265,7 @@ a:hover {
 }
 #three_ton_content .product_type_col {
     display:inline-block;
-    margin-right:10px;
+    margin-left:15px;
     vertical-align:top;
     height:100%;
 }
@@ -275,9 +275,6 @@ a:hover {
 #three_ton_content .product_type_col p {
     padding:0px;
     margin:0px;
-}
-#three_ton_content #column1 {
-    margin-left:7%;
 }
 
 /* 1-ton Package */
@@ -297,7 +294,7 @@ a:hover {
 }
 #one_ton_content .product_type_col {
     display:inline-block;
-    margin-right:10px;
+    margin-left:15px;
     vertical-align:top;
     height:100%;
 }
@@ -334,7 +331,7 @@ a:hover {
 }
 #dolly_content .product_type_col {
     display:inline-block;
-    margin-right:10px;
+    margin-left:15px;
     vertical-align:top;
     height:100%;
 }
@@ -366,7 +363,7 @@ a:hover {
 }
 #electric_content .product_type_col {
     display:inline-block;
-    margin-right:10px;
+    margin-left:15px;
     vertical-align:top;
     height:100%;
 }
@@ -546,6 +543,9 @@ a:hover {
     #customer_container {
         margin-left:20%;
     } 
+    #dolly_content{
+        margin-left:32%;
+    }
 }
 
 @media only screen and (max-width: 900px) {
@@ -560,6 +560,9 @@ a:hover {
         width:80px;
         min-width: auto;
     } 
+    #dolly_content{
+        margin-left:30%;
+    }
 }
 
 @media only screen and (max-width: 850px) {
@@ -575,6 +578,9 @@ a:hover {
         min-width: auto;
         font-size:12px;
     } 
+    #dolly_content{
+        margin-left:28%;
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -608,10 +614,22 @@ a:hover {
     .navbar{
         border:none;
     }
+    #item_list h3 {
+        text-align:left;
+    }
+    #dolly_content{
+        margin-left:20%;
+    }
+    /* .product_type col div h3 {
+        text-align:left;
+    } */
 }
 
 @media only screen and (max-width: 375px) {
-    #quote_content {
+    /* #quote_content {
         width:auto;
+    } */
+    #dolly_content{
+        margin-left:10%;
     }
 }
