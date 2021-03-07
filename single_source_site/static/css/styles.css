@@ -256,6 +256,7 @@ a:hover {
     width:75%;
     margin-top:3%;
     margin-left:9.5%;
+    padding-left:5%;
     background-color:rgb(70, 70, 70, 0.7);
 }
 
@@ -265,9 +266,9 @@ a:hover {
 }
 #three_ton_content .product_type_col {
     display:inline-block;
-    margin-left:15px;
+    /* margin-left:15px; */
     vertical-align:top;
-    height:100%;
+    /* height:100%; */
 }
 #three_ton_content .product_type_col h3 {
     text-decoration:underline;
@@ -279,9 +280,10 @@ a:hover {
 
 /* 1-ton Package */
 #one_ton_content {
-    width:60%;
+    width:75%;
     margin-top:3%;
-    margin-left:20%;
+    margin-left:10%;
+    padding-left:5%;
     background-color:rgb(70, 70, 70, 0.7);
 }
 
@@ -294,7 +296,7 @@ a:hover {
 }
 #one_ton_content .product_type_col {
     display:inline-block;
-    margin-left:15px;
+    margin-left:8%;
     vertical-align:top;
     height:100%;
 }
@@ -305,9 +307,7 @@ a:hover {
     padding:0px;
     margin:0px;
 }
-#one_ton_content #column1 {
-    margin-left:15%;
-}
+
 /* Video Page */
 #video_content{
     margin-top:20px;
@@ -380,8 +380,10 @@ a:hover {
 
 /* Contact Page */
 #contact_me_container{
-    margin-left:25%;
-    width:40%;
+    margin-top:3%;
+    margin-left:35%;
+    padding-left:10px;
+    width:400px;
     background-color:rgb(70, 70, 70, 0.7);
 }
 
@@ -478,6 +480,10 @@ a:hover {
     #customer_container {
         margin-left:30%;
     }
+    #contact_me_container{
+        margin-left:30%;
+    }
+
 }
 @media only screen and (max-width: 1200px) {
     .nav-item {
@@ -521,6 +527,9 @@ a:hover {
     }
     #contact-menu {
         padding-right:6.5%;
+    }
+    #contact_me_container{
+        margin-left:25%;
     }
 }
 @media only screen and (max-width: 950px) {
@@ -593,6 +602,13 @@ a:hover {
         font-size:10px;
     }  
 
+    #item_list h3 {
+        text-align:left;
+    }
+
+    #product_list h3 {
+        text-align:left;
+    }
     #customer_container {
         margin-left:5%;
     }
@@ -603,6 +619,9 @@ a:hover {
     #customer_container input[type="submit"] {
         margin-left:5%;
     } 
+    #contact_me_container{
+        margin-left:20%;
+    }
 }
 @media only screen and (max-width: 575px) {
     #navbar-list {
@@ -614,22 +633,24 @@ a:hover {
     .navbar{
         border:none;
     }
-    #item_list h3 {
-        text-align:left;
-    }
     #dolly_content{
         margin-left:20%;
     }
-    /* .product_type col div h3 {
-        text-align:left;
-    } */
+    #contact_me_container{
+        width:85%;
+        margin-left:7%;
+    }
+    #quote_content {
+        margin-left:5%;
+        width:90%;
+    }
 }
 
 @media only screen and (max-width: 375px) {
-    /* #quote_content {
-        width:auto;
-    } */
     #dolly_content{
         margin-left:10%;
+    }
+    #contact_me_container{
+        margin-left:5%;
     }
 }
