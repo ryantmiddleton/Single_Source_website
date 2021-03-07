@@ -188,7 +188,7 @@ def send_quote(request, order_id):
             'veri_code': request.POST["veri_code_hdn"]
         }
         #Check if email is blacklisted
-        for customer in BLACKLIST:
+        for customer in settings.BLACKLIST:
             if customer["email"] == send_order.email:
                 #Send an email to the blacklisted party
                 #Build the html string to put into the email
@@ -240,7 +240,7 @@ def send_quote(request, order_id):
         )
         # print("Order Sent to " + send_order.email)
         # request.session.flush()
-        if DEBUG == True:
+        if settings.DEBUG == True:
             return render (request, "order_summary.html", context)
         else:
             return render (request, "order_success.html", context)
