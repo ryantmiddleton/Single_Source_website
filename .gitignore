@@ -2,6 +2,7 @@ Ryan_Middleton_Solo_Project/secrets.py
 Ryan_Middleton_Solo_Project/test.html
 Ryan_Middleton_Solo_Project/prod_settings.py
 Ryan_Middleton_Solo_Project/local_settings.py
+Ryan_Middleton_Solo_Project/settings.py
 Ryan_Middleton_Solo_Project/__pycache__/*
 single_source_site/__pycache__/*
 tmp/*
