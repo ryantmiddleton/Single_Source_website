@@ -309,3 +309,5 @@ def contact_me(request):
     else:
         return redirect ("/contact")
 
+def get_sitemap(request):
+    return render(request, "sitemap.txt")
